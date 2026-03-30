@@ -70,7 +70,19 @@
     .vsl-ph p { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #444; }
 
     /* ── TYPEFORM IN HERO ── */
-    .hero-typeform { max-width: 820px; margin: 0 auto; border: 1px solid var(--border); border-top: none; border-radius: 0 0 6px 6px; overflow: hidden; background: var(--white); }
+    .hero-typeform { background: var(--white); min-height: 160px; }
+
+    /* ── APPLY FORM CONTAINER ── */
+    .apply-form-container { max-width: 820px; margin: 52px auto 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; box-shadow: 0 4px 32px rgba(0,0,0,0.05); }
+    .apply-form-bridge { padding: 44px 40px 36px; background: var(--off); border-bottom: 1px solid var(--border); text-align: center; }
+    .apply-form-h { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(22px, 3.2vw, 38px); color: var(--dark); letter-spacing: -0.025em; margin: 14px 0 12px; }
+    .apply-form-p { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 460px; margin: 0 auto; }
+
+    /* ── SECTION CTA ── */
+    .section-cta { text-align: center; padding-top: 52px; }
+    .btn-sm { display: inline-block; background: var(--dark); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; padding: 16px 44px; border-radius: 2px; text-decoration: none; transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .btn-sm:hover { opacity: 0.82; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,0,0,0.14); }
+    .friction-sm { font-size: 12px; color: var(--dim); margin-top: 10px; }
 
     /* ── BUTTONS ── */
     .btn { display: inline-block; background: var(--dark); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; padding: 20px 56px; border-radius: 2px; text-decoration: none; transition: opacity 0.2s, transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s; border: none; cursor: pointer; }
@@ -263,10 +275,17 @@
         </div>
       </div>
 
-      <!-- TYPEFORM directly below VSL -->
-      <div class="hero-typeform" data-anim="fade" data-delay="4" id="apply">
-        <div data-tf-live="01KMYRR9B4NM5GKXR89PGJ04MJ"></div>
-        <script src="//embed.typeform.com/next/embed.js"></script>
+      <!-- APPLY FORM -->
+      <div class="apply-form-container" id="apply">
+        <div class="apply-form-bridge" data-anim="fade" data-delay="4">
+          <span class="eyebrow">Take The Next Step</span>
+          <div class="apply-form-h">Apply below.</div>
+          <p class="apply-form-p">Fill it out. One of Connor's coaches will be in touch to book your 30-minute call. They'll be straight with you — if it's not the right fit, they'll say so.</p>
+        </div>
+        <div class="hero-typeform">
+          <div data-tf-live="01KMYRR9B4NM5GKXR89PGJ04MJ"></div>
+          <script src="//embed.typeform.com/next/embed.js"></script>
+        </div>
       </div>
 
     </div>
@@ -274,8 +293,8 @@
 
   <!-- HERO IMAGE -->
   <div class="hero-img-wrap">
-    <img src="./connor-silhouette.jpg" alt="Connor Western" class="hero-img"
-         style="object-position: center 30%;"
+    <img src="./connor-ocean-sit.jpg" alt="Connor Western" class="hero-img"
+         style="object-position: center 20%;"
          onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
   </div>
 
@@ -288,6 +307,9 @@
         <div class="stat" data-anim data-delay="3"><span class="stat-number">15</span><span class="stat-label">Years in Real Sales</span></div>
         <div class="stat" data-anim data-delay="4"><span class="stat-number">$41k</span><span class="stat-label">Student's First Full Month</span></div>
       </div>
+      <div class="section-cta" data-anim data-delay="5">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </div>
 
@@ -296,7 +318,7 @@
     <div class="container">
       <div class="connor-grid">
         <div class="connor-img-stack" data-anim="left">
-          <img src="./connor-chair.jpg" alt="Connor Western" class="connor-portrait"
+          <img src="./connor-cigar.jpg" alt="Connor Western" class="connor-portrait"
                onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
           <img src="./connor-water.jpg"
                alt="Connor Western" class="connor-img-accent"
@@ -316,7 +338,17 @@
             <div class="cred"><span class="cred-n">120k</span><span class="cred-l">Followers</span></div>
             <div class="cred"><span class="cred-n">3+ yrs</span><span class="cred-l">Sober</span></div>
           </div>
+          <div class="section-cta" data-anim data-delay="3" style="text-align:left; padding-top: 36px;">
+            <a href="#apply" class="btn-sm">Apply Now</a>
+          </div>
         </div>
+      </div>
+
+      <!-- PHOTO STRIP -->
+      <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 60px;" data-anim="fade" data-delay="2">
+        <img src="./connor-smoke.jpg" alt="Connor Western" style="width:100%; aspect-ratio:1/1; object-fit:cover; object-position:center top; border-radius:4px; display:block;" onerror="this.style.display='none'" loading="lazy" />
+        <img src="./connor-group.jpg" alt="Connor Western" style="width:100%; aspect-ratio:1/1; object-fit:cover; object-position:center top; border-radius:4px; display:block;" onerror="this.style.display='none'" loading="lazy" />
+        <img src="./connor-silhouette.jpg" alt="Connor Western" style="width:100%; aspect-ratio:1/1; object-fit:cover; object-position:center 30%; border-radius:4px; display:block;" onerror="this.style.display='none'" loading="lazy" />
       </div>
     </div>
   </section>
@@ -344,6 +376,10 @@
           <div class="proof-name">Zach</div>
           <p class="proof-text">Five days into his first ever role. Two of three calls closed. He didn't have more experience than whoever was sitting next to him. He had the foundation in place from the start.</p>
         </div>
+      </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+        <p class="friction-sm">30-minute call — no commitment</p>
       </div>
     </div>
   </section>
@@ -380,6 +416,9 @@
           </div>
         </div>
       </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </section>
 
@@ -399,12 +438,15 @@
           <li data-anim data-delay="5"><span class="pain-num">05</span>You've bought courses to fix it — nothing changed the underlying pattern</li>
         </ul>
       </div>
+      <div class="section-cta" data-anim data-delay="5">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </section>
 
   <!-- MIDBREAK -->
   <div class="midbreak-wrap">
-    <img src="./connor-ocean.jpg" alt="Connor Western" class="midbreak-img" loading="lazy"
+    <img src="./connor-spearfish.jpg" alt="Connor Western" class="midbreak-img" loading="lazy"
          onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
   </div>
 
@@ -419,12 +461,16 @@
         <p>But it's there. And the moment they pick it up, you've handed the authority in that conversation straight over to them. No script saves you from that. You can have the cleanest objection reframe ever written and they'll still find a way out. Every time.</p>
         <p>The fix is genuine detachment from the outcome. Not as a technique you layer on top of your existing approach. Actually having it — in the room, in real time, when there's money on the table. That's what the program builds first. Everything else is built on top of that.</p>
       </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </section>
 
   <!-- INTERSTITIAL IMAGE -->
   <div class="midbreak-wrap">
     <img src="./connor-stage.jpg" alt="Connor Western speaking" class="midbreak-img" loading="lazy"
+         style="object-position: center 30%;"
          onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
   </div>
 
@@ -444,6 +490,10 @@
         <div class="phase-row" data-anim data-delay="2"><span class="phase-n">06</span><div><div class="phase-title">New Business Generation</div><p class="phase-desc">Build your own pipeline. Not dependent on a company feeding you leads.</p></div></div>
         <div class="phase-row" data-anim data-delay="3"><span class="phase-n">07</span><div><div class="phase-title">Closing Mechanics</div><p class="phase-desc">Every tactic, every objection handle — now they actually land because the frame is already there underneath them.</p></div></div>
         <div class="phase-row" data-anim data-delay="4"><span class="phase-n">08</span><div><div class="phase-title">Direct Access to Connor</div><p class="phase-desc">When a call goes sideways and you're not sure what happened, you're not sitting on it alone.</p></div></div>
+      </div>
+      <div class="section-cta" data-anim data-delay="5">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+        <p class="friction-sm">30-minute call — no commitment</p>
       </div>
     </div>
   </section>
@@ -476,6 +526,9 @@
           </ul>
         </div>
       </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </section>
 
@@ -494,6 +547,9 @@
         <div class="testi-card" data-anim data-delay="2"><p class="testi-quote">"Broke his company's record for calls booked on day one. CEO gave him a bonus before his first week was out."</p><div class="testi-name">Reece</div><div class="testi-role">Record day one</div></div>
         <div class="testi-card" data-anim data-delay="3"><p class="testi-quote">"First morning. First call. First close. Five months later — first $20k deal."</p><div class="testi-name">Ianna</div><div class="testi-role">$0 to $20k deal</div></div>
       </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </section>
 
@@ -509,6 +565,10 @@
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I'm already closing some deals. Will this actually move the needle?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Marion was closing deals before. Income near zero compared to what she was capable of. Jim was closing deals before — one session with the IDGAF framework and he closed the biggest deal of his career. The gap between where you are and where you should be almost always comes back to the same thing.</div></div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What does the call actually involve?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">You'll speak with one of Connor's student success coaches. They'll look at your specific situation — what role you're in, what your numbers look like, where calls are coming apart. They'll tell you honestly whether what we do is the right fit to close that gap. If it is, they walk you through everything. If it isn't, they'll tell you that straight. 30 minutes.</div></div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I don't have the money right now.<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Bring it up on the call. There are options. But the conversation has to start with whether you've actually decided you want this — because there's no point solving the money if the decision isn't there yet.</div></div>
+      </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+        <p class="friction-sm">One 30-minute call. Straight answers.</p>
       </div>
     </div>
   </section>

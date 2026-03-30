@@ -84,14 +84,21 @@
 
     /* ── TYPEFORM IN HERO ── */
     .hero-typeform {
-      max-width: 820px;
-      margin: 0 auto;
-      border: 1px solid var(--border);
-      border-top: none;
-      border-radius: 0 0 6px 6px;
-      overflow: hidden;
       background: var(--white);
+      min-height: 160px;
     }
+
+    /* ── APPLY FORM CONTAINER ── */
+    .apply-form-container { max-width: 820px; margin: 52px auto 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; box-shadow: 0 4px 32px rgba(0,0,0,0.05); }
+    .apply-form-bridge { padding: 44px 40px 36px; background: var(--off); border-bottom: 1px solid var(--border); text-align: center; }
+    .apply-form-h { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(22px, 3.2vw, 38px); color: var(--dark); letter-spacing: -0.025em; margin: 14px 0 12px; }
+    .apply-form-p { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 460px; margin: 0 auto; }
+
+    /* ── SECTION CTA ── */
+    .section-cta { text-align: center; padding-top: 52px; }
+    .btn-sm { display: inline-block; background: var(--dark); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; padding: 16px 44px; border-radius: 2px; text-decoration: none; transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s; }
+    .btn-sm:hover { opacity: 0.82; transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,0,0,0.14); }
+    .friction-sm { font-size: 12px; color: var(--dim); margin-top: 10px; }
 
     /* ── BUTTONS ── */
     .btn { display: inline-block; background: var(--dark); color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; padding: 20px 56px; border-radius: 2px; text-decoration: none; transition: opacity 0.2s, transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s; border: none; cursor: pointer; }
@@ -332,10 +339,17 @@
         </div>
       </div>
 
-      <!-- TYPEFORM directly below VSL -->
-      <div class="hero-typeform" data-anim="fade" data-delay="4" id="apply">
-        <div data-tf-live="01KMYRR9B4NM5GKXR89PGJ04MJ"></div>
-        <script src="//embed.typeform.com/next/embed.js"></script>
+      <!-- APPLY FORM -->
+      <div class="apply-form-container" id="apply">
+        <div class="apply-form-bridge" data-anim="fade" data-delay="4">
+          <span class="eyebrow">Take The Next Step</span>
+          <div class="apply-form-h">Apply below.</div>
+          <p class="apply-form-p">Fill it out. One of Connor's coaches will be in touch to book your 30-minute call. They'll be straight with you — if it's not the right fit, they'll say so.</p>
+        </div>
+        <div class="hero-typeform">
+          <div data-tf-live="01KMYRR9B4NM5GKXR89PGJ04MJ"></div>
+          <script src="//embed.typeform.com/next/embed.js"></script>
+        </div>
       </div>
 
     </div>
@@ -343,7 +357,7 @@
 
   <!-- HERO IMAGE -->
   <div class="hero-img-wrap">
-    <img src="./connor-ocean.jpg" alt="Connor Western" class="hero-img"
+    <img src="./connor-spearfish.jpg" alt="Connor Western" class="hero-img"
          onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
   </div>
 
@@ -356,6 +370,9 @@
         <div class="stat" data-anim data-delay="3"><span class="stat-number">15</span><span class="stat-label">Years in Real Sales</span></div>
         <div class="stat" data-anim data-delay="4"><span class="stat-number">$41k</span><span class="stat-label">Student's First Full Month</span></div>
       </div>
+      <div class="section-cta" data-anim data-delay="5">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </div>
 
@@ -364,9 +381,9 @@
     <div class="container">
       <div class="connor-grid">
         <div class="connor-img-stack" data-anim="left">
-          <img src="./connor-chair.jpg" alt="Connor Western" class="connor-portrait"
+          <img src="./connor-cigar.jpg" alt="Connor Western" class="connor-portrait"
                onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
-          <img src="./connor-water.jpg"
+          <img src="./connor-ocean-sit.jpg"
                alt="Connor Western" class="connor-img-accent"
                onerror="this.style.display='none'" />
         </div>
@@ -384,7 +401,17 @@
             <div class="cred"><span class="cred-n">120k</span><span class="cred-l">Followers</span></div>
             <div class="cred"><span class="cred-n">3+ yrs</span><span class="cred-l">Sober</span></div>
           </div>
+          <div class="section-cta" data-anim data-delay="3" style="text-align:left; padding-top: 36px;">
+            <a href="#apply" class="btn-sm">Apply Now</a>
+          </div>
         </div>
+      </div>
+
+      <!-- PHOTO STRIP -->
+      <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 60px;" data-anim="fade" data-delay="2">
+        <img src="./connor-smoke.jpg" alt="Connor Western" style="width:100%; aspect-ratio:1/1; object-fit:cover; object-position:center top; border-radius:4px; display:block;" onerror="this.style.display='none'" loading="lazy" />
+        <img src="./connor-group.jpg" alt="Connor Western" style="width:100%; aspect-ratio:1/1; object-fit:cover; object-position:center top; border-radius:4px; display:block;" onerror="this.style.display='none'" loading="lazy" />
+        <img src="./connor-ocean.jpg" alt="Connor Western" style="width:100%; aspect-ratio:1/1; object-fit:cover; object-position:center 30%; border-radius:4px; display:block;" onerror="this.style.display='none'" loading="lazy" />
       </div>
     </div>
   </section>
@@ -412,6 +439,10 @@
           <div class="proof-name">Madeleine</div>
           <p class="proof-text">Brand new closing role. First morning on the tools. First call — closed. Less than two weeks in, just under $7k AUD for the week.</p>
         </div>
+      </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+        <p class="friction-sm">30-minute call — no commitment</p>
       </div>
     </div>
   </section>
@@ -449,6 +480,9 @@
           </div>
         </div>
       </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </section>
 
@@ -468,12 +502,16 @@
           <li data-anim data-delay="5"><span class="pain-num">05</span>The freedom you want keeps sitting just out of reach and you can't explain why</li>
         </ul>
       </div>
+      <div class="section-cta" data-anim data-delay="5">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </section>
 
   <!-- MIDBREAK -->
   <div class="midbreak-wrap">
-    <img src="./connor-stage.jpg" alt="Connor Western speaking" class="midbreak-img" loading="lazy"
+    <img src="./connor-smoke.jpg" alt="Connor Western" class="midbreak-img" loading="lazy"
+         style="object-position: center 20%;"
          onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
   </div>
 
@@ -488,12 +526,15 @@
         <p>The skill doesn't have an expiry date. Algorithms shift. Platforms die. Business models that looked bulletproof three years ago are saturated now. Sales just keeps working. As long as there are products in the world, someone has to be the person who closes them.</p>
         <p>But there's one thing most people never figure out — and without it, every other skill collapses under live-call pressure. The moment you genuinely stop needing the close, you start getting it.</p>
       </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </section>
 
   <!-- INTERSTITIAL IMAGE -->
   <div class="midbreak-wrap">
-    <img src="./connor-silhouette.jpg" alt="Connor Western" class="midbreak-img" loading="lazy"
+    <img src="./connor-stage.jpg" alt="Connor Western" class="midbreak-img" loading="lazy"
          style="object-position: center 30%;"
          onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
   </div>
@@ -514,6 +555,10 @@
         <div class="phase-row" data-anim data-delay="2"><span class="phase-n">06</span><div><div class="phase-title">New Business Generation</div><p class="phase-desc">Build your own pipeline. Not dependent on a company feeding you leads.</p></div></div>
         <div class="phase-row" data-anim data-delay="3"><span class="phase-n">07</span><div><div class="phase-title">Closing Mechanics</div><p class="phase-desc">Every tactic, every objection handle — now they actually land because the frame is already there underneath them.</p></div></div>
         <div class="phase-row" data-anim data-delay="4"><span class="phase-n">08</span><div><div class="phase-title">Direct Access to Connor</div><p class="phase-desc">When a call goes sideways, you're not sitting on it alone trying to reverse-engineer it by yourself.</p></div></div>
+      </div>
+      <div class="section-cta" data-anim data-delay="5">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+        <p class="friction-sm">30-minute call — no commitment</p>
       </div>
     </div>
   </section>
@@ -546,6 +591,9 @@
           </ul>
         </div>
       </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </section>
 
@@ -564,6 +612,9 @@
         <div class="testi-card" data-anim data-delay="2"><p class="testi-quote">"Broke his company's record for calls booked on day one. CEO gave him a bonus before his first week was out."</p><div class="testi-name">Reece</div><div class="testi-role">Record day one</div></div>
         <div class="testi-card" data-anim data-delay="3"><p class="testi-quote">"First morning. First call. First close. Five months later — first $20k deal."</p><div class="testi-name">Ianna</div><div class="testi-role">$0 to $20k deal</div></div>
       </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+      </div>
     </div>
   </section>
 
@@ -579,6 +630,10 @@
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How quickly can I realistically start earning?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Zach landed a role in five weeks from zero experience. Madeleine closed on her first call on her first morning. The timeline depends on how fast you move through the material and how quickly you do the reps. People who go through the content and apply it immediately move fast.</div></div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What does the call actually involve?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">You'll speak with one of Connor's student success coaches. They'll ask where you're at, what you've tried, what's been in the way. Straight with you about whether this is the right fit. If it is, they walk you through everything. If it isn't, they'll tell you that too. 30 minutes.</div></div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I don't have the money right now.<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Bring it up on the call. There are options — people have figured it out from much worse positions. But the conversation has to start with whether you've actually decided you want this.</div></div>
+      </div>
+      <div class="section-cta" data-anim data-delay="4">
+        <a href="#apply" class="btn-sm">Apply Now</a>
+        <p class="friction-sm">One 30-minute call. Straight answers.</p>
       </div>
     </div>
   </section>
