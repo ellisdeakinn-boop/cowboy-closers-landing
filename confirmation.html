@@ -80,7 +80,11 @@
     /* ── CHECKLIST ── */
     .checklist { margin-top: 0; display: flex; flex-direction: column; border-top: 1px solid var(--border); }
     .checklist-item { display: grid; grid-template-columns: 40px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border); align-items: start; }
-    .checklist-box { width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 3px; margin-top: 3px; flex-shrink: 0; }
+    .checklist-box { width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 3px; margin-top: 3px; flex-shrink: 0; position: relative; transition: border-color 0.35s ease, background 0.35s ease; }
+    .checklist-box.checked { border-color: var(--dark); background: var(--dark); }
+    .checklist-box svg { position: absolute; inset: 0; margin: auto; display: block; }
+    .checklist-box .tick { stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset 0.45s cubic-bezier(.4,0,.2,1) 0.25s; }
+    .checklist-box.checked .tick { stroke-dashoffset: 0; }
     .checklist-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 16px; color: var(--dark); margin-bottom: 6px; }
     .checklist-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
 
@@ -187,7 +191,7 @@
         <div class="page-step-num">1</div>
         <div class="page-step-meta">
           <span class="page-step-tag">Step 01</span>
-          <div class="page-step-title">Watch the confirmation video.</div>
+          <div class="page-step-title">Watch this video first.</div>
         </div>
       </div>
       <p class="page-step-body" data-anim data-delay="1">This video explains what the call is, what it isn't, and how to get the most out of the 30 minutes. Don't show up without watching it.</p>
@@ -215,6 +219,7 @@
         <div class="page-step-meta">
           <span class="page-step-tag">Step 02</span>
           <div class="page-step-title">Add the call to your calendar.</div>
+
         </div>
       </div>
       <p class="page-step-body" data-anim data-delay="1">Check your inbox — a calendar invite has been sent. Add it now so the slot is locked in your calendar and the Google Meet link is easy to find on the day.</p>
@@ -309,21 +314,21 @@
 
       <div class="checklist" data-anim="fade" data-delay="2">
         <div class="checklist-item">
-          <div class="checklist-box"></div>
+          <div class="checklist-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><polyline class="tick" points="20,6 9,17 4,12" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
             <div class="checklist-title">Be honest about what's actually in the way</div>
             <p class="checklist-desc">Not the surface reasons. The real ones. The call will be direct — the more honest you come in, the more useful it is for both sides. Think about it before you get on.</p>
           </div>
         </div>
         <div class="checklist-item">
-          <div class="checklist-box"></div>
+          <div class="checklist-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><polyline class="tick" points="20,6 9,17 4,12" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
             <div class="checklist-title">Know your numbers</div>
             <p class="checklist-desc">What you're making now, what you want to be making, and what your actual timeline looks like. Vague answers lead to vague outcomes. Come in with specifics.</p>
           </div>
         </div>
         <div class="checklist-item">
-          <div class="checklist-box"></div>
+          <div class="checklist-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><polyline class="tick" points="20,6 9,17 4,12" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div>
             <div class="checklist-title">Show up on time, somewhere quiet</div>
             <p class="checklist-desc">30 minutes. Camera on. No distractions. You booked it because you want something to change — treat the call like it matters, because it does.</p>
@@ -609,6 +614,18 @@
     document.querySelectorAll('.confirm-hero [data-anim]').forEach((el, i) => {
       setTimeout(() => el.classList.add('visible'), 80 + i * 100);
     });
+
+    // Checklist tick animation
+    const tickObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const box = entry.target.querySelector('.checklist-box');
+          if (box) setTimeout(() => box.classList.add('checked'), 200);
+          tickObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('.checklist-item').forEach(el => tickObserver.observe(el));
   </script>
 </body>
 </html>
