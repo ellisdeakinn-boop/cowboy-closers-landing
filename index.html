@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cowboy Closers — Connor Western</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Montserrat:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --off: #f9f9f7;
+      --dark: #111111;
+      --mid: #444444;
+      --muted: #888888;
+      --dim: #bbbbbb;
+      --border: #e8e8e8;
+      --max-w: 1020px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--dark);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      padding: 22px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--white);
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-cta {
+      background: var(--dark);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.8; }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    section { padding: 96px 0; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 80px 0 0;
+      text-align: center;
+    }
+    .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 28px;
+    }
+    .hero-headline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.1;
+      color: var(--dark);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+    .hero-script {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(36px, 5.5vw, 62px);
+      color: var(--dark);
+      line-height: 1.2;
+      display: block;
+      margin-bottom: 32px;
+      font-weight: 400;
+    }
+    .hero-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 44px;
+      font-weight: 400;
+      line-height: 1.65;
+    }
+
+    /* ── BUTTON ── */
+    .btn {
+      display: inline-block;
+      background: var(--dark);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 18px 52px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover { opacity: 0.82; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--dark);
+      border: 1px solid var(--dark);
+    }
+    .btn-ghost:hover { background: var(--dark); color: var(--white); opacity: 1; }
+    .friction {
+      font-size: 13px;
+      color: var(--dim);
+      margin-top: 14px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* ── HERO IMAGE ── */
+    .hero-img-wrap {
+      width: 100%;
+      max-width: 860px;
+      margin: 52px auto 0;
+      height: 480px;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .hero-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      padding: 52px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stats-grid {
+      display: flex;
+      justify-content: center;
+      gap: 72px;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-number {
+      font-family: 'Pacifico', cursive;
+      font-size: 38px;
+      color: var(--dark);
+      display: block;
+      line-height: 1;
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+    .stat-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION HEADER ── */
+    .s-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 18px;
+    }
+    h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: clamp(26px, 3.6vw, 42px);
+      line-height: 1.15;
+      color: var(--dark);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .h2-script {
+      font-family: 'Pacifico', cursive;
+      font-size: clamp(30px, 4vw, 48px);
+      color: var(--dark);
+      display: block;
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+    .s-body {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.8;
+    }
+    .s-body p + p { margin-top: 16px; }
+
+    /* ── VSL ── */
+    .vsl-outer {
+      background: var(--off);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .vsl-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+    .vsl-wrap {
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .vsl-aspect {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      background: #111;
+    }
+    .vsl-ph {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+    }
+    .play-btn {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .play-btn:hover { transform: scale(1.06); opacity: 0.9; }
+    .play-btn svg { margin-left: 4px; }
+    .vsl-ph p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #555;
+    }
+
+    /* ── PROOF CARDS ── */
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 56px;
+    }
+    .proof-card {
+      background: var(--white);
+      padding: 36px 32px;
+    }
+    .proof-number {
+      font-family: 'Pacifico', cursive;
+      font-size: 36px;
+      color: var(--dark);
+      line-height: 1.1;
+      margin-bottom: 12px;
+      font-weight: 400;
+    }
+    .proof-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .proof-text {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── WINS CAROUSEL ── */
+    .carousel-track {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      margin-top: 48px;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .win-img {
+      flex-shrink: 0;
+      width: 280px;
+      height: 175px;
+      border-radius: 4px;
+      object-fit: cover;
+      scroll-snap-align: start;
+      border: 1px solid var(--border);
+    }
+    .carousel-nav {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+    .c-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .c-btn:hover { border-color: var(--dark); background: var(--dark); }
+    .c-btn:hover svg { stroke: var(--white); }
+    .c-btn svg { stroke: var(--dark); transition: stroke 0.15s; }
+
+    /* ── PAIN SECTION ── */
+    .pain-section { background: var(--off); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .pain-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-top: 56px;
+      align-items: start;
+    }
+    .pain-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .pain-list li {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      font-size: 16px;
+      color: var(--mid);
+      line-height: 1.6;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pain-list li:last-child { border-bottom: none; padding-bottom: 0; }
+    .pain-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--dim);
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+      margin-top: 3px;
+      min-width: 24px;
+    }
+
+    /* ── MIDBREAK ── */
+    .midbreak-img {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* ── PHASES ── */
+    .phases-list {
+      margin-top: 56px;
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border);
+    }
+    .phase-row {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 32px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .phase-n {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      padding-top: 3px;
+    }
+    .phase-content {}
+    .phase-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .phase-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── FOR / NOT FOR ── */
+    .for-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 56px;
+    }
+    .for-card {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px 32px;
+    }
+    .for-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .for-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .for-list li {
+      display: flex;
+      gap: 14px;
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.55;
+    }
+    .for-card.yes .for-list li::before {
+      content: '✓';
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--dark);
+      flex-shrink: 0;
+    }
+    .for-card.no .for-list li::before {
+      content: '✕';
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: var(--dim);
+      flex-shrink: 0;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 56px;
+    }
+    .testi-card {
+      background: var(--white);
+      padding: 32px;
+    }
+    .testi-quote {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .testi-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dark);
+    }
+    .testi-role {
+      font-size: 13px;
+      color: var(--dim);
+      margin-top: 3px;
+    }
+
+    /* ── FAQ ── */
+    .faq-list {
+      margin-top: 56px;
+      border-top: 1px solid var(--border);
+    }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 22px 0;
+      text-align: left;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      transition: color 0.15s;
+      letter-spacing: -0.01em;
+    }
+    .faq-q:hover { color: var(--muted); }
+    .faq-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      color: var(--dim);
+      transition: transform 0.2s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      display: none;
+      padding: 0 0 22px;
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 680px;
+    }
+    .faq-item.open .faq-a { display: block; }
+
+    /* ── APPLY ── */
+    .apply-section {
+      background: var(--off);
+      border-top: 1px solid var(--border);
+    }
+    .apply-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .typeform-wrapper {
+      margin-top: 52px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--white);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 36px 32px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    footer p { font-size: 13px; color: var(--dim); font-family: 'DM Sans', sans-serif; }
+    footer a { color: var(--dim); text-decoration: none; }
+    footer a:hover { color: var(--dark); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 700px) {
+      nav { padding: 18px 20px; }
+      section { padding: 64px 0; }
+      .hero { padding: 56px 0 0; }
+      .hero-img-wrap { height: 280px; }
+      .midbreak-img { height: 260px; }
+      .stats-grid { gap: 32px; }
+      .proof-grid { grid-template-columns: 1fr; }
+      .pain-cols { grid-template-columns: 1fr; gap: 0; }
+      .for-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .win-img { width: 240px; height: 150px; }
+      .phase-row { grid-template-columns: 40px 1fr; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo" href="#">Cowboy Closers</a>
+    <a class="nav-cta" href="#apply">Apply Now</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Connor Western</span>
+      <h1 class="hero-headline">The moment you stop needing the close,</h1>
+      <span class="hero-script">you start getting it.</span>
+      <p class="hero-sub">15 years in real sales. Here's what most people in this space will never tell you.</p>
+      <a href="#apply" class="btn">Apply Now</a>
+      <p class="friction">30-minute call. No commitment. We'll tell you straight if it's the right fit.</p>
+    </div>
+    <div class="hero-img-wrap">
+      <img src="https://start.cowboyclosers.com/assets/hero-connor-6htxRQJk.jpg" alt="Connor Western" />
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-number">200M+</span>
+          <span class="stat-label">Views</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">120k</span>
+          <span class="stat-label">Followers</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">15</span>
+          <span class="stat-label">Years in Real Sales</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">$41k</span>
+          <span class="stat-label">Student's First Full Month</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VSL -->
+  <section class="vsl-outer">
+    <div class="vsl-inner">
+      <div style="text-align:center; margin-bottom: 40px;">
+        <span class="eyebrow">Watch First</span>
+        <h2>What real high-ticket sales</h2>
+        <span class="h2-script">actually looks like.</span>
+      </div>
+      <div class="vsl-wrap">
+        <div class="vsl-aspect">
+          <div class="vsl-ph">
+            <div class="play-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <polygon points="5,3 19,12 5,21" fill="#111"/>
+              </svg>
+            </div>
+            <p>Video coming soon</p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top: 36px;">
+        <a href="#apply" class="btn">Apply Now</a>
+        <p class="friction">Limited spots each week</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section>
+    <div class="container">
+      <span class="s-label">Results</span>
+      <h2>What happens when the</h2>
+      <span class="h2-script">foundations are right.</span>
+      <p class="s-body">Different starting points. Same outcome. They built the skill, adopted the frame, and built the life.</p>
+
+      <div class="proof-grid">
+        <div class="proof-card">
+          <div class="proof-number">$41k<br/>Month 2</div>
+          <div class="proof-name">Virginia</div>
+          <p class="proof-text">Joined with $500/month. Just moved countries, no safety net. First week — $13k cash collected. Following month — $41k in the door, second in her entire company.</p>
+        </div>
+        <div class="proof-card">
+          <div class="proof-number">Role in<br/>5 Weeks</div>
+          <div class="proof-name">Zach</div>
+          <p class="proof-text">Zero high-ticket experience. Joined July 30th. Landing a role September 5th. Day five on the job — 66% close rate. Two of three calls closed.</p>
+        </div>
+        <div class="proof-card">
+          <div class="proof-number">First Call,<br/>First Close</div>
+          <div class="proof-name">Madeleine</div>
+          <p class="proof-text">Brand new closing role. First morning on the tools. First call — closed. Less than two weeks in, just under $7k AUD for the week.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WINS CAROUSEL -->
+  <section style="padding-top: 0; border-top: 1px solid var(--border);">
+    <div class="container">
+      <span class="s-label">Community Wins</span>
+      <h2>Real people.</h2>
+      <span class="h2-script">Real numbers.</span>
+      <p class="s-body">You can find them at @cowboyclosers_ — real names, real posts, no highlight reel.</p>
+
+      <div class="carousel-track" id="carousel">
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/virginia-18k-NFXA_MRS.png" alt="Virginia — $18k" />
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/mads-1.5k-CZdtmHe9.png" alt="Madeleine — first close" />
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/zach-close-eT8DrSgr.png" alt="Zach — $4.7k" />
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/ianna-first-close-DYJKqOUI.png" alt="Ianna — first close" />
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/tj-5k-cad-D_Lg4lXu.png" alt="TJ — $5k CAD" />
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/ianna-20k-BeCeitNm.png" alt="Ianna — $20k deal" />
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/reece-hos-role-LyE5VNe8.png" alt="Reece — Head of Sales" />
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/zach-double-deal-CNFuYJMz.png" alt="Zach — double deal" />
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/nolan-kpis-fNELiZiw.png" alt="Nolan — $5,496" />
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/felipe-1st-week-QdAlWpeO.png" alt="Felipe — first week" />
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/teejay-role-DYukYQah.png" alt="Teejay — role in 4 days" />
+        <img class="win-img" src="https://start.cowboyclosers.com/assets/kaspar-first-sale-DYer_Y74.png" alt="Kaspar — first sale" />
+      </div>
+      <div class="carousel-nav">
+        <button class="c-btn" onclick="scrollCarousel(-1)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg>
+        </button>
+        <button class="c-btn" onclick="scrollCarousel(1)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="9,18 15,12 9,6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN SECTION -->
+  <section class="pain-section">
+    <div class="container">
+      <span class="s-label">Sound Familiar?</span>
+      <h2>You're putting in the work.</h2>
+      <span class="h2-script">Something is still missing.</span>
+      <div class="pain-cols">
+        <p class="s-body">You've seen the content. Maybe you've taken a course. Maybe you landed a role and it didn't hold. You're willing to do the work — but the gap between effort and result won't close, and you can't figure out why.</p>
+        <ul class="pain-list">
+          <li><span class="pain-num">01</span>You get on a live call and it falls apart — even when you did everything right</li>
+          <li><span class="pain-num">02</span>Scripts and frameworks aren't holding up when the prospect goes off-script</li>
+          <li><span class="pain-num">03</span>People around you are performing at a level you're not at yet</li>
+          <li><span class="pain-num">04</span>The location freedom others have still feels out of reach</li>
+          <li><span class="pain-num">05</span>You're making money but the ceiling you're at isn't where you want to stay</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- MIDBREAK IMAGE -->
+  <img src="https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg" alt="Connor Western" class="midbreak-img" loading="lazy" />
+
+  <!-- SOLUTION -->
+  <section>
+    <div class="container">
+      <span class="s-label">The Real Problem</span>
+      <h2>It's not the script.</h2>
+      <span class="h2-script">It's the frame behind it.</span>
+      <div class="s-body">
+        <p>Here's what actually happens on a call when it falls apart. You needed the person to say yes. You didn't say that out loud — you didn't have to. It was in the pace you spoke at when they pushed back. In the over-explanation when they went quiet. In the way you kept talking when you should have shut up and let the silence sit.</p>
+        <p>The prospect felt it — they always feel it — and the moment they did, they became the authority in the room. No script saves you from that point. The cleanest objection reframe ever written won't hold if the energy behind it is needy. They'll find a way out every time.</p>
+        <p>The unlock is genuine detachment from the outcome. Not as a technique. Actually meaning it — in the room, in real time, when there's money on the table. That's the frame that makes every other skill you build actually land.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section class="pain-section">
+    <div class="container">
+      <span class="s-label">The Program</span>
+      <h2>Eight phases.</h2>
+      <span class="h2-script">In the right order.</span>
+      <p class="s-body">The sequence matters. By the time you get to closing tactics, the frame is already there to make them land.</p>
+
+      <div class="phases-list">
+        <div class="phase-row">
+          <span class="phase-n">01</span>
+          <div class="phase-content">
+            <div class="phase-title">Mindset & Frame</div>
+            <p class="phase-desc">The foundation everything else is built on. Without this in place first, every other skill collapses the moment a live call gets uncomfortable.</p>
+          </div>
+        </div>
+        <div class="phase-row">
+          <span class="phase-n">02</span>
+          <div class="phase-content">
+            <div class="phase-title">LinkedIn Positioning</div>
+            <p class="phase-desc">Visible to the right people. Not invisible to the companies worth working with.</p>
+          </div>
+        </div>
+        <div class="phase-row">
+          <span class="phase-n">03</span>
+          <div class="phase-content">
+            <div class="phase-title">CV & Interview Strategy</div>
+            <p class="phase-desc">Land the role. How to present, interview, and walk in ahead of people with more experience on paper.</p>
+          </div>
+        </div>
+        <div class="phase-row">
+          <span class="phase-n">04</span>
+          <div class="phase-content">
+            <div class="phase-title">Elite SDR Operations</div>
+            <p class="phase-desc">Operate at the top of the pipeline — not just book calls, but book the right ones and set them up to close.</p>
+          </div>
+        </div>
+        <div class="phase-row">
+          <span class="phase-n">05</span>
+          <div class="phase-content">
+            <div class="phase-title">Understanding Sales Roles</div>
+            <p class="phase-desc">The different types of remote roles and which one makes sense for where you're at and where you're trying to get to.</p>
+          </div>
+        </div>
+        <div class="phase-row">
+          <span class="phase-n">06</span>
+          <div class="phase-content">
+            <div class="phase-title">New Business Generation</div>
+            <p class="phase-desc">Build your own pipeline. Not dependent on a company feeding you leads.</p>
+          </div>
+        </div>
+        <div class="phase-row">
+          <span class="phase-n">07</span>
+          <div class="phase-content">
+            <div class="phase-title">Closing Mechanics</div>
+            <p class="phase-desc">Every tactic, every objection handle — now they actually land because the frame is already there underneath them.</p>
+          </div>
+        </div>
+        <div class="phase-row">
+          <span class="phase-n">08</span>
+          <div class="phase-content">
+            <div class="phase-title">Direct Access to Connor</div>
+            <p class="phase-desc">When a call goes sideways, you're not sitting on it alone trying to reverse-engineer it by yourself.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR / NOT FOR -->
+  <section>
+    <div class="container">
+      <span class="s-label">Who This Is For</span>
+      <h2>Be honest with yourself</h2>
+      <span class="h2-script">before you apply.</span>
+
+      <div class="for-grid">
+        <div class="for-card yes">
+          <div class="for-title">This is for you if</div>
+          <ul class="for-list">
+            <li>You want location freedom — work from wherever without asking permission</li>
+            <li>You're making money but the ceiling you're at isn't where you want to stay</li>
+            <li>You've tried courses and felt like something foundational was missing</li>
+            <li>You're willing to do the reps — looking for the real skill, not a shortcut</li>
+            <li>You're ready to have an honest conversation about what's actually in the way</li>
+          </ul>
+        </div>
+        <div class="for-card no">
+          <div class="for-title">This is not for you if</div>
+          <ul class="for-list">
+            <li>You're looking for a 30-day transformation with minimal effort</li>
+            <li>You want a script without understanding the frame behind it</li>
+            <li>You're not prepared to look honestly at why things haven't moved</li>
+            <li>You're still waiting for the right moment to start</li>
+            <li>You want certainty before you've decided whether you actually want it</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="pain-section">
+    <div class="container">
+      <span class="s-label">From the Community</span>
+      <h2>Real closers.</h2>
+      <span class="h2-script">Real results.</span>
+      <p class="s-body">These are not actors. These are Cowboy Closers community members sharing their actual outcomes.</p>
+
+      <div class="testi-grid">
+        <div class="testi-card">
+          <p class="testi-quote">"Connor was right. Getting the offer is just the first part. Closing deals requires more work. But the principles stay the same — it's about reps."</p>
+          <div class="testi-name">Kaspar</div>
+          <div class="testi-role">Previous course buyer — now closing</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"One conversation using the IDGAF framework. Biggest deal of my career. 200 units closed in a single meeting."</p>
+          <div class="testi-name">Jim</div>
+          <div class="testi-role">Business owner</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"Grind until Thursday, then Budapest for a bit, home for two weeks, then Bali."</p>
+          <div class="testi-name">Xander</div>
+          <div class="testi-role">50% commission + 5% retainer, Dutch agency</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"Went SDR and closing with an AI agency. Cracked over $5k Canadian in my first month."</p>
+          <div class="testi-name">TJ McBride</div>
+          <div class="testi-role">AI agency</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"Broke his company's record for calls booked on day one. CEO gave him a bonus before his first week was out."</p>
+          <div class="testi-name">Reece</div>
+          <div class="testi-role">Record day one</div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"First morning. First call. First close. Five months later — first $20k deal."</p>
+          <div class="testi-name">Ianna</div>
+          <div class="testi-role">$0 to $20k deal</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <span class="s-label">Questions</span>
+      <h2>Straight answers to</h2>
+      <span class="h2-script">real questions.</span>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            I've tried a sales course before and it didn't work. Why is this different?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Most courses give you scripts without ever touching the frame behind them. Scripts without frame don't hold up when a prospect goes off-script or pushes back harder than expected. That's the gap this fills — not a better script, the foundation that makes any script actually work under live-call pressure.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            I'm not a natural salesperson. Is this still for me?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Sales isn't a personality type. Jim had been running his own business for years and most of his sales conversations weren't converting. One session using the IDGAF framework — biggest deal of his career. 200 units in a single meeting. It's not about charm or being the loudest in the room. It's about how you show up.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            I don't have any sales experience. Can I still land a role?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Zach had zero high-ticket sales experience when he joined. Role in five weeks. Day five on the job — 66% close rate. Experience matters a lot less than frame. What companies hiring remote closers are actually looking for isn't your resume — it's how you show up on a call.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            I'm already in sales but not performing where I want to be.
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Marion was doing everything — cold calls, door to door, same effort every day. Income near zero. The skills were there, the reps were there, it still wasn't moving. The one thing missing was the frame. Same person, completely different results once that shifted.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What does the call actually involve?
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">You'll speak with one of Connor's student success coaches. They'll ask where you're at, what you've tried, what's been in the way. Straight with you about whether this is the right fit. If it is, they walk you through everything. If it isn't, they'll tell you that too. 30 minutes. Either way you leave knowing more than you walked in with.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            I don't have the money right now.
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Bring it up on the call. There are options — people have figured it out from much worse positions. But the conversation has to start with whether you've actually decided you want this, because there's no point solving the money if the decision isn't there yet.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLY -->
+  <section class="apply-section" id="apply">
+    <div class="container">
+      <div class="apply-inner">
+        <span class="eyebrow">Apply</span>
+        <h2>Ready to find out if</h2>
+        <span class="h2-script">this is the right fit?</span>
+        <p class="s-body" style="margin: 0 auto;">Fill out the form. One of Connor's coaches will be in touch to book your call. 30 minutes. They'll be straight with you — if it's not the right fit, they'll say so.</p>
+        <div class="typeform-wrapper">
+          <div data-tf-live="01KMYRR9B4NM5GKXR89PGJ04MJ"></div>
+          <script src="//embed.typeform.com/next/embed.js"></script>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Cowboy Closers. All rights reserved. &nbsp;|&nbsp; <a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Terms</a></p>
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+    function scrollCarousel(dir) {
+      document.getElementById('carousel').scrollBy({ left: dir * 300, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>
