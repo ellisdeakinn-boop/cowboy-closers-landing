@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Call Confirmed — Cowboy Closers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Montserrat:wght@400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white: #ffffff;
+      --off: #f8f8f6;
+      --dark: #0a0a0a;
+      --mid: #333333;
+      --muted: #777777;
+      --dim: #b0b0b0;
+      --border: #e5e5e5;
+      --max-w: 900px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--dark); font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+
+    /* ── SCROLL ANIMATIONS ── */
+    [data-anim] { opacity: 0; transform: translateY(32px); transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1); }
+    [data-anim="fade"] { transform: translateY(0) scale(0.97); transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1); }
+    [data-anim].visible { opacity: 1; transform: translateY(0) scale(1); }
+    [data-delay="1"] { transition-delay: 0.1s; }
+    [data-delay="2"] { transition-delay: 0.2s; }
+    [data-delay="3"] { transition-delay: 0.3s; }
+    [data-delay="4"] { transition-delay: 0.4s; }
+    [data-delay="5"] { transition-delay: 0.5s; }
+
+    /* ── NAV ── */
+    nav { padding: 20px 40px; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid var(--border); background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; }
+    .logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dark); text-decoration: none; }
+
+    /* ── LAYOUT ── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+    section { padding: 80px 0; }
+
+    /* ── EYEBROW ── */
+    .eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 20px; }
+
+    /* ── CONFIRMATION HERO ── */
+    .confirm-hero { padding: 72px 0 64px; text-align: center; border-bottom: 1px solid var(--border); }
+    .confirm-check { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--dark); display: flex; align-items: center; justify-content: center; margin: 0 auto 32px; }
+    .confirm-check svg { stroke: var(--dark); }
+    .confirm-h1 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(32px, 5vw, 56px); line-height: 1.0; color: var(--dark); letter-spacing: -0.03em; margin-bottom: 4px; text-shadow: 0 0 48px rgba(0,0,0,0.12), 0 0 32px rgba(0,0,0,0.06); }
+    .confirm-script { font-family: 'Pacifico', cursive; font-size: clamp(36px, 5.5vw, 62px); color: var(--dark); line-height: 1.2; display: block; margin-bottom: 28px; text-shadow: 0 0 52px rgba(0,0,0,0.14), 0 0 36px rgba(0,0,0,0.07); }
+    .confirm-sub { font-size: 17px; color: var(--muted); max-width: 460px; margin: 0 auto 40px; line-height: 1.7; }
+    .call-details { display: inline-flex; gap: 40px; padding: 24px 40px; border: 1px solid var(--border); border-radius: 4px; background: var(--off); flex-wrap: wrap; justify-content: center; }
+    .call-detail { text-align: center; }
+    .call-detail-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 6px; }
+    .call-detail-val { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; color: var(--dark); }
+
+    /* ── SECTION HEADINGS ── */
+    h2 { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: clamp(26px, 3.8vw, 46px); line-height: 1.0; color: var(--dark); margin-bottom: 2px; letter-spacing: -0.025em; text-shadow: 0 0 40px rgba(0,0,0,0.10), 0 0 28px rgba(0,0,0,0.05); }
+    .h2-script { font-family: 'Pacifico', cursive; font-size: clamp(30px, 4.2vw, 52px); color: var(--dark); display: block; font-weight: 400; line-height: 1.2; margin-bottom: 24px; text-shadow: 0 0 44px rgba(0,0,0,0.12), 0 0 32px rgba(0,0,0,0.06); }
+    .s-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 20px; }
+    .s-body { font-size: 17px; color: var(--muted); max-width: 540px; line-height: 1.85; }
+
+    /* ── VIDEO PLACEHOLDER ── */
+    .video-wrap { max-width: 760px; margin: 0 auto; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 8px 48px rgba(0,0,0,0.07); }
+    .video-aspect { position: relative; padding-bottom: 56.25%; height: 0; background: #0a0a0a; }
+    .video-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 100%); }
+    .play-btn { width: 72px; height: 72px; border-radius: 50%; background: var(--white); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s; box-shadow: 0 4px 24px rgba(255,255,255,0.15); }
+    .play-btn:hover { transform: scale(1.1); box-shadow: 0 8px 40px rgba(255,255,255,0.25); }
+    .play-btn svg { margin-left: 4px; }
+    .video-ph p { font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #555; }
+
+    /* ── STEPS ── */
+    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 52px; border-top: 1px solid var(--border); }
+    .step { display: grid; grid-template-columns: 64px 1fr; gap: 28px; padding: 28px 0; border-bottom: 1px solid var(--border); align-items: start; }
+    .step-n { font-family: 'Pacifico', cursive; font-size: 32px; color: var(--dark); line-height: 1; padding-top: 2px; }
+    .step-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 16px; color: var(--dark); margin-bottom: 6px; }
+    .step-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+    /* ── BREAKOUT VIDEOS ── */
+    .breakout-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 52px; }
+    .breakout-card { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s; cursor: pointer; }
+    .breakout-card:hover { border-color: var(--dark); box-shadow: 0 8px 40px rgba(0,0,0,0.06); transform: translateY(-2px); }
+    .breakout-thumb { position: relative; padding-bottom: 56.25%; height: 0; background: #0a0a0a; overflow: hidden; }
+    .breakout-thumb-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at center, #1c1c1c 0%, #0a0a0a 100%); }
+    .breakout-play { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .breakout-card:hover .breakout-play { background: rgba(255,255,255,0.22); }
+    .breakout-play svg { margin-left: 3px; }
+    .breakout-body { padding: 20px 22px; }
+    .breakout-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 8px; }
+    .breakout-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; color: var(--dark); line-height: 1.4; }
+
+    /* ── TESTIMONIALS ── */
+    .testi-section { background: var(--off); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .testi-videos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 52px; }
+    .testi-vid-wrap { border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
+    .testi-vid-aspect { position: relative; padding-bottom: 56.25%; height: 0; background: #0a0a0a; }
+    .testi-vid-inner { position: absolute; inset: 0; }
+    .testi-vid-inner iframe { width: 100%; height: 100%; border: none; }
+    .testi-vid-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: radial-gradient(ellipse at center, #1c1c1c 0%, #0a0a0a 100%); }
+    .testi-vid-ph p { font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #555; }
+    .testi-name-bar { padding: 14px 16px; background: var(--white); border-top: 1px solid var(--border); }
+    .testi-name-bar strong { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dark); }
+    .testi-name-bar span { font-size: 12px; color: var(--muted); display: block; margin-top: 2px; }
+
+    /* ── TEXT TESTIMONIALS ── */
+    .testi-text-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; margin-top: 24px; }
+    .testi-text-card { background: var(--white); padding: 32px 28px; transition: background 0.2s; }
+    .testi-text-card:hover { background: var(--off); }
+    .testi-quote { font-size: 15px; color: var(--muted); line-height: 1.8; font-style: italic; margin-bottom: 20px; }
+    .testi-person { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dark); }
+    .testi-role { font-size: 12px; color: var(--dim); margin-top: 3px; }
+
+    /* ── PROCESS ── */
+    .process-list { margin-top: 52px; display: flex; flex-direction: column; border-top: 1px solid var(--border); }
+    .process-row { display: grid; grid-template-columns: 52px 1fr; gap: 28px; padding: 28px 0; border-bottom: 1px solid var(--border); align-items: start; }
+    .process-n { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; color: var(--dim); letter-spacing: 0.1em; padding-top: 4px; }
+    .process-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 16px; color: var(--dark); margin-bottom: 5px; }
+    .process-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+    /* ── REMINDER BANNER ── */
+    .reminder { background: var(--dark); color: var(--white); padding: 72px 0; text-align: center; }
+    .reminder h2 { color: var(--white); text-shadow: none; }
+    .reminder .h2-script { color: var(--white); text-shadow: none; }
+    .reminder .s-body { color: rgba(255,255,255,0.6); margin: 0 auto 40px; }
+    .reminder-details { display: inline-flex; gap: 40px; padding: 24px 40px; border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px; }
+    .reminder-detail-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.4); display: block; margin-bottom: 6px; }
+    .reminder-detail-val { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; color: var(--white); }
+
+    /* ── FOOTER ── */
+    footer { padding: 36px 32px; text-align: center; border-top: 1px solid var(--border); }
+    footer p { font-size: 13px; color: var(--dim); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 720px) {
+      nav { padding: 18px 20px; }
+      section { padding: 60px 0; }
+      .confirm-hero { padding: 52px 0 48px; }
+      .call-details { gap: 24px; padding: 20px 24px; }
+      .breakout-grid { grid-template-columns: 1fr; }
+      .testi-videos { grid-template-columns: 1fr; }
+      .testi-text-grid { grid-template-columns: 1fr; }
+      .step { grid-template-columns: 44px 1fr; gap: 16px; }
+      .process-row { grid-template-columns: 40px 1fr; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="logo" href="#">Cowboy Closers</a>
+  </nav>
+
+  <!-- CONFIRMATION HERO -->
+  <div class="confirm-hero">
+    <div class="container">
+      <div class="confirm-check" data-anim>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2.2"><polyline points="20,6 9,17 4,12"/></svg>
+      </div>
+      <h1 class="confirm-h1" data-anim data-delay="1">You're booked in.</h1>
+      <span class="confirm-script" data-anim data-delay="2">Now do the work before the call.</span>
+      <p class="confirm-sub" data-anim data-delay="3">Check your inbox for the calendar invite. Before you show up — watch the video below and work through anything on this page that applies to you.</p>
+      <div class="call-details" data-anim data-delay="4">
+        <div class="call-detail">
+          <span class="call-detail-label">Date</span>
+          <span class="call-detail-val">Your calendar invite</span>
+        </div>
+        <div class="call-detail">
+          <span class="call-detail-label">Duration</span>
+          <span class="call-detail-val">30 minutes</span>
+        </div>
+        <div class="call-detail">
+          <span class="call-detail-label">Format</span>
+          <span class="call-detail-val">Google Meet</span>
+        </div>
+        <div class="call-detail">
+          <span class="call-detail-label">With</span>
+          <span class="call-detail-val">Connor's Team</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WATCH BEFORE YOUR CALL -->
+  <section>
+    <div class="container">
+      <span class="s-label" data-anim>Before Your Call</span>
+      <h2 data-anim data-delay="1">Watch this first.</h2>
+      <span class="h2-script" data-anim data-delay="2">It matters.</span>
+      <p class="s-body" data-anim data-delay="3">This video explains exactly what the call is, what it isn't, and how to get the most out of the 30 minutes. Don't show up without watching it.</p>
+
+      <div style="margin-top: 44px;" data-anim="fade" data-delay="3">
+        <div class="video-wrap">
+          <div class="video-aspect">
+            <div class="video-ph">
+              <div class="play-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="#0a0a0a"/></svg>
+              </div>
+              <p>Confirmation video — replace with Wistia embed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS: WHAT TO DO BEFORE THE CALL -->
+  <section style="padding-top: 0; border-top: 1px solid var(--border);">
+    <div class="container">
+      <span class="s-label" data-anim>Your Pre-Call Checklist</span>
+      <h2 data-anim data-delay="1">Three things</h2>
+      <span class="h2-script" data-anim data-delay="2">before you show up.</span>
+
+      <div class="steps">
+        <div class="step" data-anim data-delay="1">
+          <div class="step-n">1</div>
+          <div>
+            <div class="step-title">Watch the process video on this page</div>
+            <p class="step-desc">It walks through exactly what the program involves — what you're walking into, no surprises. Shows up below. Watch it before the call so the conversation can go deeper.</p>
+          </div>
+        </div>
+        <div class="step" data-anim data-delay="2">
+          <div class="step-n">2</div>
+          <div>
+            <div class="step-title">Be honest about what's actually in the way</div>
+            <p class="step-desc">Not the surface stuff. The real reason things haven't moved. The call will be straight — the more honest you come in, the more useful it is for both sides.</p>
+          </div>
+        </div>
+        <div class="step" data-anim data-delay="3">
+          <div class="step-n">3</div>
+          <div>
+            <div class="step-title">Show up on time, somewhere quiet</div>
+            <p class="step-desc">30 minutes. No rescheduling for minor reasons. You booked it because you want to change something — treat it that way.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS VIDEO -->
+  <section class="pain-section" style="background: var(--off); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <span class="s-label" data-anim>The Program</span>
+      <h2 data-anim data-delay="1">What you're</h2>
+      <span class="h2-script" data-anim data-delay="2">actually booking into.</span>
+      <p class="s-body" data-anim data-delay="3">This isn't a sales pitch dressed as a strategy call. Watch this before you show up so you know exactly what's involved and what questions to bring.</p>
+
+      <div style="margin-top: 44px;" data-anim="fade" data-delay="3">
+        <div class="video-wrap">
+          <div class="video-aspect">
+            <div class="video-ph">
+              <div class="play-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="#0a0a0a"/></svg>
+              </div>
+              <p>Process video — replace with Wistia embed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREAKOUT VIDEOS -->
+  <section>
+    <div class="container">
+      <span class="s-label" data-anim>Address Your Doubts</span>
+      <h2 data-anim data-delay="1">Still sitting</h2>
+      <span class="h2-script" data-anim data-delay="2">on something?</span>
+      <p class="s-body" data-anim data-delay="3">Find the one that applies to you. Watch it. Come to the call with whatever's left.</p>
+
+      <div class="breakout-grid" data-anim="fade" data-delay="3">
+
+        <div class="breakout-card">
+          <div class="breakout-thumb">
+            <div class="breakout-thumb-inner">
+              <div class="breakout-play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="breakout-body">
+            <span class="breakout-label">Breakout 01</span>
+            <div class="breakout-title">"I don't have enough context on you guys"</div>
+          </div>
+        </div>
+
+        <div class="breakout-card">
+          <div class="breakout-thumb">
+            <div class="breakout-thumb-inner">
+              <div class="breakout-play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="breakout-body">
+            <span class="breakout-label">Breakout 02</span>
+            <div class="breakout-title">"I'd need to see more before committing"</div>
+          </div>
+        </div>
+
+        <div class="breakout-card">
+          <div class="breakout-thumb">
+            <div class="breakout-thumb-inner">
+              <div class="breakout-play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="breakout-body">
+            <span class="breakout-label">Breakout 03</span>
+            <div class="breakout-title">"I haven't done enough research into remote sales"</div>
+          </div>
+        </div>
+
+        <div class="breakout-card">
+          <div class="breakout-thumb">
+            <div class="breakout-thumb-inner">
+              <div class="breakout-play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="breakout-body">
+            <span class="breakout-label">Breakout 04</span>
+            <div class="breakout-title">"I've got a few interviews coming up — I want to see how they go first"</div>
+          </div>
+        </div>
+
+        <div class="breakout-card">
+          <div class="breakout-thumb">
+            <div class="breakout-thumb-inner">
+              <div class="breakout-play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="breakout-body">
+            <span class="breakout-label">Breakout 05</span>
+            <div class="breakout-title">"I don't have that kind of money right now"</div>
+          </div>
+        </div>
+
+        <div class="breakout-card">
+          <div class="breakout-thumb">
+            <div class="breakout-thumb-inner">
+              <div class="breakout-play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="breakout-body">
+            <span class="breakout-label">Breakout 06</span>
+            <div class="breakout-title">"I'd need to wait until payday"</div>
+          </div>
+        </div>
+
+        <div class="breakout-card" style="grid-column: 1 / -1; max-width: calc(50% - 8px);">
+          <div class="breakout-thumb">
+            <div class="breakout-thumb-inner">
+              <div class="breakout-play">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="breakout-body">
+            <span class="breakout-label">Breakout 07</span>
+            <div class="breakout-title">"I need to sell some shares or crypto to free up the money"</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL VIDEOS -->
+  <section class="testi-section">
+    <div class="container">
+      <span class="s-label" data-anim>From the Community</span>
+      <h2 data-anim data-delay="1">This is what it</h2>
+      <span class="h2-script" data-anim data-delay="2">actually looks like.</span>
+      <p class="s-body" data-anim data-delay="3">Real people, real outcomes. No actors, no highlight reel — these are Cowboy Closers community members.</p>
+
+      <div class="testi-videos" data-anim="fade" data-delay="3">
+
+        <div class="testi-vid-wrap">
+          <div class="testi-vid-aspect">
+            <div class="testi-vid-ph">
+              <div class="breakout-play" style="width:44px;height:44px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
+              </div>
+              <p>YouTube testimonial — replace</p>
+            </div>
+          </div>
+          <div class="testi-name-bar">
+            <strong>Virginia</strong>
+            <span>$500/mo → $41k in month 2</span>
+          </div>
+        </div>
+
+        <div class="testi-vid-wrap">
+          <div class="testi-vid-aspect">
+            <div class="testi-vid-ph">
+              <div class="breakout-play" style="width:44px;height:44px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
+              </div>
+              <p>YouTube testimonial — replace</p>
+            </div>
+          </div>
+          <div class="testi-name-bar">
+            <strong>Zach</strong>
+            <span>Zero experience → role in 5 weeks</span>
+          </div>
+        </div>
+
+        <div class="testi-vid-wrap">
+          <div class="testi-vid-aspect">
+            <div class="testi-vid-ph">
+              <div class="breakout-play" style="width:44px;height:44px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
+              </div>
+              <p>YouTube testimonial — replace</p>
+            </div>
+          </div>
+          <div class="testi-name-bar">
+            <strong>Madeleine</strong>
+            <span>First call, first close</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TEXT TESTIMONIALS -->
+      <div class="testi-text-grid" data-anim="fade" data-delay="4">
+        <div class="testi-text-card">
+          <p class="testi-quote">"Connor was right. Getting the offer is just the first part. Closing deals requires more work. But the principles stay the same — it's about reps."</p>
+          <div class="testi-person">Kaspar</div>
+          <div class="testi-role">Previous course buyer — now closing</div>
+        </div>
+        <div class="testi-text-card">
+          <p class="testi-quote">"One conversation using the IDGAF framework. Biggest deal of my career. 200 units closed in a single meeting."</p>
+          <div class="testi-person">Jim</div>
+          <div class="testi-role">Business owner</div>
+        </div>
+        <div class="testi-text-card">
+          <p class="testi-quote">"Went SDR and closing with an AI agency. Cracked over $5k Canadian in my first month."</p>
+          <div class="testi-person">TJ McBride</div>
+          <div class="testi-role">AI agency, first month</div>
+        </div>
+        <div class="testi-text-card">
+          <p class="testi-quote">"Broke his company's record for calls booked on day one. CEO gave him a bonus before his first week was out."</p>
+          <div class="testi-person">Reece</div>
+          <div class="testi-role">Record day one</div>
+        </div>
+        <div class="testi-text-card">
+          <p class="testi-quote">"Grind until Thursday, then Budapest for a bit, home for two weeks, then Bali."</p>
+          <div class="testi-person">Xander</div>
+          <div class="testi-role">50% commission + 5% retainer</div>
+        </div>
+        <div class="testi-text-card">
+          <p class="testi-quote">"First morning. First call. First close. Five months later — first $20k deal."</p>
+          <div class="testi-person">Ianna</div>
+          <div class="testi-role">$0 to $20k deal</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT HAPPENS ON THE CALL -->
+  <section>
+    <div class="container">
+      <span class="s-label" data-anim>The Call</span>
+      <h2 data-anim data-delay="1">What actually</h2>
+      <span class="h2-script" data-anim data-delay="2">happens in the room.</span>
+      <p class="s-body" data-anim data-delay="3">No pitch decks, no pressure tactics. 30 minutes, straight conversation.</p>
+
+      <div class="process-list">
+        <div class="process-row" data-anim data-delay="1">
+          <span class="process-n">01</span>
+          <div>
+            <div class="process-title">Where you're at right now</div>
+            <p class="process-desc">The coach asks about your situation — what you're doing, what you've tried, what's been in the way. No fluff, no warm-up.</p>
+          </div>
+        </div>
+        <div class="process-row" data-anim data-delay="2">
+          <span class="process-n">02</span>
+          <div>
+            <div class="process-title">Whether this is the right fit</div>
+            <p class="process-desc">They'll be straight with you. If this isn't the right move for your situation, they'll say so. No hard close, no manufactured urgency.</p>
+          </div>
+        </div>
+        <div class="process-row" data-anim data-delay="3">
+          <span class="process-n">03</span>
+          <div>
+            <div class="process-title">What the path forward looks like</div>
+            <p class="process-desc">If it's a fit — they walk you through exactly what's involved, what the timeline looks like, and what happens next. Questions welcome.</p>
+          </div>
+        </div>
+        <div class="process-row" data-anim data-delay="4">
+          <span class="process-n">04</span>
+          <div>
+            <div class="process-title">A decision</div>
+            <p class="process-desc">Yes or no. No "I'll think about it and follow up in three weeks." The call is designed to get you to a clear answer — whatever that answer is.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REMINDER BANNER -->
+  <div class="reminder">
+    <div class="container" style="text-align: center;">
+      <span class="eyebrow" style="color: rgba(255,255,255,0.4);">Don't No-Show</span>
+      <h2 data-anim data-delay="1">Show up.</h2>
+      <span class="h2-script" data-anim data-delay="2">Do the work.</span>
+      <p class="s-body" data-anim data-delay="3">Check your inbox for the calendar invite. Add it to your calendar now. If something comes up, reschedule — don't just not show. These spots are limited and someone else wants yours.</p>
+      <div class="reminder-details" data-anim data-delay="4">
+        <div>
+          <span class="reminder-detail-label">Duration</span>
+          <span class="reminder-detail-val">30 minutes</span>
+        </div>
+        <div>
+          <span class="reminder-detail-label">Format</span>
+          <span class="reminder-detail-val">Google Meet</span>
+        </div>
+        <div>
+          <span class="reminder-detail-label">With</span>
+          <span class="reminder-detail-val">Connor's Team</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Cowboy Closers. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-anim]').forEach(el => observer.observe(el));
+    document.querySelectorAll('.confirm-hero [data-anim], .confirm-hero [data-anim]').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), 80 + i * 100);
+    });
+  </script>
+</body>
+</html>
