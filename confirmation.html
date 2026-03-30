@@ -142,6 +142,7 @@
       .testi-text-grid { grid-template-columns: 1fr; }
       .step { grid-template-columns: 44px 1fr; gap: 16px; }
       .process-row { grid-template-columns: 40px 1fr; gap: 16px; }
+      .calendar-steps { grid-template-columns: repeat(3, 1fr) !important; }
     }
   </style>
 </head>
@@ -180,6 +181,44 @@
       </div>
     </div>
   </div>
+
+  <!-- CONFIRM YOUR SPOT -->
+  <section style="border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <span class="s-label" data-anim>Action Required</span>
+      <h2 data-anim data-delay="1">Two things to do</h2>
+      <span class="h2-script" data-anim data-delay="2">right now.</span>
+
+      <div class="steps" style="margin-top: 32px;">
+        <div class="step" data-anim data-delay="1">
+          <div class="step-n">1</div>
+          <div>
+            <div class="step-title">Add the call to your calendar</div>
+            <p class="step-desc">Check your inbox — a calendar invite has been sent. Click "Add to calendar" to lock it in. Follow the steps below if you're not sure how.</p>
+          </div>
+        </div>
+        <div class="step" data-anim data-delay="2">
+          <div class="step-n">2</div>
+          <div>
+            <div class="step-title">Reply to Connor's success coach with "LET'S TALK"</div>
+            <p class="step-desc">You'll receive an email from Connor's success coach shortly. Reply with the words <strong>LET'S TALK</strong> to confirm your spot and let us know you're serious about showing up.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 52px;" data-anim="fade" data-delay="3">
+        <img src="./calendar-confirm.jpg" alt="How to add your call to your calendar" style="width: 100%; border-radius: 6px; border: 1px solid var(--border); box-shadow: 0 8px 48px rgba(0,0,0,0.07); display: block;" />
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 12px;" data-anim="fade" data-delay="4">
+        <img src="./calendar-step-1.png" alt="Step 1" style="width:100%; border-radius:4px; border:1px solid var(--border);" />
+        <img src="./calendar-step-2.png" alt="Step 2" style="width:100%; border-radius:4px; border:1px solid var(--border);" />
+        <img src="./calendar-step-3.png" alt="Step 3" style="width:100%; border-radius:4px; border:1px solid var(--border);" />
+        <img src="./calendar-step-4.png" alt="Step 4" style="width:100%; border-radius:4px; border:1px solid var(--border);" />
+        <img src="./calendar-step-5.png" alt="Step 5" style="width:100%; border-radius:4px; border:1px solid var(--border);" />
+      </div>
+    </div>
+  </section>
 
   <!-- WATCH BEFORE YOUR CALL -->
   <section>
