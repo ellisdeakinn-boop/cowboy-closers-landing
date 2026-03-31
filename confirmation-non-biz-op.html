@@ -678,63 +678,107 @@
     <p>© 2025 Cowboy Closers. All rights reserved.</p>
   </footer>
 
-  <!-- TUMBLEWEEDS -->
-  <div class="tw-stage" aria-hidden="true">
-    <svg class="tw tw-1" viewBox="0 0 60 60" fill="none">
-      <g stroke="#9B7A2B" stroke-linecap="round">
-        <circle cx="30" cy="30" r="25" stroke-width="1.5" opacity="0.55"/>
-        <ellipse cx="30" cy="30" rx="25" ry="11" stroke-width="1.1" opacity="0.45"/>
-        <ellipse cx="30" cy="30" rx="11" ry="25" stroke-width="1.1" opacity="0.45"/>
-        <path d="M5,30 Q17,5 30,30 Q43,55 55,30" stroke-width="1.3"/>
-        <path d="M5,30 Q17,55 30,30 Q43,5 55,30" stroke-width="1.3"/>
-        <path d="M30,5 Q55,17 30,30 Q5,43 30,55" stroke-width="1.3"/>
-        <path d="M30,5 Q5,17 30,30 Q55,43 30,55" stroke-width="1.3"/>
-        <line x1="30" y1="5" x2="30" y2="55" stroke-width="0.9" opacity="0.35"/>
-        <line x1="5" y1="30" x2="55" y2="30" stroke-width="0.9" opacity="0.35"/>
-        <line x1="9" y1="9" x2="51" y2="51" stroke-width="0.9" opacity="0.3"/>
-        <line x1="51" y1="9" x2="9" y2="51" stroke-width="0.9" opacity="0.3"/>
-      </g>
-    </svg>
-    <svg class="tw tw-2" viewBox="0 0 60 60" fill="none">
-      <g stroke="#9B7A2B" stroke-linecap="round">
-        <circle cx="30" cy="30" r="25" stroke-width="1.5" opacity="0.55"/>
-        <ellipse cx="30" cy="30" rx="25" ry="11" stroke-width="1.1" opacity="0.45"/>
-        <ellipse cx="30" cy="30" rx="11" ry="25" stroke-width="1.1" opacity="0.45"/>
-        <path d="M5,30 Q17,5 30,30 Q43,55 55,30" stroke-width="1.3"/>
-        <path d="M5,30 Q17,55 30,30 Q43,5 55,30" stroke-width="1.3"/>
-        <path d="M30,5 Q55,17 30,30 Q5,43 30,55" stroke-width="1.3"/>
-        <path d="M30,5 Q5,17 30,30 Q55,43 30,55" stroke-width="1.3"/>
-        <line x1="30" y1="5" x2="30" y2="55" stroke-width="0.9" opacity="0.35"/>
-        <line x1="5" y1="30" x2="55" y2="30" stroke-width="0.9" opacity="0.35"/>
-      </g>
-    </svg>
-    <svg class="tw tw-3" viewBox="0 0 60 60" fill="none">
-      <g stroke="#9B7A2B" stroke-linecap="round">
-        <circle cx="30" cy="30" r="25" stroke-width="1.5" opacity="0.55"/>
-        <ellipse cx="30" cy="30" rx="25" ry="11" stroke-width="1.1" opacity="0.45"/>
-        <ellipse cx="30" cy="30" rx="11" ry="25" stroke-width="1.1" opacity="0.45"/>
-        <path d="M5,30 Q17,5 30,30 Q43,55 55,30" stroke-width="1.3"/>
-        <path d="M5,30 Q17,55 30,30 Q43,5 55,30" stroke-width="1.3"/>
-        <path d="M30,5 Q55,17 30,30 Q5,43 30,55" stroke-width="1.3"/>
-        <path d="M30,5 Q5,17 30,30 Q55,43 30,55" stroke-width="1.3"/>
-        <line x1="30" y1="5" x2="30" y2="55" stroke-width="0.9" opacity="0.35"/>
-        <line x1="5" y1="30" x2="55" y2="30" stroke-width="0.9" opacity="0.35"/>
-        <line x1="9" y1="9" x2="51" y2="51" stroke-width="0.9" opacity="0.3"/>
-      </g>
-    </svg>
+  <!-- COWBOY CHASING HORSE -->
+  <div class="chase-stage" aria-hidden="true">
+
+    <!-- Horse -->
+    <div class="ch-horse-mover">
+      <span class="ch-horse-emoji">🐎</span>
+    </div>
+
+    <!-- Cowboy 1 -->
+    <div class="ch-cowboy-mover ch-cw-1">
+      <div class="ch-cowboy-inner">
+        <svg class="ch-lasso" width="34" height="14" viewBox="0 0 34 14" fill="none">
+          <ellipse cx="17" cy="7" rx="13" ry="5.5" stroke="#8B6914" stroke-width="2.2" stroke-dasharray="3,2"/>
+          <line x1="17" y1="12" x2="17" y2="18" stroke="#8B6914" stroke-width="1.5"/>
+        </svg>
+        <span class="ch-hat">🤠</span>
+        <div class="ch-torso"></div>
+        <div class="ch-legs">
+          <div class="ch-leg ch-leg-l"></div>
+          <div class="ch-leg ch-leg-r"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cowboy 2 (slightly behind) -->
+    <div class="ch-cowboy-mover ch-cw-2">
+      <div class="ch-cowboy-inner">
+        <svg class="ch-lasso" width="28" height="12" viewBox="0 0 28 12" fill="none">
+          <ellipse cx="14" cy="6" rx="11" ry="4.5" stroke="#8B6914" stroke-width="2" stroke-dasharray="3,2"/>
+          <line x1="14" y1="10" x2="14" y2="16" stroke="#8B6914" stroke-width="1.5"/>
+        </svg>
+        <span class="ch-hat">🤠</span>
+        <div class="ch-torso"></div>
+        <div class="ch-legs">
+          <div class="ch-leg ch-leg-l"></div>
+          <div class="ch-leg ch-leg-r"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <style>
-    .tw-stage { position: fixed; bottom: 0; left: 0; width: 100%; height: 110px; pointer-events: none; z-index: 900; overflow: hidden; }
-    .tw { position: absolute; bottom: 12px; opacity: 0; }
-    .tw-1 { width: 58px; height: 58px; animation: tw-roll 3.6s ease-in 0.3s forwards; }
-    .tw-2 { width: 38px; height: 38px; bottom: 6px; animation: tw-roll 2.7s ease-in 1.3s forwards; }
-    .tw-3 { width: 74px; height: 74px; bottom: 18px; animation: tw-roll 4.4s ease-in 0.7s forwards; }
-    @keyframes tw-roll {
-      0%   { transform: translateX(-90px) rotate(0deg); opacity: 0; }
-      7%   { opacity: 0.8; }
-      90%  { opacity: 0.8; }
-      100% { transform: translateX(108vw) rotate(900deg); opacity: 0; }
+    .chase-stage { position: fixed; bottom: 0; left: 0; width: 100%; height: 130px; pointer-events: none; z-index: 900; overflow: hidden; }
+
+    /* Horse */
+    .ch-horse-mover { position: absolute; bottom: 14px; animation: horse-gallop 5s ease-in-out 0.2s forwards; opacity: 0; }
+    .ch-horse-emoji { font-size: 54px; line-height: 1; display: block; transform: scaleX(-1); }
+
+    /* Cowboys */
+    .ch-cowboy-mover { position: absolute; bottom: 8px; }
+    .ch-cw-1 { animation: cowboy-chase-1 5s ease-in-out 0s forwards; opacity: 0; }
+    .ch-cw-2 { animation: cowboy-chase-2 5s ease-in-out 0s forwards; opacity: 0; }
+    .ch-cowboy-inner { display: flex; flex-direction: column; align-items: center; }
+    .ch-lasso { animation: lasso-spin 0.5s linear infinite; margin-bottom: 1px; transform-origin: center; }
+    .ch-hat { font-size: 26px; line-height: 1; display: block; }
+    .ch-torso { width: 11px; height: 14px; background: #5c3d1e; border-radius: 3px 3px 0 0; margin-top: -2px; }
+    .ch-legs { display: flex; gap: 4px; }
+    .ch-leg { width: 4px; height: 14px; background: #3d2b1f; border-radius: 0 0 3px 3px; transform-origin: top center; animation: ch-walk 0.22s ease-in-out infinite alternate; }
+    .ch-leg-r { animation-direction: alternate-reverse; }
+
+    @keyframes lasso-spin {
+      from { transform: scaleY(0.28) rotate(0deg); }
+      to   { transform: scaleY(0.28) rotate(360deg); }
+    }
+    @keyframes ch-walk {
+      from { transform: rotate(-26deg); }
+      to   { transform: rotate(26deg); }
+    }
+
+    /* Horse enters slightly ahead, bounces as it gallops */
+    @keyframes horse-gallop {
+      0%   { transform: translateX(-60px) translateY(0);   opacity: 0; }
+      4%   { opacity: 1; }
+      28%  { transform: translateX(26vw)  translateY(-9px); opacity: 1; }
+      55%  { transform: translateX(54vw)  translateY(0px);  opacity: 1; }
+      78%  { transform: translateX(78vw)  translateY(-7px); opacity: 1; }
+      95%  { opacity: 1; }
+      100% { transform: translateX(112vw) translateY(0);   opacity: 0; }
+    }
+
+    /* Cowboy 1 — close behind horse */
+    @keyframes cowboy-chase-1 {
+      0%   { transform: translateX(-150px) translateY(0);   opacity: 0; }
+      7%   { opacity: 1; }
+      28%  { transform: translateX(14vw)   translateY(-6px); opacity: 1; }
+      55%  { transform: translateX(42vw)   translateY(0px);  opacity: 1; }
+      78%  { transform: translateX(66vw)   translateY(-5px); opacity: 1; }
+      95%  { opacity: 1; }
+      100% { transform: translateX(107vw)  translateY(0);   opacity: 0; }
+    }
+
+    /* Cowboy 2 — further behind */
+    @keyframes cowboy-chase-2 {
+      0%   { transform: translateX(-240px) translateY(0);   opacity: 0; }
+      10%  { opacity: 1; }
+      28%  { transform: translateX(4vw)    translateY(-5px); opacity: 1; }
+      55%  { transform: translateX(32vw)   translateY(0px);  opacity: 1; }
+      78%  { transform: translateX(56vw)   translateY(-4px); opacity: 1; }
+      95%  { opacity: 1; }
+      100% { transform: translateX(102vw)  translateY(0);   opacity: 0; }
     }
   </style>
 
