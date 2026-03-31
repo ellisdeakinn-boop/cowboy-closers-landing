@@ -798,5 +798,49 @@
       lbTouchX = null;
     });
   </script>
+
+  <!-- COWBOY SCROLL BUDDY -->
+  <div id="cowboy-scroll" aria-hidden="true">
+    <div class="cs-figure">
+      <span class="cs-hat">🤠</span>
+      <div class="cs-torso"></div>
+      <div class="cs-legs">
+        <div class="cs-leg cs-leg-l"></div>
+        <div class="cs-leg cs-leg-r"></div>
+      </div>
+      <div class="cs-shadow"></div>
+    </div>
+  </div>
+
+  <style>
+    #cowboy-scroll { position: fixed; right: 16px; top: 20vh; z-index: 800; pointer-events: none; width: 44px; transition: top 0.3s cubic-bezier(.4,0,.2,1); }
+    .cs-figure { display: flex; flex-direction: column; align-items: center; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18)); }
+    .cs-hat { font-size: 30px; line-height: 1; display: block; text-align: center; }
+    .cs-torso { width: 14px; height: 17px; background: #5c3d1e; border-radius: 3px 3px 0 0; margin-top: -3px; }
+    .cs-legs { display: flex; gap: 5px; }
+    .cs-leg { width: 5px; height: 17px; background: #3d2b1f; border-radius: 0 0 3px 3px; transform-origin: top center; }
+    .cs-leg-l { transform: rotate(-8deg); }
+    .cs-leg-r { transform: rotate(8deg); }
+    .cs-shadow { width: 22px; height: 4px; background: rgba(0,0,0,0.12); border-radius: 50%; margin-top: 3px; }
+    #cowboy-scroll.walking .cs-leg-l { animation: cs-walk-l 0.32s ease-in-out infinite alternate; }
+    #cowboy-scroll.walking .cs-leg-r { animation: cs-walk-r 0.32s ease-in-out infinite alternate; }
+    @keyframes cs-walk-l { from { transform: rotate(-24deg); } to { transform: rotate(24deg); } }
+    @keyframes cs-walk-r { from { transform: rotate(24deg); } to { transform: rotate(-24deg); } }
+    @media (max-width: 640px) { #cowboy-scroll { display: none; } }
+  </style>
+
+  <script>
+    (function() {
+      var cowboy = document.getElementById('cowboy-scroll');
+      var walkTimer;
+      window.addEventListener('scroll', function() {
+        var progress = window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        cowboy.style.top = (8 + progress * 74) + 'vh';
+        cowboy.classList.add('walking');
+        clearTimeout(walkTimer);
+        walkTimer = setTimeout(function() { cowboy.classList.remove('walking'); }, 200);
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
