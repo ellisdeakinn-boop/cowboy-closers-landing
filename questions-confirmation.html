@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cowboy Closers</title>
+  <link rel="icon" type="image/jpeg" href="./favicon.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Montserrat:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white: #ffffff;
+      --dark: #0a0a0a;
+      --muted: #777777;
+      --dim: #b0b0b0;
+      --border: #e5e5e5;
+    }
+    html, body { height: 100%; }
+    body {
+      background: var(--white);
+      color: var(--dark);
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 32px;
+    }
+
+    .headline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(24px, 4.5vw, 46px);
+      letter-spacing: -0.025em;
+      max-width: 680px;
+      line-height: 1.15;
+      margin-bottom: 48px;
+    }
+
+    .dm-btn {
+      display: inline-block;
+      background: var(--dark);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 20px 52px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .dm-btn:hover { opacity: 0.8; transform: translateY(-2px); }
+
+    footer {
+      padding: 32px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    footer p { font-size: 13px; color: var(--dim); }
+    footer a { color: var(--dim); text-decoration: none; }
+    footer a:hover { color: var(--dark); }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 24px; }
+      main { padding: 48px 24px; }
+      .dm-btn { padding: 18px 36px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="./" class="logo">Cowboy Closers</a>
+  </nav>
+
+  <main>
+    <h1 class="headline">Thanks for filling out the questions! Click the button below to talk about how you can learn the most valuable skill in the world.</h1>
+    <a href="https://ig.me/m/connorwestern_?ref=w52626937" class="dm-btn" target="_blank" rel="noopener">DM Me 'SELLS'</a>
+  </main>
+
+  <footer>
+    <p>© 2025 Cowboy Closers. All rights reserved. &nbsp;|&nbsp; <a href="./privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="./terms.html">Terms</a></p>
+  </footer>
+
+</body>
+</html>
