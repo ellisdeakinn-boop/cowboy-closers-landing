@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cowboy Closers</title>
+  <link rel="icon" type="image/jpeg" href="./favicon.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Montserrat:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --white: #ffffff;
+      --dark: #0a0a0a;
+      --muted: #777777;
+      --dim: #b0b0b0;
+      --border: #e5e5e5;
+    }
+    html, body { height: 100%; }
+    body {
+      background: var(--white);
+      color: var(--dark);
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 32px 0;
+    }
+    .headline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(22px, 4vw, 40px);
+      letter-spacing: -0.025em;
+      text-align: center;
+      max-width: 640px;
+      margin-bottom: 48px;
+      line-height: 1.2;
+    }
+    .form-wrap {
+      width: 100%;
+      max-width: 720px;
+    }
+
+    /* ── A2P CONSENT ── */
+    .a2p-consent {
+      max-width: 720px;
+      width: 100%;
+      padding: 20px 0 12px;
+    }
+    .a2p-consent label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .a2p-consent input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--dark);
+      cursor: pointer;
+    }
+    .a2p-consent span {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .a2p-consent a { color: var(--muted); text-decoration: underline; }
+    .a2p-consent a:hover { color: var(--dark); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+    footer p { font-size: 13px; color: var(--dim); }
+    footer a { color: var(--dim); text-decoration: none; }
+    footer a:hover { color: var(--dark); }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 24px; }
+      main { padding: 40px 20px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="./" class="logo">Cowboy Closers</a>
+  </nav>
+
+  <main>
+    <h1 class="headline">Just answer these 3 short questions before we speak.</h1>
+    <div class="form-wrap">
+      <div data-tf-live="01KMYRR9B4NM5GKXR89PGJ04MJ"></div>
+      <script src="//embed.typeform.com/next/embed.js"></script>
+    </div>
+    <div class="a2p-consent">
+      <label>
+        <input type="checkbox" id="sms-consent" />
+        <span>By submitting this form, I agree to receive SMS/text messages from Cowboy Closers at the phone number I provide. These messages may include follow-up information about my application and booking details. Message and data rates may apply. Message frequency varies. Reply STOP to opt out at any time. Reply HELP for help. See our <a href="./privacy-policy.html">Privacy Policy</a> and <a href="./terms.html">Terms of Service</a>.</span>
+      </label>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Cowboy Closers. All rights reserved. &nbsp;|&nbsp; <a href="./privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="./terms.html">Terms</a></p>
+  </footer>
+
+</body>
+</html>
