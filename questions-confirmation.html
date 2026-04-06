@@ -104,7 +104,16 @@
 
   <main>
     <h1 class="headline">Thanks for filling out the questions! Click the button below to talk about how you can learn the most valuable skill in the world.</h1>
-    <a href="https://ig.me/m/connorwestern_?ref=dmads" class="dm-btn">DM Me 'SELLS'</a>
+    <a href="https://ig.me/m/connorwestern_?ref=dmads" class="dm-btn" onclick="openIG(event)">DM Me 'SELLS'</a>
+  <script>
+    function openIG(e) {
+      e.preventDefault();
+      window.location = 'instagram://user?username=connorwestern_';
+      setTimeout(function() {
+        window.location = 'https://ig.me/m/connorwestern_?ref=dmads';
+      }, 1000);
+    }
+  </script>
   </main>
 
   <footer>
