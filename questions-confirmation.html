@@ -16,6 +16,11 @@
       --muted: #777777;
       --dim: #b0b0b0;
       --border: #e5e5e5;
+      --ig1: #f09433;
+      --ig2: #e6683c;
+      --ig3: #dc2743;
+      --ig4: #cc2366;
+      --ig5: #bc1888;
     }
     html, body { height: 100%; }
     body {
@@ -54,31 +59,104 @@
       padding: 60px 32px;
     }
 
-    .headline {
+    /* ── HEADLINE ── */
+    .headline-wrap { max-width: 700px; margin-bottom: 16px; }
+    .headline-primary {
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: clamp(24px, 4.5vw, 46px);
+      font-size: clamp(28px, 5vw, 52px);
       letter-spacing: -0.025em;
-      max-width: 680px;
-      line-height: 1.15;
-      margin-bottom: 48px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      animation: fadeUp 0.7s cubic-bezier(.4,0,.2,1) both;
+    }
+    .headline-secondary {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto 48px;
+      animation: fadeUp 0.7s 0.15s cubic-bezier(.4,0,.2,1) both;
     }
 
-    .dm-btn {
+    /* ── BUTTON ── */
+    .btn-wrap {
+      position: relative;
       display: inline-block;
-      background: var(--dark);
+      animation: fadeUp 0.7s 0.3s cubic-bezier(.4,0,.2,1) both;
+    }
+    .btn-glow {
+      position: absolute;
+      inset: -6px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--ig1), var(--ig2), var(--ig3), var(--ig4), var(--ig5));
+      filter: blur(14px);
+      opacity: 0.6;
+      animation: pulse 2.2s ease-in-out infinite;
+      z-index: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.04); }
+    }
+    .dm-btn {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--ig1) 0%, var(--ig2) 25%, var(--ig3) 50%, var(--ig4) 75%, var(--ig5) 100%);
+      background-size: 200% 200%;
       color: var(--white);
       font-family: 'Montserrat', sans-serif;
       font-weight: 900;
-      font-size: 14px;
-      letter-spacing: 0.14em;
+      font-size: 15px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 20px 52px;
-      border-radius: 2px;
+      padding: 20px 44px;
+      border-radius: 12px;
       text-decoration: none;
-      transition: opacity 0.2s, transform 0.2s;
+      animation: gradientShift 4s ease infinite;
+      transition: transform 0.2s cubic-bezier(.4,0,.2,1), box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(188,24,136,0.35);
     }
-    .dm-btn:hover { opacity: 0.8; transform: translateY(-2px); }
+    .dm-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 40px rgba(188,24,136,0.5);
+    }
+    .dm-btn:active { transform: translateY(0) scale(0.98); }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Instagram icon */
+    .ig-icon { width: 22px; height: 22px; flex-shrink: 0; }
+
+    /* ── ARROW BOUNCE ── */
+    .arrow-hint {
+      margin-top: 20px;
+      color: var(--dim);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      animation: fadeUp 0.7s 0.45s cubic-bezier(.4,0,.2,1) both;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .arrow-hint svg { animation: bounce 1.6s ease-in-out infinite; }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     footer {
       padding: 32px;
@@ -92,7 +170,7 @@
     @media (max-width: 600px) {
       nav { padding: 16px 24px; }
       main { padding: 48px 24px; }
-      .dm-btn { padding: 18px 36px; font-size: 13px; }
+      .dm-btn { padding: 18px 32px; font-size: 13px; }
     }
   </style>
 </head>
@@ -103,8 +181,29 @@
   </nav>
 
   <main>
-    <h1 class="headline">Thanks for filling out the questions! Click the button below to talk about how you can learn the most valuable skill in the world.</h1>
-    <a href="https://ig.me/m/connorwestern_?ref=dmads" class="dm-btn">DM Me 'SELLS'</a>
+    <div class="headline-wrap">
+      <h1 class="headline-primary">Thanks for filling out the questions!</h1>
+      <p class="headline-secondary">Click the button below to talk about how you can learn the most valuable skill in the world.</p>
+    </div>
+
+    <div class="btn-wrap">
+      <div class="btn-glow"></div>
+      <a href="https://ig.me/m/connorwestern_?ref=sells" class="dm-btn">
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="white" stroke-width="2"/>
+          <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="white"/>
+        </svg>
+        DM Me 'SELLS'
+      </a>
+    </div>
+
+    <div class="arrow-hint">
+      <span>tap to open Instagram</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19,12 12,19 5,12"/>
+      </svg>
+    </div>
   </main>
 
   <footer>
