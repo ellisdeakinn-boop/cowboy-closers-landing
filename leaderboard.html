@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cowboy Closers — Weekly Leaderboard</title>
+  <link rel="icon" href="favicon.jpeg" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0a0a;
+      color: #f0e6d3;
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 48px 24px 32px;
+      border-bottom: 1px solid #2a2218;
+    }
+
+    header img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 16px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: normal;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #c9a84c;
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #7a6a55;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .week-selector {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 24px 24px 0;
+    }
+
+    .week-btn {
+      background: #1a1510;
+      border: 1px solid #2a2218;
+      color: #7a6a55;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+    }
+
+    .week-btn:hover, .week-btn.active {
+      background: #c9a84c;
+      border-color: #c9a84c;
+      color: #0a0a0a;
+    }
+
+    .sort-bar {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 16px 24px 0;
+    }
+
+    .sort-btn {
+      background: transparent;
+      border: 1px solid #2a2218;
+      color: #7a6a55;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+    }
+
+    .sort-btn:hover, .sort-btn.active {
+      border-color: #c9a84c;
+      color: #c9a84c;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+    }
+
+    .loading {
+      text-align: center;
+      color: #7a6a55;
+      padding: 64px;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+
+    .leaderboard {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .entry {
+      background: #111008;
+      border: 1px solid #2a2218;
+      border-radius: 6px;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 48px 1fr repeat(4, auto);
+      align-items: center;
+      gap: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .entry:hover {
+      border-color: #3a3020;
+    }
+
+    .entry.gold { border-color: #c9a84c; background: #13100a; }
+    .entry.silver { border-color: #8a8a8a; }
+    .entry.bronze { border-color: #8b5a2b; }
+
+    .rank {
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-align: center;
+      color: #3a3020;
+    }
+
+    .entry.gold .rank { color: #c9a84c; }
+    .entry.silver .rank { color: #8a8a8a; }
+    .entry.bronze .rank { color: #8b5a2b; }
+
+    .name {
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+    }
+
+    .entry.gold .name { color: #c9a84c; }
+
+    .stat {
+      text-align: right;
+    }
+
+    .stat-value {
+      font-size: 0.95rem;
+      color: #f0e6d3;
+    }
+
+    .stat-label {
+      font-size: 0.65rem;
+      color: #7a6a55;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .empty {
+      text-align: center;
+      color: #7a6a55;
+      padding: 64px;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    .submit-link {
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .submit-link a {
+      display: inline-block;
+      background: #c9a84c;
+      color: #0a0a0a;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+
+    .submit-link a:hover {
+      background: #e0c06a;
+    }
+
+    .submit-link p {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: #7a6a55;
+      letter-spacing: 0.04em;
+    }
+
+    @media (max-width: 640px) {
+      .entry {
+        grid-template-columns: 36px 1fr;
+        grid-template-rows: auto auto;
+      }
+
+      .name {
+        grid-column: 2;
+      }
+
+      .stat {
+        text-align: left;
+      }
+
+      .stats-row {
+        grid-column: 1 / -1;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        border-top: 1px solid #2a2218;
+        padding-top: 12px;
+        margin-top: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="favicon.jpeg" alt="Cowboy Closers" />
+  <h1>Cowboy Closers</h1>
+  <p>Weekly Leaderboard</p>
+</header>
+
+<div class="week-selector" id="weekSelector"></div>
+<div class="sort-bar">
+  <button class="sort-btn active" onclick="setSort('Revenue Generated')">Revenue</button>
+  <button class="sort-btn" onclick="setSort('Cash Collected')">Cash Collected</button>
+  <button class="sort-btn" onclick="setSort('Close Rate %')">Close Rate</button>
+  <button class="sort-btn" onclick="setSort('Calls Taken')">Calls Taken</button>
+</div>
+
+<div class="container">
+  <div class="loading" id="loading">Loading...</div>
+  <div class="leaderboard" id="leaderboard"></div>
+  <div class="empty" id="empty" style="display:none">No submissions for this week yet.</div>
+
+  <div class="submit-link">
+    <a href="https://airtable.com/appGZi0D2Rput5ktq/pagHiPvSgwfbg8P9o" target="_blank">Submit Your Numbers</a>
+    <p>Submit once per week. Numbers are updated in real time.</p>
+  </div>
+</div>
+
+<script>
+  const BASE_ID = 'appGZi0D2Rput5ktq';
+  const TABLE_ID = 'tblVthujZdhsOR6uO';
+  const API_KEY = 'patlnfolmHFdosqKG.13376efc400f77702df82bd6a4e6a79f399e1611feffc186ce4c6341b7e06673';
+
+  let allRecords = [];
+  let currentWeek = '';
+  let currentSort = 'Revenue Generated';
+
+  async function fetchRecords() {
+    const url = `https://api.airtable.com/v0/${BASE_ID}/${TABLE_ID}?sort[0][field]=Submitted At&sort[0][direction]=desc`;
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${API_KEY}` }
+    });
+    const data = await res.json();
+    return data.records || [];
+  }
+
+  function getWeeks(records) {
+    const weeks = [...new Set(records.map(r => r.fields['Week']).filter(Boolean))];
+    return weeks.sort((a, b) => b.localeCompare(a));
+  }
+
+  function renderWeekButtons(weeks) {
+    const container = document.getElementById('weekSelector');
+    container.innerHTML = '';
+    weeks.forEach((week, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'week-btn' + (i === 0 ? ' active' : '');
+      btn.textContent = week;
+      btn.onclick = () => {
+        document.querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentWeek = week;
+        renderLeaderboard();
+      };
+      container.appendChild(btn);
+    });
+  }
+
+  function setSort(field) {
+    currentSort = field;
+    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    renderLeaderboard();
+  }
+
+  function fmt(val, type) {
+    if (val === undefined || val === null) return '-';
+    if (type === 'currency') return '£' + Number(val).toLocaleString('en-GB', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    if (type === 'percent') return Number(val).toFixed(1) + '%';
+    return Number(val).toLocaleString();
+  }
+
+  function renderLeaderboard() {
+    const leaderboard = document.getElementById('leaderboard');
+    const empty = document.getElementById('empty');
+
+    let filtered = allRecords.filter(r => r.fields['Week'] === currentWeek);
+    filtered.sort((a, b) => (b.fields[currentSort] || 0) - (a.fields[currentSort] || 0));
+
+    leaderboard.innerHTML = '';
+
+    if (filtered.length === 0) {
+      empty.style.display = 'block';
+      return;
+    }
+
+    empty.style.display = 'none';
+
+    filtered.forEach((record, i) => {
+      const f = record.fields;
+      const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+      const rankEmoji = i === 0 ? '1' : i === 1 ? '2' : i === 2 ? '3' : i + 1;
+
+      const entry = document.createElement('div');
+      entry.className = `entry ${rankClass}`;
+      entry.innerHTML = `
+        <div class="rank">#${rankEmoji}</div>
+        <div class="name">${f['Name'] || 'Anonymous'}</div>
+        <div class="stat">
+          <div class="stat-value">${fmt(f['Revenue Generated'], 'currency')}</div>
+          <div class="stat-label">Revenue</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">${fmt(f['Cash Collected'], 'currency')}</div>
+          <div class="stat-label">Cash</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">${fmt(f['Close Rate %'], 'percent')}</div>
+          <div class="stat-label">Close Rate</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">${fmt(f['Calls Taken'], 'number')}</div>
+          <div class="stat-label">Calls</div>
+        </div>
+      `;
+      leaderboard.appendChild(entry);
+    });
+  }
+
+  async function init() {
+    try {
+      allRecords = await fetchRecords();
+      const weeks = getWeeks(allRecords);
+
+      document.getElementById('loading').style.display = 'none';
+
+      if (weeks.length === 0) {
+        document.getElementById('empty').style.display = 'block';
+        return;
+      }
+
+      currentWeek = weeks[0];
+      renderWeekButtons(weeks);
+      renderLeaderboard();
+    } catch (e) {
+      document.getElementById('loading').textContent = 'Failed to load. Please refresh.';
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>
