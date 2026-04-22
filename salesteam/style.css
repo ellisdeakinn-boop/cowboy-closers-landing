@@ -654,11 +654,59 @@ textarea { min-height: 400px; resize: vertical; line-height: 1.6; }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .review-grid { grid-template-columns: 1fr; }
-  .totals-bar { flex-direction: column; }
-  .header-inner { gap: .75rem; }
+
+  /* Header */
+  .header-inner { gap: .5rem; padding: 0 1rem; height: 52px; }
   .brand-name { display: none; }
-  .dash-hero { gap: 1.25rem; }
+  .brand-logo { width: 30px; height: 30px; }
+  nav { gap: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tab-btn { font-size: 11px; padding: .35rem .6rem; white-space: nowrap; }
+
+  /* Layout */
+  .container { padding: 1.25rem 1rem; }
+  .page-header { flex-direction: column; gap: .75rem; margin-bottom: 1.25rem; }
+  .page-header h2 { font-size: 1.2rem; }
+  .controls { width: 100%; }
+  .controls select, .controls .btn-primary { flex: 1; width: 100%; }
+
+  /* Dashboard hero */
+  .dash-hero {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .dash-hero::before { display: none; }
   .hero-divider { display: none; }
-  .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .hero-value { font-size: 2.25rem; }
+  .hero-metric { min-width: unset; width: 100%; }
+
+  /* Metrics grid */
+  .metrics-grid { grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .metric-value { font-size: 1.3rem; }
+
+  /* Rep cards */
+  .rep-grid { grid-template-columns: 1fr; }
+  .rep-stat-body { grid-template-columns: 1fr 1fr; }
+
+  /* Commissions */
+  .totals-bar { flex-direction: column; gap: .5rem; }
+  .total-card { min-width: unset; }
+  .total-value { font-size: 1.2rem; }
+  .rep-header { flex-wrap: wrap; }
+  .deal-nums { flex-direction: column; gap: .25rem; text-align: left; }
+
+  /* Call Review */
+  .review-grid { grid-template-columns: 1fr; }
+  .review-input-panel, .review-output-panel { padding: 1rem; }
+  textarea { min-height: 200px; }
+
+  /* Insights */
+  #insights-output { padding: 1.25rem; }
+  #insights-output h2 { font-size: 1rem; }
+
+  /* Loading screen */
+  .loading-screen { padding: 2rem 1.25rem; margin: 1rem auto; }
+  .loading-title { font-size: .95rem; }
+  .yeehaw-text { font-size: clamp(3rem, 18vw, 6rem); }
 }
