@@ -247,7 +247,7 @@ function renderDashboard(callRecs, closerRecs, dialerRecs) {
 // ── Utility ──
 function show(id) { document.getElementById(id).classList.remove("hidden"); }
 function hide(id) { document.getElementById(id).classList.add("hidden"); }
-function fmt(n) { return "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function fmt(n) { return "£" + Number(n).toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 
 function getMonthFilter() {
   const period = document.getElementById("period-select").value;
