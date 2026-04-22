@@ -72,7 +72,7 @@ function parseMonth(dateStr) {
 async function fetchDeals() {
   return airtableFetch(AIRTABLE_TABLE, {
     filter: "AND({Cash Collected} > 0, {Raw Text (Closer Assigned)} != '')",
-    fields: ["Revenue", "Cash Collected", "Purchase Date", "Raw Text (Closer Assigned)", "Raw Text (Set By)", "Lead Name"],
+    fields: ["Revenue", "Cash Collected", "Date of Info Added", "Raw Text (Closer Assigned)", "Raw Text (Set By)", "Lead Name"],
     pageSize: 100,
   });
 }
@@ -87,7 +87,7 @@ function buildSummary(records, monthFilter) {
     const revenue = parseFloat(f["Revenue"] || 0);
     const cash = parseFloat(f["Cash Collected"] || 0);
     const lead = f["Lead Name"] || "Unknown";
-    const month = parseMonth(f["Purchase Date"]) || "Unknown";
+    const month = parseMonth(f["Date of Info Added"]) || "Unknown";
 
     if (monthFilter && month !== monthFilter) continue;
 
@@ -195,12 +195,11 @@ async function loadCallList() {
 
   try {
     callRecords = await airtableFetch(AIRTABLE_TABLE, {
-      filter: "AND({Raw Text (Closer Assigned)} != '', {Date of Info Added} != '')",
-      fields: ["Lead Name", "Raw Text (Closer Assigned)", "Call Notes", "Call Recording Link", "Date of Info Added", "Status"],
+      filter: "{Raw Text (Closer Assigned)} != ''",
+      fields: ["Lead Name", "Raw Text (Closer Assigned)", "Call Recording Link", "Date of Info Added"],
       pageSize: 100,
     });
 
-    // Sort newest first
     callRecords.sort((a, b) => {
       const da = a.fields["Date of Info Added"] || "";
       const db = b.fields["Date of Info Added"] || "";
@@ -215,7 +214,7 @@ async function loadCallList() {
       return `<option value="${i}">${date} — ${lead} (${closer})</option>`;
     }).join("");
   } catch (err) {
-    select.innerHTML = '<option value="">Failed to load calls</option>';
+    select.innerHTML = `<option value="">Failed to load: ${err.message}</option>`;
   }
 }
 
@@ -228,21 +227,19 @@ function selectCall() {
 
   const f = rec.fields;
   const closer = (f["Raw Text (Closer Assigned)"] || "").trim();
-  const notes = (f["Call Notes"] || "").trim();
   const recordingLink = (f["Call Recording Link"] || "").trim();
 
   document.getElementById("closer-name").value = closer;
+  document.getElementById("transcript-input").value = "";
+  document.getElementById("transcript-input").placeholder = "Open the recording above, copy the Fathom transcript, and paste it here.";
 
-  let content = notes;
   if (recordingLink) {
     document.getElementById("recording-link").innerHTML =
-      `<a href="${recordingLink}" target="_blank">Open Recording</a>`;
+      `<a href="${recordingLink}" target="_blank">Open Recording / Transcript</a>`;
     show("recording-link");
   } else {
     hide("recording-link");
   }
-
-  document.getElementById("transcript-input").value = content;
 }
 
 // ── Call Review ──
