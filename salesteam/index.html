@@ -167,7 +167,12 @@
           </div>
 
           <div class="review-output-panel">
-            <div id="review-loading" class="loading hidden">Reviewing call...</div>
+            <div id="review-loading" class="loading-screen hidden">
+          <div class="loading-icon">⚙</div>
+          <div class="loading-title" id="review-loading-title">Reviewing Call</div>
+          <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+          <div class="loading-msg">This takes 15–30 seconds...</div>
+        </div>
             <div id="review-error" class="error hidden"></div>
             <div id="review-output" class="scorecard-output"></div>
           </div>
@@ -193,7 +198,12 @@
           </div>
         </div>
 
-        <div id="insights-loading" class="loading hidden">Pulling data and generating report...</div>
+        <div id="insights-loading" class="loading-screen hidden">
+          <div class="loading-icon">⚙</div>
+          <div class="loading-title">Generating Report</div>
+          <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+          <div class="loading-msg" id="insights-loading-msg">Pulling data from Airtable...</div>
+        </div>
         <div id="insights-error" class="error hidden"></div>
         <div id="insights-output"></div>
       </div>

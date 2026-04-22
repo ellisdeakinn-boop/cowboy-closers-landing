@@ -36,12 +36,13 @@ async function airtableFetch(tableId, options) {
 
 // Status IDs
 const STATUS = {
-  CLOSED:    "recrqoQYB7k6WykpD",
-  NO_CLOSE:  "recBbYcejh6spT7ji",
-  NO_SHOW:   "recmYy2z3Z8Y9ZCii",
-  CANCELLED: "recTb4bMUb31Gf8he",
-  DEPOSIT:   "recbaBBGhbDAS4Bw5",
-  NEW:       "recEGgHNpog4RfYYK",
+  CLOSED:       "recrqoQYB7k6WykpD",
+  NO_CLOSE:     "recBbYcejh6spT7ji",
+  NO_SHOW:      "recmYy2z3Z8Y9ZCii",
+  CANCELLED:    "recTb4bMUb31Gf8he",
+  DEPOSIT:      "recbaBBGhbDAS4Bw5",
+  NEW:          "recEGgHNpog4RfYYK",
+  DISQUALIFIED: "recSxx4r0VioUwBjx",
 };
 
 // ── Init ──
@@ -110,7 +111,7 @@ function statusId(rec) {
 function renderDashboard(callRecs, closerRecs, dialerRecs) {
   // Aggregate from Sales Calls Tracking
   let totalRev = 0, totalCash = 0, totalBooked = 0, totalClosed = 0,
-      totalNoShow = 0, totalCancelled = 0, totalNoClose = 0;
+      totalNoShow = 0, totalCancelled = 0, totalNoClose = 0, totalDisqualified = 0, totalLive = 0;
 
   for (const rec of callRecs) {
     const f = rec.fields;
@@ -118,18 +119,22 @@ function renderDashboard(callRecs, closerRecs, dialerRecs) {
     const cash = parseFloat(f["Cash Collected"] || 0);
     const rev = parseFloat(f["Revenue"] || 0);
     totalBooked++;
-    if (sid === STATUS.CLOSED || sid === STATUS.DEPOSIT) { totalClosed++; totalCash += cash; totalRev += rev; }
+    if (sid === STATUS.CLOSED || sid === STATUS.DEPOSIT) { totalClosed++; totalLive++; totalCash += cash; totalRev += rev; }
+    if (sid === STATUS.NO_CLOSE) { totalNoClose++; totalLive++; }
     if (sid === STATUS.NO_SHOW) totalNoShow++;
     if (sid === STATUS.CANCELLED) totalCancelled++;
-    if (sid === STATUS.NO_CLOSE) totalNoClose++;
+    if (sid === STATUS.DISQUALIFIED) totalDisqualified++;
   }
 
-  const cashPerCall = totalBooked > 0 ? totalCash / totalBooked : 0;
+  const cashPerBookedCall = totalBooked > 0 ? totalCash / totalBooked : 0;
+  const cashPerLiveCall = totalLive > 0 ? totalCash / totalLive : 0;
   const closeRate = totalBooked > 0 ? ((totalClosed / totalBooked) * 100).toFixed(1) : 0;
   const noShowRate = totalBooked > 0 ? ((totalNoShow / totalBooked) * 100).toFixed(1) : 0;
+  const qualifiedPct = totalBooked > 0 ? (((totalBooked - totalDisqualified) / totalBooked) * 100).toFixed(1) : 0;
+  const cancelRate = totalBooked > 0 ? ((totalCancelled / totalBooked) * 100).toFixed(1) : 0;
 
   // Hero
-  document.getElementById("d-cash-per-call").textContent = fmt(cashPerCall);
+  document.getElementById("d-cash-per-call").textContent = fmt(cashPerBookedCall);
   document.getElementById("d-total-cash").textContent = fmt(totalCash);
   document.getElementById("d-total-rev-sub").textContent = fmt(totalRev) + " contract revenue";
   document.getElementById("d-total-closes").textContent = totalClosed;
@@ -138,10 +143,12 @@ function renderDashboard(callRecs, closerRecs, dialerRecs) {
   // Key metrics
   const metrics = [
     { label: "Booked Calls", value: totalBooked, bench: null },
+    { label: "Live Calls", value: totalLive, bench: null },
     { label: "Close Rate", value: closeRate + "%", bench: 25, higher: true, val: parseFloat(closeRate) },
     { label: "No-Show Rate", value: noShowRate + "%", bench: 20, higher: false, val: parseFloat(noShowRate) },
-    { label: "No Closes", value: totalNoClose, bench: null },
-    { label: "Cancelled", value: totalCancelled, bench: null },
+    { label: "Cancel Rate", value: cancelRate + "%", bench: 15, higher: false, val: parseFloat(cancelRate) },
+    { label: "Qualified Call %", value: qualifiedPct + "%", bench: 70, higher: true, val: parseFloat(qualifiedPct) },
+    { label: "Cash / Live Call", value: fmt(cashPerLiveCall), bench: null },
     { label: "Total Revenue", value: fmt(totalRev), bench: null },
   ];
 
@@ -499,7 +506,7 @@ async function reviewCall() {
   try {
     // Auto-fetch Fathom transcript if none pasted and recording is a Fathom link
     if (!transcript && recordingUrl.includes("fathom.video")) {
-      document.getElementById("review-loading").textContent = "Fetching transcript from Fathom...";
+      document.getElementById("review-loading-title").textContent = "Fetching Transcript";
       transcript = await fetchFathomTranscript(recordingUrl);
       if (transcript) document.getElementById("transcript-input").value = transcript;
     }
@@ -508,7 +515,7 @@ async function reviewCall() {
       throw new Error("No transcript found. Paste it manually from the recording.");
     }
 
-    document.getElementById("review-loading").textContent = "Reviewing call...";
+    document.getElementById("review-loading-title").textContent = "Reviewing Call";
     const prompt_text = SCORING_PROMPT.replace(/{closer}/g, closer).replace("{transcript}", transcript);
     const result = await callClaude(prompt_text);
     document.getElementById("review-output").innerHTML = markdownToHtml(result);
@@ -517,7 +524,7 @@ async function reviewCall() {
     show("review-error");
   } finally {
     hide("review-loading");
-    document.getElementById("review-loading").textContent = "Reviewing call...";
+    document.getElementById("review-loading-title").textContent = "Reviewing Call";
   }
 }
 
@@ -551,6 +558,7 @@ const DIALER_REPORTS_TABLE = "tblmHasxFoWvV876K";
 
 async function generateInsights() {
   const days = parseInt(document.getElementById("insights-period").value);
+  document.getElementById("insights-loading-msg").textContent = "Pulling data from Airtable...";
   show("insights-loading");
   hide("insights-error");
   document.getElementById("insights-output").innerHTML = "";
@@ -582,6 +590,7 @@ async function generateInsights() {
     const closerStats = aggregateClosers(closerRecs);
     const dialerStats = aggregateDialers(dialerRecs);
 
+    document.getElementById("insights-loading-msg").textContent = "Analysing with AI — hang tight...";
     const reportData = buildReportPayload(closerStats, dialerStats, days);
     const report = await callClaude(insightsPrompt(reportData));
     document.getElementById("insights-output").innerHTML = markdownToHtml(report);
