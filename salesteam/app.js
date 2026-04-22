@@ -4,7 +4,8 @@ const AIRTABLE_TABLE = "tblXXcTrlbPnPbq4u";
 const CLOSER_RATE = 0.10;
 const SETTER_RATE = 0.05;
 const AIRTABLE_KEY = "patbp5tDrcNixuTni.10847fca116a7c68f17be6b4281e709079cf44446d9710195e7e6b5bc671ed6c";
-const ANTHROPIC_KEY = "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";
+function getAnthropicKey() { return localStorage.getItem("cc_anthropic_key") || ""; }
+function setAnthropicKey(k) { localStorage.setItem("cc_anthropic_key", k); }
 
 // ── Airtable URL builder (fixes fields[] array serialisation) ──
 function airtableUrl(tableId, { filter, fields, pageSize, offset } = {}) {
@@ -38,6 +39,11 @@ async function airtableFetch(tableId, options) {
 function init() {
   show("app");
   loadCommissions();
+}
+
+function resetAnthropicKey() {
+  localStorage.removeItem("cc_anthropic_key");
+  alert("API key cleared. You'll be prompted on next review.");
 }
 
 // ── Tab Switching ──
@@ -299,18 +305,25 @@ One paragraph: coaching priority for this rep.`;
 async function reviewCall() {
   const closer = document.getElementById("closer-name").value.trim() || "Unknown";
   const transcript = document.getElementById("transcript-input").value.trim();
+  const apiKey = getAnthropicKey();
 
   if (!transcript) {
-    document.getElementById("review-error").textContent = "No call notes or transcript to review.";
+    document.getElementById("review-error").textContent = "No transcript to review.";
     show("review-error");
     return;
+  }
+
+  if (!apiKey) {
+    const k = prompt("Enter your Anthropic API key (saved locally, not stored in code):");
+    if (!k) return;
+    setAnthropicKey(k.trim());
   }
 
   hide("review-error");
   show("review-loading");
   document.getElementById("review-output").innerHTML = "";
 
-  const prompt = SCORING_PROMPT.replace(/{closer}/g, closer).replace("{transcript}", transcript);
+  const prompt_text = SCORING_PROMPT.replace(/{closer}/g, closer).replace("{transcript}", transcript);
 
   try {
     let res;
@@ -318,7 +331,7 @@ async function reviewCall() {
       res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: {
-          "x-api-key": ANTHROPIC_KEY,
+          "x-api-key": getAnthropicKey(),
           "anthropic-version": "2023-06-01",
           "anthropic-dangerous-direct-browser-access": "true",
           "content-type": "application/json",
@@ -326,7 +339,7 @@ async function reviewCall() {
         body: JSON.stringify({
           model: "claude-sonnet-4-6",
           max_tokens: 2048,
-          messages: [{ role: "user", content: prompt }],
+          messages: [{ role: "user", content: prompt_text }],
         }),
       });
     } catch (networkErr) {
