@@ -11,7 +11,7 @@ function fireGunshot() {
   try {
     const audio = new Audio("yeehaw.mp4");
     audio.volume = 0.8;
-    audio.play().catch(() => {});
+    setTimeout(() => audio.play().catch(() => {}), 500);
     // Fade out after 5 seconds
     setTimeout(() => {
       const fadeInterval = setInterval(() => {
