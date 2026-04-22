@@ -4,8 +4,7 @@ const AIRTABLE_TABLE = "tblXXcTrlbPnPbq4u";
 const CLOSER_RATE = 0.10;
 const SETTER_RATE = 0.05;
 const AIRTABLE_KEY = "patbp5tDrcNixuTni.10847fca116a7c68f17be6b4281e709079cf44446d9710195e7e6b5bc671ed6c";
-function getAnthropicKey() { return localStorage.getItem("cc_anthropic_key") || ""; }
-function setAnthropicKey(k) { localStorage.setItem("cc_anthropic_key", k); }
+const WORKER_URL = "https://cowboy-closers-api.connor-56d.workers.dev";
 
 // ── Airtable URL builder (fixes fields[] array serialisation) ──
 function airtableUrl(tableId, { filter, fields, pageSize, offset } = {}) {
@@ -39,11 +38,6 @@ async function airtableFetch(tableId, options) {
 function init() {
   show("app");
   loadCommissions();
-}
-
-function resetAnthropicKey() {
-  localStorage.removeItem("cc_anthropic_key");
-  alert("API key cleared. You'll be prompted on next review.");
 }
 
 // ── Tab Switching ──
@@ -240,11 +234,13 @@ function selectCall() {
   document.getElementById("transcript-input").value = "";
   document.getElementById("transcript-input").placeholder = "Open the recording above, copy the Fathom transcript, and paste it here.";
 
+  const linkEl = document.getElementById("recording-link");
   if (recordingLink) {
-    document.getElementById("recording-link").innerHTML =
-      `<a href="${recordingLink}" target="_blank">Open Recording / Transcript</a>`;
+    linkEl.dataset.url = recordingLink;
+    linkEl.innerHTML = `<a href="${recordingLink}" target="_blank">Open Recording / Transcript</a>`;
     show("recording-link");
   } else {
+    linkEl.dataset.url = "";
     hide("recording-link");
   }
 }
@@ -305,61 +301,36 @@ One paragraph: coaching priority for this rep.`;
 
 async function reviewCall() {
   const closer = document.getElementById("closer-name").value.trim() || "Unknown";
-  const transcript = document.getElementById("transcript-input").value.trim();
-  const apiKey = getAnthropicKey();
-
-  if (!transcript) {
-    document.getElementById("review-error").textContent = "No transcript to review.";
-    show("review-error");
-    return;
-  }
-
-  if (!apiKey) {
-    const k = prompt("Enter your Anthropic API key (saved locally, not stored in code):");
-    if (!k) return;
-    setAnthropicKey(k.trim());
-  }
+  let transcript = document.getElementById("transcript-input").value.trim();
+  const recordingEl = document.getElementById("recording-link");
+  const recordingUrl = recordingEl.dataset.url || "";
 
   hide("review-error");
   show("review-loading");
   document.getElementById("review-output").innerHTML = "";
 
-  const prompt_text = SCORING_PROMPT.replace(/{closer}/g, closer).replace("{transcript}", transcript);
-
   try {
-    let res;
-    try {
-      res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "x-api-key": getAnthropicKey(),
-          "anthropic-version": "2023-06-01",
-          "anthropic-dangerous-direct-browser-access": "true",
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-6",
-          max_tokens: 2048,
-          messages: [{ role: "user", content: prompt_text }],
-        }),
-      });
-    } catch (networkErr) {
-      throw new Error(`Network error (possible CORS block): ${networkErr.message}`);
+    // Auto-fetch Fathom transcript if none pasted and recording is a Fathom link
+    if (!transcript && recordingUrl.includes("fathom.video")) {
+      document.getElementById("review-loading").textContent = "Fetching transcript from Fathom...";
+      transcript = await fetchFathomTranscript(recordingUrl);
+      if (transcript) document.getElementById("transcript-input").value = transcript;
     }
 
-    if (!res.ok) {
-      let body;
-      try { body = await res.json(); } catch (_) { body = {}; }
-      throw new Error(`HTTP ${res.status}: ${body.error?.message || res.statusText}`);
+    if (!transcript) {
+      throw new Error("No transcript found. Paste it manually from the recording.");
     }
 
-    const data = await res.json();
-    document.getElementById("review-output").innerHTML = markdownToHtml(data.content?.[0]?.text || "");
+    document.getElementById("review-loading").textContent = "Reviewing call...";
+    const prompt_text = SCORING_PROMPT.replace(/{closer}/g, closer).replace("{transcript}", transcript);
+    const result = await callClaude(prompt_text);
+    document.getElementById("review-output").innerHTML = markdownToHtml(result);
   } catch (err) {
     document.getElementById("review-error").textContent = err.message;
     show("review-error");
   } finally {
     hide("review-loading");
+    document.getElementById("review-loading").textContent = "Reviewing call...";
   }
 }
 
@@ -393,14 +364,6 @@ const DIALER_REPORTS_TABLE = "tblmHasxFoWvV876K";
 
 async function generateInsights() {
   const days = parseInt(document.getElementById("insights-period").value);
-  const apiKey = getAnthropicKey();
-
-  if (!apiKey) {
-    const k = prompt("Enter your Anthropic API key:");
-    if (!k) return;
-    setAnthropicKey(k.trim());
-  }
-
   show("insights-loading");
   hide("insights-error");
   document.getElementById("insights-output").innerHTML = "";
@@ -579,14 +542,9 @@ One priority for the manager to address with the team. One sentence.`;
 async function callClaude(prompt) {
   let res;
   try {
-    res = await fetch("https://api.anthropic.com/v1/messages", {
+    res = await fetch(`${WORKER_URL}/review`, {
       method: "POST",
-      headers: {
-        "x-api-key": getAnthropicKey(),
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true",
-        "content-type": "application/json",
-      },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify({
         model: "claude-sonnet-4-6",
         max_tokens: 2048,
@@ -602,6 +560,14 @@ async function callClaude(prompt) {
   }
   const data = await res.json();
   return data.content?.[0]?.text || "";
+}
+
+async function fetchFathomTranscript(url) {
+  const res = await fetch(`${WORKER_URL}/transcript?url=${encodeURIComponent(url)}`);
+  if (!res.ok) throw new Error("Could not fetch transcript");
+  const data = await res.json();
+  if (data.error) throw new Error(data.error);
+  return data.transcript || "";
 }
 
 // ── Boot ──
