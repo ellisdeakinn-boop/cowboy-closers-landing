@@ -3,41 +3,13 @@ const AIRTABLE_BASE = "appbjYzgDlfEGeR6C";
 const AIRTABLE_TABLE = "tblXXcTrlbPnPbq4u";
 const CLOSER_RATE = 0.10;
 const SETTER_RATE = 0.05;
+const AIRTABLE_KEY = "patbp5tDrcNixuTni.10847fca116a7c68f17be6b4281e709079cf44446d9710195e7e6b5bc671ed6c";
+const ANTHROPIC_KEY = "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";
 
 // ── Init ──
 function init() {
-  const airtableKey = localStorage.getItem("cc_airtable_key");
-  const anthropicKey = localStorage.getItem("cc_anthropic_key");
-
-  if (!airtableKey || !anthropicKey) {
-    show("setup-screen");
-  } else {
-    show("app");
-    loadCommissions();
-  }
-}
-
-function saveSetup() {
-  const ak = document.getElementById("setup-airtable-key").value.trim();
-  const ck = document.getElementById("setup-anthropic-key").value.trim();
-  if (!ak || !ck) {
-    alert("Both keys are required.");
-    return;
-  }
-  localStorage.setItem("cc_airtable_key", ak);
-  localStorage.setItem("cc_anthropic_key", ck);
-  hide("setup-screen");
   show("app");
   loadCommissions();
-}
-
-function showSetup() {
-  const ak = localStorage.getItem("cc_airtable_key") || "";
-  const ck = localStorage.getItem("cc_anthropic_key") || "";
-  document.getElementById("setup-airtable-key").value = ak;
-  document.getElementById("setup-anthropic-key").value = ck;
-  hide("app");
-  show("setup-screen");
 }
 
 // ── Tab Switching ──
@@ -69,7 +41,7 @@ function parseMonth(dateStr) {
 
 // ── Airtable Fetch ──
 async function fetchDeals() {
-  const key = localStorage.getItem("cc_airtable_key");
+  const key = AIRTABLE_KEY;
   let records = [];
   let offset = null;
 
@@ -274,7 +246,7 @@ One paragraph: coaching priority for this rep.`;
 async function reviewCall() {
   const closer = document.getElementById("closer-name").value.trim() || "Unknown";
   const transcript = document.getElementById("transcript-input").value.trim();
-  const key = localStorage.getItem("cc_anthropic_key");
+  const key = ANTHROPIC_KEY;
 
   if (!transcript) {
     document.getElementById("review-error").textContent = "Paste a transcript first.";

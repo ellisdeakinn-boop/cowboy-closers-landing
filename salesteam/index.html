@@ -8,24 +8,6 @@
 </head>
 <body>
 
-  <!-- Setup Screen -->
-  <div id="setup-screen" class="screen hidden">
-    <div class="setup-box">
-      <div class="logo">CC</div>
-      <h1>Sales Hub Setup</h1>
-      <p>Enter your API keys to get started. These are stored locally in your browser.</p>
-      <div class="field">
-        <label>Airtable API Key</label>
-        <input type="password" id="setup-airtable-key" placeholder="patXXXXXX..." />
-      </div>
-      <div class="field">
-        <label>Anthropic API Key</label>
-        <input type="password" id="setup-anthropic-key" placeholder="sk-ant-..." />
-      </div>
-      <button class="btn-primary" onclick="saveSetup()">Save and Continue</button>
-    </div>
-  </div>
-
   <!-- Main App -->
   <div id="app" class="hidden">
     <header>
@@ -38,7 +20,6 @@
           <button class="tab-btn active" onclick="switchTab('commissions', this)">Commissions</button>
           <button class="tab-btn" onclick="switchTab('review', this)">Call Review</button>
         </nav>
-        <button class="btn-ghost" onclick="showSetup()">Settings</button>
       </div>
     </header>
 
