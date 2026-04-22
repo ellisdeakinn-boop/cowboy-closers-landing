@@ -6,6 +6,95 @@ const SETTER_RATE = 0.05;
 const AIRTABLE_KEY = "patbp5tDrcNixuTni.10847fca116a7c68f17be6b4281e709079cf44446d9710195e7e6b5bc671ed6c";
 const WORKER_URL = "https://cowboy-closers-api.connor-56d.workers.dev";
 
+// ── Western Celebration ──
+function fireGunshot() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Gunshot — noise burst with low-pass filter
+    const bufSize = ctx.sampleRate * 0.4;
+    const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufSize, 3);
+
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+
+    const lpf = ctx.createBiquadFilter();
+    lpf.type = "lowpass";
+    lpf.frequency.setValueAtTime(800, ctx.currentTime);
+    lpf.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.3);
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(1.2, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+
+    src.connect(lpf);
+    lpf.connect(gain);
+    gain.connect(ctx.destination);
+    src.start();
+
+    // Ricochet whine after 0.3s
+    setTimeout(() => {
+      const osc = ctx.createOscillator();
+      const g2 = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(1800, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.6);
+      g2.gain.setValueAtTime(0.25, ctx.currentTime);
+      g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+      osc.connect(g2);
+      g2.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.6);
+    }, 280);
+  } catch(e) {}
+}
+
+function yeehaw() {
+  fireGunshot();
+
+  const overlay = document.createElement("div");
+  overlay.className = "yeehaw-overlay";
+  overlay.innerHTML = `
+    <div class="yeehaw-text">YEEHAW!</div>
+    <div class="yeehaw-sub">Report's ready, partner.</div>
+  `;
+  document.body.appendChild(overlay);
+
+  const emojis = ["🤠","⭐","💥","🌵","🔫","🐴","⚡","🌟","💫","🏜️"];
+  for (let i = 0; i < 30; i++) {
+    const el = document.createElement("div");
+    el.className = "yeehaw-particle";
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    const tx = (Math.random() - 0.5) * 300;
+    const ty = -(50 + Math.random() * 300);
+    el.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      top: ${Math.random() * 100}vh;
+      font-size: ${1 + Math.random() * 2}rem;
+      --delay: ${Math.random() * 0.4}s;
+      --dur: ${0.6 + Math.random() * 0.8}s;
+      --tx: ${tx}px;
+      --ty: ${ty}px;
+    `;
+    overlay.appendChild(el);
+  }
+
+  // Bullet holes
+  for (let i = 0; i < 5; i++) {
+    setTimeout(() => {
+      const hole = document.createElement("div");
+      hole.className = "bullet-hole";
+      hole.style.cssText = `left:${10 + Math.random()*80}vw; top:${10 + Math.random()*80}vh;`;
+      overlay.appendChild(hole);
+    }, i * 120);
+  }
+
+  setTimeout(() => overlay.classList.add("yeehaw-fade"), 2200);
+  setTimeout(() => overlay.remove(), 2800);
+}
+
 // ── Airtable URL builder (fixes fields[] array serialisation) ──
 function airtableUrl(tableId, { filter, fields, pageSize, offset } = {}) {
   const parts = [`https://api.airtable.com/v0/${AIRTABLE_BASE}/${tableId}?`];
@@ -519,6 +608,7 @@ async function reviewCall() {
     const prompt_text = SCORING_PROMPT.replace(/{closer}/g, closer).replace("{transcript}", transcript);
     const result = await callClaude(prompt_text);
     document.getElementById("review-output").innerHTML = markdownToHtml(result);
+    yeehaw();
   } catch (err) {
     document.getElementById("review-error").textContent = err.message;
     show("review-error");
@@ -594,6 +684,7 @@ async function generateInsights() {
     const reportData = buildReportPayload(closerStats, dialerStats, days);
     const report = await callClaude(insightsPrompt(reportData));
     document.getElementById("insights-output").innerHTML = markdownToHtml(report);
+    yeehaw();
   } catch (err) {
     document.getElementById("insights-error").textContent = err.message;
     show("insights-error");
