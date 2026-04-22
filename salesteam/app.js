@@ -34,10 +34,20 @@ async function airtableFetch(tableId, options) {
   return records;
 }
 
+// Status IDs
+const STATUS = {
+  CLOSED:    "recrqoQYB7k6WykpD",
+  NO_CLOSE:  "recBbYcejh6spT7ji",
+  NO_SHOW:   "recmYy2z3Z8Y9ZCii",
+  CANCELLED: "recTb4bMUb31Gf8he",
+  DEPOSIT:   "recbaBBGhbDAS4Bw5",
+  NEW:       "recEGgHNpog4RfYYK",
+};
+
 // ── Init ──
 function init() {
   show("app");
-  loadCommissions();
+  loadDashboard();
 }
 
 // ── Tab Switching ──
@@ -47,7 +57,184 @@ function switchTab(name, btn) {
   document.getElementById("tab-" + name).classList.remove("hidden");
   btn.classList.add("active");
   if (name === "review") loadCallList();
+  if (name === "commissions") loadCommissions();
   if (name === "insights") document.getElementById("insights-output").innerHTML = "";
+}
+
+// ── Dashboard ──
+async function loadDashboard() {
+  const days = parseInt(document.getElementById("dash-period").value);
+  show("dash-loading");
+  hide("dash-error");
+  hide("dash-output");
+
+  try {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - days);
+    const cutoffStr = cutoff.toISOString();
+
+    const [callRecs, closerRecs, dialerRecs] = await Promise.all([
+      airtableFetch(AIRTABLE_TABLE, {
+        filter: `IS_AFTER({Date of Info Added}, '${cutoffStr}')`,
+        fields: ["Status", "Revenue", "Cash Collected", "Raw Text (Closer Assigned)", "Raw Text (Set By)", "Date of Info Added"],
+        pageSize: 100,
+      }),
+      airtableFetch(CLOSER_REPORTS_TABLE, {
+        filter: `IS_AFTER({Date}, '${cutoff.toISOString().slice(0,10)}')`,
+        fields: ["Rep Name", "Total Live Calls", "On Call Closes", "No Closes", "No Shows",
+                 "Cancelled Calls", "Follow-up Closes", "Revenue Generated", "Cash Collected",
+                 "What objections are coming up that are preventing closes?"],
+        pageSize: 100,
+      }),
+      airtableFetch(DIALER_REPORTS_TABLE, {
+        filter: `IS_AFTER({Date}, '${cutoff.toISOString().slice(0,10)}')`,
+        fields: ["Rep Name", "Work Hours", "Total Calls", "Pickups", "Sets", "Qualified But Not Set"],
+        pageSize: 100,
+      }),
+    ]);
+
+    renderDashboard(callRecs, closerRecs, dialerRecs);
+    show("dash-output");
+  } catch (err) {
+    document.getElementById("dash-error").textContent = "Error: " + err.message;
+    show("dash-error");
+  } finally {
+    hide("dash-loading");
+  }
+}
+
+function statusId(rec) {
+  return (rec.fields["Status"] || [])[0] || "";
+}
+
+function renderDashboard(callRecs, closerRecs, dialerRecs) {
+  // Aggregate from Sales Calls Tracking
+  let totalRev = 0, totalCash = 0, totalBooked = 0, totalClosed = 0,
+      totalNoShow = 0, totalCancelled = 0, totalNoClose = 0;
+
+  for (const rec of callRecs) {
+    const f = rec.fields;
+    const sid = statusId(rec);
+    const cash = parseFloat(f["Cash Collected"] || 0);
+    const rev = parseFloat(f["Revenue"] || 0);
+    totalBooked++;
+    if (sid === STATUS.CLOSED || sid === STATUS.DEPOSIT) { totalClosed++; totalCash += cash; totalRev += rev; }
+    if (sid === STATUS.NO_SHOW) totalNoShow++;
+    if (sid === STATUS.CANCELLED) totalCancelled++;
+    if (sid === STATUS.NO_CLOSE) totalNoClose++;
+  }
+
+  const cashPerCall = totalBooked > 0 ? totalCash / totalBooked : 0;
+  const closeRate = totalBooked > 0 ? ((totalClosed / totalBooked) * 100).toFixed(1) : 0;
+  const noShowRate = totalBooked > 0 ? ((totalNoShow / totalBooked) * 100).toFixed(1) : 0;
+
+  // Hero
+  document.getElementById("d-cash-per-call").textContent = fmt(cashPerCall);
+  document.getElementById("d-total-cash").textContent = fmt(totalCash);
+  document.getElementById("d-total-rev-sub").textContent = fmt(totalRev) + " contract revenue";
+  document.getElementById("d-total-closes").textContent = totalClosed;
+  document.getElementById("d-close-rate-sub").textContent = closeRate + "% close rate";
+
+  // Key metrics
+  const metrics = [
+    { label: "Booked Calls", value: totalBooked, bench: null },
+    { label: "Close Rate", value: closeRate + "%", bench: 25, higher: true, val: parseFloat(closeRate) },
+    { label: "No-Show Rate", value: noShowRate + "%", bench: 20, higher: false, val: parseFloat(noShowRate) },
+    { label: "No Closes", value: totalNoClose, bench: null },
+    { label: "Cancelled", value: totalCancelled, bench: null },
+    { label: "Total Revenue", value: fmt(totalRev), bench: null },
+  ];
+
+  document.getElementById("metrics-grid").innerHTML = metrics.map(m => {
+    let cls = "";
+    if (m.bench !== null) {
+      cls = m.higher
+        ? (m.val >= 30 ? "good" : m.val >= 20 ? "warn" : "bad")
+        : (m.val <= 10 ? "good" : m.val <= 20 ? "warn" : "bad");
+    }
+    return `
+      <div class="metric-card ${cls}">
+        <div class="metric-label">${m.label}</div>
+        <div class="metric-value">${m.value}</div>
+        ${m.bench ? `<div class="metric-bench">Benchmark: ${m.higher ? m.bench + "%+" : "under " + m.bench + "%"}</div>` : ""}
+      </div>`;
+  }).join("");
+
+  // Closer cards from Closer Reports
+  const closers = aggregateClosers(closerRecs);
+  document.getElementById("closer-rep-grid").innerHTML = Object.entries(closers).map(([name, r]) => `
+    <div class="rep-stat-card">
+      <div class="rep-stat-header">
+        <span class="rep-stat-name">${name}</span>
+        <span class="rep-stat-role">Closer</span>
+      </div>
+      <div class="rep-stat-body">
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">Live Calls</div>
+          <div class="rep-stat-item-val">${r.liveCalls}</div>
+        </div>
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">Close Rate</div>
+          <div class="rep-stat-item-val ${parseFloat(r.closeRate) >= 30 ? 'good' : parseFloat(r.closeRate) >= 20 ? 'warn' : 'bad'}">${r.closeRate}</div>
+        </div>
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">No-Show Rate</div>
+          <div class="rep-stat-item-val ${parseFloat(r.noShowRate) <= 10 ? 'good' : parseFloat(r.noShowRate) <= 20 ? 'warn' : 'bad'}">${r.noShowRate}</div>
+        </div>
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">Cash Collected</div>
+          <div class="rep-stat-item-val">${fmt(r.cash)}</div>
+        </div>
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">Closes</div>
+          <div class="rep-stat-item-val">${r.closes}</div>
+        </div>
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">No Closes</div>
+          <div class="rep-stat-item-val">${r.noCloses}</div>
+        </div>
+        ${r.topObjections.length ? `<div class="rep-stat-item" style="grid-column:1/-1"><div class="rep-stat-item-label">Top Objections</div><div style="font-size:12px;color:var(--muted);margin-top:.2rem">${r.topObjections.join(" · ")}</div></div>` : ""}
+      </div>
+    </div>
+  `).join("") || '<p style="color:var(--muted)">No closer reports for this period.</p>';
+
+  // Setter cards
+  const setters = aggregateDialers(dialerRecs);
+  document.getElementById("setter-rep-grid").innerHTML = Object.entries(setters).map(([name, r]) => `
+    <div class="rep-stat-card">
+      <div class="rep-stat-header">
+        <span class="rep-stat-name">${name}</span>
+        <span class="rep-stat-role">Setter</span>
+      </div>
+      <div class="rep-stat-body">
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">Total Dials</div>
+          <div class="rep-stat-item-val">${r.calls}</div>
+        </div>
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">Sets</div>
+          <div class="rep-stat-item-val">${r.sets}</div>
+        </div>
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">Pickup Rate</div>
+          <div class="rep-stat-item-val">${r.pickupRate}</div>
+        </div>
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">Set Rate</div>
+          <div class="rep-stat-item-val ${parseFloat(r.setRate) >= 5 ? 'good' : parseFloat(r.setRate) >= 3 ? 'warn' : 'bad'}">${r.setRate}</div>
+        </div>
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">Hours Worked</div>
+          <div class="rep-stat-item-val">${r.hours}</div>
+        </div>
+        <div class="rep-stat-item">
+          <div class="rep-stat-item-label">Dials / Hour</div>
+          <div class="rep-stat-item-val ${parseFloat(r.callsPerHour) >= 15 ? 'good' : parseFloat(r.callsPerHour) >= 10 ? 'warn' : 'bad'}">${r.callsPerHour}</div>
+        </div>
+        ${r.topObjections.length ? `<div class="rep-stat-item" style="grid-column:1/-1"><div class="rep-stat-item-label">Top Objections</div><div style="font-size:12px;color:var(--muted);margin-top:.2rem">${r.topObjections.join(" · ")}</div></div>` : ""}
+      </div>
+    </div>
+  `).join("") || '<p style="color:var(--muted)">No setter reports for this period.</p>';
 }
 
 // ── Utility ──
