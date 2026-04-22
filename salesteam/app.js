@@ -313,30 +313,36 @@ async function reviewCall() {
   const prompt = SCORING_PROMPT.replace(/{closer}/g, closer).replace("{transcript}", transcript);
 
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "x-api-key": ANTHROPIC_KEY,
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 2048,
-        messages: [{ role: "user", content: prompt }],
-      }),
-    });
+    let res;
+    try {
+      res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "x-api-key": ANTHROPIC_KEY,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-6",
+          max_tokens: 2048,
+          messages: [{ role: "user", content: prompt }],
+        }),
+      });
+    } catch (networkErr) {
+      throw new Error(`Network error (possible CORS block): ${networkErr.message}`);
+    }
 
     if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error?.message || `API error ${res.status}`);
+      let body;
+      try { body = await res.json(); } catch (_) { body = {}; }
+      throw new Error(`HTTP ${res.status}: ${body.error?.message || res.statusText}`);
     }
 
     const data = await res.json();
     document.getElementById("review-output").innerHTML = markdownToHtml(data.content?.[0]?.text || "");
   } catch (err) {
-    document.getElementById("review-error").textContent = "Error: " + err.message;
+    document.getElementById("review-error").textContent = err.message;
     show("review-error");
   } finally {
     hide("review-loading");
