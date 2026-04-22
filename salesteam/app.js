@@ -6,6 +6,34 @@ const SETTER_RATE = 0.05;
 const AIRTABLE_KEY = "patbp5tDrcNixuTni.10847fca116a7c68f17be6b4281e709079cf44446d9710195e7e6b5bc671ed6c";
 const ANTHROPIC_KEY = "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";
 
+// ── Airtable URL builder (fixes fields[] array serialisation) ──
+function airtableUrl(tableId, { filter, fields, pageSize, offset } = {}) {
+  const parts = [`https://api.airtable.com/v0/${AIRTABLE_BASE}/${tableId}?`];
+  const qs = [];
+  if (filter) qs.push(`filterByFormula=${encodeURIComponent(filter)}`);
+  if (fields) fields.forEach(f => qs.push(`fields%5B%5D=${encodeURIComponent(f)}`));
+  if (pageSize) qs.push(`pageSize=${pageSize}`);
+  if (offset) qs.push(`offset=${encodeURIComponent(offset)}`);
+  return parts[0] + qs.join("&");
+}
+
+async function airtableFetch(tableId, options) {
+  let records = [], offset = null;
+  do {
+    const res = await fetch(airtableUrl(tableId, { ...options, offset }), {
+      headers: { "Authorization": `Bearer ${AIRTABLE_KEY}` }
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error?.message || `Airtable error ${res.status}`);
+    }
+    const data = await res.json();
+    records = records.concat(data.records || []);
+    offset = data.offset || null;
+  } while (offset);
+  return records;
+}
+
 // ── Init ──
 function init() {
   show("app");
@@ -18,6 +46,7 @@ function switchTab(name, btn) {
   document.querySelectorAll(".tab-btn").forEach(el => el.classList.remove("active"));
   document.getElementById("tab-" + name).classList.remove("hidden");
   btn.classList.add("active");
+  if (name === "review") loadCallList();
 }
 
 // ── Utility ──
@@ -36,42 +65,20 @@ function getMonthFilter() {
 
 function parseMonth(dateStr) {
   if (!dateStr) return null;
-  return dateStr.slice(0, 7); // "YYYY-MM"
+  return dateStr.slice(0, 7);
 }
 
-// ── Airtable Fetch ──
+// ── Commissions ──
 async function fetchDeals() {
-  const key = AIRTABLE_KEY;
-  let records = [];
-  let offset = null;
-
-  const params = new URLSearchParams({
-    "filterByFormula": "AND({Cash Collected} > 0, {Raw Text (Closer Assigned)} != '')",
-    "fields[]": ["Revenue", "Cash Collected", "Purchase Date", "Raw Text (Closer Assigned)", "Raw Text (Set By)", "Lead Name"],
-    "pageSize": "100",
+  return airtableFetch(AIRTABLE_TABLE, {
+    filter: "AND({Cash Collected} > 0, {Raw Text (Closer Assigned)} != '')",
+    fields: ["Revenue", "Cash Collected", "Purchase Date", "Raw Text (Closer Assigned)", "Raw Text (Set By)", "Lead Name"],
+    pageSize: 100,
   });
-
-  do {
-    if (offset) params.set("offset", offset);
-    const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}?${params}`, {
-      headers: { "Authorization": `Bearer ${key}` }
-    });
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error?.message || `Airtable error ${res.status}`);
-    }
-    const data = await res.json();
-    records = records.concat(data.records || []);
-    offset = data.offset || null;
-  } while (offset);
-
-  return records;
 }
 
-// ── Build Summary ──
 function buildSummary(records, monthFilter) {
-  const closers = {};
-  const setters = {};
+  const closers = {}, setters = {};
 
   for (const rec of records) {
     const f = rec.fields || {};
@@ -91,7 +98,6 @@ function buildSummary(records, monthFilter) {
       closers[closer].commission += cash * CLOSER_RATE;
       closers[closer].deals.push({ lead, revenue, cash, commission: cash * CLOSER_RATE });
     }
-
     if (setter) {
       if (!setters[setter]) setters[setter] = { revenue: 0, cash: 0, commission: 0, deals: [] };
       setters[setter].revenue += revenue;
@@ -104,7 +110,6 @@ function buildSummary(records, monthFilter) {
   return { closers, setters };
 }
 
-// ── Render Commissions ──
 function renderRepCards(data, containerId) {
   const container = document.getElementById(containerId);
   const reps = Object.keys(data).sort();
@@ -147,8 +152,7 @@ function renderRepCards(data, containerId) {
 }
 
 function toggleDeals(header) {
-  const deals = header.nextElementSibling;
-  deals.classList.toggle("hidden");
+  header.nextElementSibling.classList.toggle("hidden");
 }
 
 async function loadCommissions() {
@@ -162,15 +166,8 @@ async function loadCommissions() {
     const { closers, setters } = buildSummary(records, monthFilter);
 
     let totalRevenue = 0, totalCash = 0, totalCloserComm = 0, totalSetterComm = 0;
-
-    for (const d of Object.values(closers)) {
-      totalRevenue += d.revenue;
-      totalCash += d.cash;
-      totalCloserComm += d.commission;
-    }
-    for (const d of Object.values(setters)) {
-      totalSetterComm += d.commission;
-    }
+    for (const d of Object.values(closers)) { totalRevenue += d.revenue; totalCash += d.cash; totalCloserComm += d.commission; }
+    for (const d of Object.values(setters)) { totalSetterComm += d.commission; }
 
     document.getElementById("total-revenue").textContent = fmt(totalRevenue);
     document.getElementById("total-cash").textContent = fmt(totalCash);
@@ -189,12 +186,71 @@ async function loadCommissions() {
   }
 }
 
+// ── Call List (for review tab) ──
+let callRecords = [];
+
+async function loadCallList() {
+  const select = document.getElementById("call-select");
+  select.innerHTML = '<option value="">Loading calls...</option>';
+
+  try {
+    callRecords = await airtableFetch(AIRTABLE_TABLE, {
+      filter: "AND({Raw Text (Closer Assigned)} != '', {Date of Info Added} != '')",
+      fields: ["Lead Name", "Raw Text (Closer Assigned)", "Call Notes", "Call Recording Link", "Date of Info Added", "Status"],
+      pageSize: 100,
+    });
+
+    // Sort newest first
+    callRecords.sort((a, b) => {
+      const da = a.fields["Date of Info Added"] || "";
+      const db = b.fields["Date of Info Added"] || "";
+      return db.localeCompare(da);
+    });
+
+    select.innerHTML = '<option value="">Select a call...</option>' + callRecords.map((rec, i) => {
+      const f = rec.fields;
+      const lead = f["Lead Name"] || "Unknown";
+      const closer = f["Raw Text (Closer Assigned)"] || "";
+      const date = (f["Date of Info Added"] || "").slice(0, 10);
+      return `<option value="${i}">${date} — ${lead} (${closer})</option>`;
+    }).join("");
+  } catch (err) {
+    select.innerHTML = '<option value="">Failed to load calls</option>';
+  }
+}
+
+function selectCall() {
+  const idx = document.getElementById("call-select").value;
+  if (idx === "") return;
+
+  const rec = callRecords[idx];
+  if (!rec) return;
+
+  const f = rec.fields;
+  const closer = (f["Raw Text (Closer Assigned)"] || "").trim();
+  const notes = (f["Call Notes"] || "").trim();
+  const recordingLink = (f["Call Recording Link"] || "").trim();
+
+  document.getElementById("closer-name").value = closer;
+
+  let content = notes;
+  if (recordingLink) {
+    document.getElementById("recording-link").innerHTML =
+      `<a href="${recordingLink}" target="_blank">Open Recording</a>`;
+    show("recording-link");
+  } else {
+    hide("recording-link");
+  }
+
+  document.getElementById("transcript-input").value = content;
+}
+
 // ── Call Review ──
 const SCORING_PROMPT = `You are a sales call coach reviewing a closing call for a high-ticket offer ($3,000–$30,000+).
 
 Closer name: {closer}
 
-Transcript:
+Call notes / transcript:
 ---
 {transcript}
 ---
@@ -246,10 +302,9 @@ One paragraph: coaching priority for this rep.`;
 async function reviewCall() {
   const closer = document.getElementById("closer-name").value.trim() || "Unknown";
   const transcript = document.getElementById("transcript-input").value.trim();
-  const key = ANTHROPIC_KEY;
 
   if (!transcript) {
-    document.getElementById("review-error").textContent = "Paste a transcript first.";
+    document.getElementById("review-error").textContent = "No call notes or transcript to review.";
     show("review-error");
     return;
   }
@@ -258,15 +313,13 @@ async function reviewCall() {
   show("review-loading");
   document.getElementById("review-output").innerHTML = "";
 
-  const prompt = SCORING_PROMPT
-    .replace(/{closer}/g, closer)
-    .replace("{transcript}", transcript);
+  const prompt = SCORING_PROMPT.replace(/{closer}/g, closer).replace("{transcript}", transcript);
 
   try {
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
-        "x-api-key": key,
+        "x-api-key": ANTHROPIC_KEY,
         "anthropic-version": "2023-06-01",
         "anthropic-dangerous-direct-browser-access": "true",
         "content-type": "application/json",
@@ -284,8 +337,7 @@ async function reviewCall() {
     }
 
     const data = await res.json();
-    const text = data.content?.[0]?.text || "";
-    document.getElementById("review-output").innerHTML = markdownToHtml(text);
+    document.getElementById("review-output").innerHTML = markdownToHtml(data.content?.[0]?.text || "");
   } catch (err) {
     document.getElementById("review-error").textContent = "Error: " + err.message;
     show("review-error");
@@ -298,7 +350,6 @@ async function reviewCall() {
 function markdownToHtml(md) {
   return md
     .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-    // Tables
     .replace(/\|(.+)\|\n\|[-| :]+\|\n((?:\|.+\|\n?)*)/g, (_, header, body) => {
       const ths = header.split("|").filter(s => s.trim()).map(s => `<th>${s.trim()}</th>`).join("");
       const rows = body.trim().split("\n").map(row => {
@@ -307,18 +358,13 @@ function markdownToHtml(md) {
       }).join("");
       return `<table><thead><tr>${ths}</tr></thead><tbody>${rows}</tbody></table>`;
     })
-    // Headings
     .replace(/^### (.+)$/gm, "<h3>$1</h3>")
     .replace(/^## (.+)$/gm, "<h2>$1</h2>")
     .replace(/^# (.+)$/gm, "<h2>$1</h2>")
-    // Bold
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-    // HR
     .replace(/^---$/gm, "<hr>")
-    // Bullets
     .replace(/^- (.+)$/gm, "<li>$1</li>")
     .replace(/(<li>.*<\/li>\n?)+/g, s => `<ul>${s}</ul>`)
-    // Paragraphs
     .replace(/\n{2,}/g, "</p><p>")
     .replace(/^(?!<[htup])(.+)$/gm, "$1")
     .replace(/^(.+)$/, "<p>$1</p>");

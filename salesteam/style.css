@@ -309,6 +309,18 @@ select {
 .deal-nums span { white-space: nowrap; }
 .deal-commission { color: var(--green) !important; font-weight: 600; }
 
+/* ── Recording Link ── */
+.recording-link {
+  margin-bottom: 1rem;
+  padding: .6rem .85rem;
+  background: rgba(201, 168, 76, .08);
+  border: 1px solid var(--gold-dim);
+  border-radius: var(--radius);
+  font-size: 13px;
+}
+.recording-link a { color: var(--gold); text-decoration: none; }
+.recording-link a:hover { text-decoration: underline; }
+
 /* ── Call Review ── */
 .review-grid {
   display: grid;

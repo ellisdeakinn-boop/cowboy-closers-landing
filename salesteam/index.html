@@ -86,19 +86,26 @@
         <div class="page-header">
           <div>
             <h2>Call Review</h2>
-            <p class="sub">Paste a Fathom transcript and get a full scorecard with coaching notes.</p>
+            <p class="sub">Select a call from Airtable or paste a transcript manually.</p>
           </div>
         </div>
 
         <div class="review-grid">
           <div class="review-input-panel">
             <div class="field">
+              <label>Load from Airtable</label>
+              <select id="call-select" onchange="selectCall()">
+                <option value="">Select a call...</option>
+              </select>
+            </div>
+            <div id="recording-link" class="recording-link hidden"></div>
+            <div class="field">
               <label>Closer Name</label>
               <input type="text" id="closer-name" placeholder="e.g. Zach Ford" />
             </div>
             <div class="field">
-              <label>Transcript</label>
-              <textarea id="transcript-input" placeholder="Paste the full Fathom transcript here..."></textarea>
+              <label>Notes / Transcript</label>
+              <textarea id="transcript-input" placeholder="Auto-filled from Airtable, or paste manually..."></textarea>
             </div>
             <button class="btn-primary full-width" onclick="reviewCall()">Review Call</button>
           </div>
