@@ -53,6 +53,7 @@ function switchTab(name, btn) {
   document.getElementById("tab-" + name).classList.remove("hidden");
   btn.classList.add("active");
   if (name === "review") loadCallList();
+  if (name === "insights") document.getElementById("insights-output").innerHTML = "";
 }
 
 // ── Utility ──
@@ -384,6 +385,223 @@ function markdownToHtml(md) {
     .replace(/\n{2,}/g, "</p><p>")
     .replace(/^(?!<[htup])(.+)$/gm, "$1")
     .replace(/^(.+)$/, "<p>$1</p>");
+}
+
+// ── Team Insights ──
+const CLOSER_REPORTS_TABLE = "tblXfEy6PBxVPXHs4";
+const DIALER_REPORTS_TABLE = "tblmHasxFoWvV876K";
+
+async function generateInsights() {
+  const days = parseInt(document.getElementById("insights-period").value);
+  const apiKey = getAnthropicKey();
+
+  if (!apiKey) {
+    const k = prompt("Enter your Anthropic API key:");
+    if (!k) return;
+    setAnthropicKey(k.trim());
+  }
+
+  show("insights-loading");
+  hide("insights-error");
+  document.getElementById("insights-output").innerHTML = "";
+
+  try {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - days);
+    const cutoffStr = cutoff.toISOString().slice(0, 10);
+
+    const [closerRecs, dialerRecs] = await Promise.all([
+      airtableFetch(CLOSER_REPORTS_TABLE, {
+        filter: `IS_AFTER({Date}, '${cutoffStr}')`,
+        fields: ["Rep Name", "Date", "Total Live Calls", "On Call Closes", "No Closes", "No Shows",
+                 "Cancelled Calls", "Deposits", "Follow-up Closes", "Revenue Generated", "Cash Collected",
+                 "Close Rate", "No Show Rate", "Follow-up Close Rate",
+                 "What objections are coming up that are preventing closes?",
+                 "What did you do good today?", "What could you do better tomorrow?"],
+        pageSize: 100,
+      }),
+      airtableFetch(DIALER_REPORTS_TABLE, {
+        filter: `IS_AFTER({Date}, '${cutoffStr}')`,
+        fields: ["Rep Name", "Date", "Work Hours", "Total Calls", "Pickups", "Sets",
+                 "Qualified But Not Set", "Pickup Rate", "Set Rate",
+                 "What objections are coming up that are preventing sets?"],
+        pageSize: 100,
+      }),
+    ]);
+
+    const closerStats = aggregateClosers(closerRecs);
+    const dialerStats = aggregateDialers(dialerRecs);
+
+    const reportData = buildReportPayload(closerStats, dialerStats, days);
+    const report = await callClaude(insightsPrompt(reportData));
+    document.getElementById("insights-output").innerHTML = markdownToHtml(report);
+  } catch (err) {
+    document.getElementById("insights-error").textContent = err.message;
+    show("insights-error");
+  } finally {
+    hide("insights-loading");
+  }
+}
+
+function aggregateClosers(records) {
+  const reps = {};
+  for (const rec of records) {
+    const f = rec.fields;
+    const name = f["Rep Name"] || "Unknown";
+    if (!reps[name]) reps[name] = {
+      days: 0, liveCalls: 0, closes: 0, noCloses: 0, noShows: 0,
+      cancelled: 0, deposits: 0, followupCloses: 0, revenue: 0, cash: 0,
+      objections: {}, goodNotes: [], improvNotes: [],
+    };
+    const r = reps[name];
+    r.days++;
+    r.liveCalls += f["Total Live Calls"] || 0;
+    r.closes += (f["On Call Closes"] || 0) + (f["Follow-up Closes"] || 0);
+    r.noCloses += f["No Closes"] || 0;
+    r.noShows += f["No Shows"] || 0;
+    r.cancelled += f["Cancelled Calls"] || 0;
+    r.deposits += f["Deposits"] || 0;
+    r.followupCloses += f["Follow-up Closes"] || 0;
+    r.revenue += f["Revenue Generated"] || 0;
+    r.cash += f["Cash Collected"] || 0;
+    (f["What objections are coming up that are preventing closes?"] || []).forEach(o => {
+      r.objections[o] = (r.objections[o] || 0) + 1;
+    });
+    if (f["What did you do good today?"]) r.goodNotes.push(f["What did you do good today?"]);
+    if (f["What could you do better tomorrow?"]) r.improvNotes.push(f["What could you do better tomorrow?"]);
+  }
+
+  // Compute derived metrics
+  for (const r of Object.values(reps)) {
+    r.closeRate = r.liveCalls > 0 ? ((r.closes / r.liveCalls) * 100).toFixed(1) + "%" : "N/A";
+    r.noShowRate = (r.liveCalls + r.noShows) > 0
+      ? ((r.noShows / (r.liveCalls + r.noShows)) * 100).toFixed(1) + "%" : "N/A";
+    r.topObjections = Object.entries(r.objections).sort((a, b) => b[1] - a[1]).slice(0, 3).map(e => e[0]);
+  }
+  return reps;
+}
+
+function aggregateDialers(records) {
+  const reps = {};
+  for (const rec of records) {
+    const f = rec.fields;
+    const name = f["Rep Name"] || "Unknown";
+    if (!reps[name]) reps[name] = { days: 0, hours: 0, calls: 0, pickups: 0, sets: 0, qualNotSet: 0, objections: {} };
+    const r = reps[name];
+    r.days++;
+    r.hours += f["Work Hours"] || 0;
+    r.calls += f["Total Calls"] || 0;
+    r.pickups += f["Pickups"] || 0;
+    r.sets += f["Sets"] || 0;
+    r.qualNotSet += f["Qualified But Not Set"] || 0;
+    (f["What objections are coming up that are preventing sets?"] || []).forEach(o => {
+      r.objections[o] = (r.objections[o] || 0) + 1;
+    });
+  }
+  for (const r of Object.values(reps)) {
+    r.pickupRate = r.calls > 0 ? ((r.pickups / r.calls) * 100).toFixed(1) + "%" : "N/A";
+    r.setRate = r.calls > 0 ? ((r.sets / r.calls) * 100).toFixed(1) + "%" : "N/A";
+    r.callsPerHour = r.hours > 0 ? (r.calls / r.hours).toFixed(1) : "N/A";
+    r.topObjections = Object.entries(r.objections).sort((a, b) => b[1] - a[1]).slice(0, 3).map(e => e[0]);
+  }
+  return reps;
+}
+
+function buildReportPayload(closerStats, dialerStats, days) {
+  const lines = [`Period: Last ${days} days\n`];
+
+  lines.push("=== CLOSERS ===");
+  for (const [name, r] of Object.entries(closerStats)) {
+    lines.push(`\n${name}:`);
+    lines.push(`  Live calls: ${r.liveCalls} | Closes: ${r.closes} | Close rate: ${r.closeRate}`);
+    lines.push(`  No-shows: ${r.noShows} | No-show rate: ${r.noShowRate}`);
+    lines.push(`  No closes: ${r.noCloses} | Deposits: ${r.deposits} | Follow-up closes: ${r.followupCloses}`);
+    lines.push(`  Revenue: $${r.revenue.toLocaleString()} | Cash collected: $${r.cash.toLocaleString()}`);
+    if (r.topObjections.length) lines.push(`  Top objections: ${r.topObjections.join(", ")}`);
+    if (r.improvNotes.length) lines.push(`  Self-identified improvements: ${[...new Set(r.improvNotes)].slice(0,3).join("; ")}`);
+  }
+
+  lines.push("\n=== SETTERS / DIALERS ===");
+  for (const [name, r] of Object.entries(dialerStats)) {
+    lines.push(`\n${name}:`);
+    lines.push(`  Total calls: ${r.calls} | Pickups: ${r.pickups} | Sets: ${r.sets}`);
+    lines.push(`  Pickup rate: ${r.pickupRate} | Set rate: ${r.setRate} | Calls/hour: ${r.callsPerHour}`);
+    lines.push(`  Qualified but not set: ${r.qualNotSet}`);
+    if (r.topObjections.length) lines.push(`  Top objections: ${r.topObjections.join(", ")}`);
+  }
+
+  return lines.join("\n");
+}
+
+function insightsPrompt(data) {
+  return `You are a high-ticket sales coach analysing a sales team's performance data. Be direct, specific, and ruthless — this is for the team manager, not the reps.
+
+Industry benchmarks for high-ticket sales ($3k–$30k offers):
+- Closer close rate: 20–25% average, 30%+ good, 40%+ elite
+- No-show rate: under 20% acceptable, under 10% excellent
+- Setter pickup rate: 30–50% of dials
+- Setter set rate: 3–8% of total dials
+- Calls per hour (setter): 15–25 dials/hr
+- Deposit rate: 10–20% of closes (healthy pipeline)
+- Follow-up close rate: signals whether closers are leaving money on the table
+
+Team data:
+${data}
+
+Write a concise report in this exact format:
+
+## Team Performance Report
+
+### Overall Assessment
+2–3 sentences: is this team performing well, average, or below standard? Be direct.
+
+### Closer Breakdown
+For each closer — one section:
+**[Name]** — [close rate] close rate vs 20–30% benchmark
+- Strength: one specific thing they're doing well based on the numbers
+- Priority fix: the single most impactful change they need to make
+- Action step: one concrete, specific action this week (not generic advice)
+
+### Setter Breakdown
+For each setter — one section:
+**[Name]** — [set rate] set rate vs 3–8% benchmark
+- Strength: one specific thing
+- Priority fix: the single biggest lever
+- Action step: one concrete action this week
+
+### Team-Wide Issues
+Top 3 patterns across the whole team with specific fixes. Reference the actual objection data.
+
+### This Week's Focus
+One priority for the manager to address with the team. One sentence.`;
+}
+
+async function callClaude(prompt) {
+  let res;
+  try {
+    res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "x-api-key": getAnthropicKey(),
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 2048,
+        messages: [{ role: "user", content: prompt }],
+      }),
+    });
+  } catch (networkErr) {
+    throw new Error(`Network error: ${networkErr.message}`);
+  }
+  if (!res.ok) {
+    let body; try { body = await res.json(); } catch (_) { body = {}; }
+    throw new Error(`HTTP ${res.status}: ${body.error?.message || res.statusText}`);
+  }
+  const data = await res.json();
+  return data.content?.[0]?.text || "";
 }
 
 // ── Boot ──

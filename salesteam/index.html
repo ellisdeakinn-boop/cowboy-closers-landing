@@ -19,6 +19,7 @@
         <nav>
           <button class="tab-btn active" onclick="switchTab('commissions', this)">Commissions</button>
           <button class="tab-btn" onclick="switchTab('review', this)">Call Review</button>
+          <button class="tab-btn" onclick="switchTab('insights', this)">Team Insights</button>
         </nav>
       </div>
     </header>
@@ -120,6 +121,30 @@
       </div>
     </div>
   </div>
+
+    <!-- Team Insights Tab -->
+    <div id="tab-insights" class="tab-content hidden">
+      <div class="container">
+        <div class="page-header">
+          <div>
+            <h2>Team Insights</h2>
+            <p class="sub">AI-generated coaching based on your team's actual numbers vs industry benchmarks.</p>
+          </div>
+          <div class="controls">
+            <select id="insights-period">
+              <option value="7">Last 7 days</option>
+              <option value="30" selected>Last 30 days</option>
+              <option value="90">Last 90 days</option>
+            </select>
+            <button class="btn-primary" onclick="generateInsights()">Generate Report</button>
+          </div>
+        </div>
+
+        <div id="insights-loading" class="loading hidden">Pulling data and generating report...</div>
+        <div id="insights-error" class="error hidden"></div>
+        <div id="insights-output"></div>
+      </div>
+    </div>
 
   <script src="app.js"></script>
 </body>

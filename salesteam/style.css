@@ -356,6 +356,25 @@ select {
 .scorecard-output hr { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
 .scorecard-output blockquote { border-left: 3px solid var(--gold-dim); padding-left: .75rem; color: var(--muted); font-style: italic; margin: .5rem 0; }
 
+/* ── Insights Output ── */
+#insights-output {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text);
+  max-width: 860px;
+}
+#insights-output h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 1.25rem; }
+#insights-output h3 { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 1.75rem 0 .75rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+#insights-output strong { font-weight: 700; color: var(--gold); }
+#insights-output ul { padding-left: 1.25rem; margin: .5rem 0 1rem; }
+#insights-output li { margin-bottom: .4rem; font-size: 13px; }
+#insights-output p { margin-bottom: .75rem; font-size: 13px; }
+#insights-output hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .review-grid { grid-template-columns: 1fr; }
