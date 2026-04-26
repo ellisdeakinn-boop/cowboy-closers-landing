@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preview — Cowboy Closers</title>
+  <link rel="icon" type="image/jpeg" href="./favicon.jpeg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=Montserrat:wght@400;700;900&family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f4f1ec;          /* warm off-white */
+      --bg-alt: #ece7df;      /* slightly darker warm */
+      --ink: #1a1612;         /* warm near-black */
+      --mid: #3d3530;
+      --muted: #7a6f64;
+      --dim: #b5a99c;
+      --rust: #c14e2a;        /* warm accent */
+      --rust-deep: #8b3520;
+      --line: #d9d2c5;
+      --max-w: 1080px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* ── FILM GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    /* ── NAV ── */
+    nav { padding: 22px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(244,241,236,0.92); backdrop-filter: blur(14px); z-index: 100; }
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+      font-style: italic;
+    }
+    .logo span { color: var(--rust); }
+    .nav-cta {
+      background: var(--ink);
+      color: var(--bg);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      border-radius: 1px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--rust); transform: translateY(-1px); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+    section { padding: 110px 0; position: relative; }
+
+    /* ── EYEBROW / HEADS ── */
+    .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--rust);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--rust);
+      display: inline-block;
+    }
+    h2.editorial {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    h2.editorial em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--rust);
+    }
+    .body-prose {
+      font-size: 17px;
+      color: var(--mid);
+      line-height: 1.85;
+      max-width: 580px;
+    }
+    .body-prose p + p { margin-top: 22px; }
+    .body-prose strong { color: var(--ink); font-weight: 500; }
+
+    /* ── ABOUT GRID ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      filter: sepia(0.18) saturate(0.85) contrast(1.05);
+      display: block;
+    }
+    .about-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 12px -12px -12px 12px;
+      border: 1px solid var(--rust);
+      z-index: -1;
+    }
+
+    /* ── CREDS ── */
+    .creds {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+      margin-top: 40px;
+      padding-top: 36px;
+      border-top: 1px solid var(--line);
+    }
+    .cred {
+      display: flex;
+      flex-direction: column;
+    }
+    .cred-n {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 38px;
+      line-height: 1;
+      color: var(--ink);
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+    .cred-l {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── CTA ── */
+    .btn {
+      display: inline-block;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 18px 44px;
+      border-radius: 1px;
+      text-decoration: none;
+      margin-top: 36px;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn:hover { background: var(--rust); transform: translateY(-2px); }
+
+    /* ── COACHES ── */
+    .coaches {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+    .coach-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 36px;
+      max-width: 920px;
+      margin: 64px auto 0;
+    }
+    .coach-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      text-align: left;
+      transition: transform 0.35s cubic-bezier(.4,0,.2,1), box-shadow 0.35s;
+      position: relative;
+    }
+    .coach-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--rust);
+      transition: width 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    .coach-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(26,22,18,0.12);
+    }
+    .coach-card:hover::before { width: 100%; }
+    .coach-img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      object-position: center top;
+      filter: sepia(0.12) saturate(0.88) contrast(1.05);
+      display: block;
+    }
+    .coach-info { padding: 32px 30px 36px; }
+    .coach-name {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .coach-role {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 20px;
+    }
+    .coach-bio {
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.75;
+    }
+
+    /* ── COMPARE NOTE ── */
+    .compare-note {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 14px 24px;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .compare-note a {
+      color: var(--rust);
+      text-decoration: none;
+      margin-left: 12px;
+      border-bottom: 1px solid var(--rust);
+      padding-bottom: 2px;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 880px) {
+      section { padding: 70px 0; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .coach-grid { grid-template-columns: 1fr; gap: 24px; }
+      .coach-img { height: 320px; }
+      .creds { grid-template-columns: 1fr 1fr; gap: 20px; }
+      h2.editorial { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="compare-note">
+    Design preview — proposed direction
+    <a href="./trained.html">View live version</a>
+  </div>
+
+  <nav>
+    <a href="./" class="logo">Cowboy<span>·</span>Closers</a>
+    <a href="#" class="nav-cta">Book a Call</a>
+  </nav>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-img-wrap">
+          <img class="about-img" src="./connor-horse.jpg" alt="Connor Western"
+               onerror="this.src='https://start.cowboyclosers.com/assets/connor-psEyEFTG.jpg'" />
+        </div>
+        <div>
+          <span class="eyebrow">The Man Behind It</span>
+          <h2 class="editorial">10 years.<br><em>No bullsh*t.</em></h2>
+          <div class="body-prose" style="margin-top: 32px;">
+            <p>I figured out you could make money by talking to people when I was about ten. My old man was a magician. He'd pull two kids on stage, do a little game, and the winner would get a glowstick. Then he'd say, "if anyone else wants one, it's £2 a piece, with little Connor down the back." People would run over with cash. Boom, boom, boom. That was the first time it clicked.</p>
+            <p>Saved up at 23 and moved to Mexico to do timeshare. Selling £80-100k worth of packages a month pretty quickly and thought I'd worked the whole thing out. Spoiler: I hadn't. Blew through it. Ended up in Bali, lost money on an agency, scaled a landing page business from two grand to thirty in three weeks, then went all in on remote closing.</p>
+            <p>Stopped drinking three years ago and that's when everything I'd been chasing finally started landing. The unlock was never another job or another country. It was building a brand around the skill I already had.</p>
+          </div>
+          <div class="creds">
+            <div class="cred"><span class="cred-n">82+</span><span class="cred-l">Closers Coached</span></div>
+            <div class="cred"><span class="cred-n">66%</span><span class="cred-l">Highest Close Rate</span></div>
+            <div class="cred"><span class="cred-n">$31k</span><span class="cred-l">Highest Monthly Commissions</span></div>
+            <div class="cred"><span class="cred-n">49</span><span class="cred-l">Days To First Deal</span></div>
+          </div>
+          <a href="#" class="btn">Apply Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COACHES -->
+  <section class="coaches">
+    <div class="container">
+      <span class="eyebrow" style="justify-content: center; display: inline-flex;">The Team</span>
+      <h2 class="editorial">Coached by closers<br><em>who actually close.</em></h2>
+      <p class="body-prose" style="margin: 24px auto 0;">No theory. No hype. Just coaches who have done it at the highest level.</p>
+
+      <div class="coach-grid">
+        <div class="coach-card">
+          <img class="coach-img" src="https://start.cowboyclosers.com/assets/connor-psEyEFTG.jpg" alt="Connor Western" loading="lazy" />
+          <div class="coach-info">
+            <div class="coach-name">Connor Western</div>
+            <div class="coach-role">Founder · Bali</div>
+            <p class="coach-bio">Built Cowboy Closers after a decade selling everything from glowsticks at ten to £100k months in timeshare. Runs the program from Bali and coaches with zero fluff. Just the stuff that actually works on live calls.</p>
+          </div>
+        </div>
+        <div class="coach-card">
+          <img class="coach-img" src="https://start.cowboyclosers.com/assets/freddie1-wWxx7kbm.jpg" alt="Freddie Harries" loading="lazy" />
+          <div class="coach-info">
+            <div class="coach-name">Freddie Harries</div>
+            <div class="coach-role">Head Coach · Colombia</div>
+            <p class="coach-bio">Background in luxury real estate where he's closed hundreds of millions in high-ticket deals. Coaches tonality, energy management, and the psychology of closing premium offers. If you want to sound like someone worth buying from, Freddie is who you learn from.</p>
+          </div>
+        </div>
+        <div class="coach-card">
+          <img class="coach-img" src="https://start.cowboyclosers.com/assets/zach-ZGGZodCy.jpg" alt="Zach Ford" loading="lazy" />
+          <div class="coach-info">
+            <div class="coach-name">Zach Ford</div>
+            <div class="coach-role">Coach · Bali</div>
+            <p class="coach-bio">Went from broke and backpacking in Vietnam to landing his first remote closing role in 49 days through Cowboy Closers. Now on the coaching team, helping new closers walk the same path. Close rate hit 66%.</p>
+          </div>
+        </div>
+        <div class="coach-card">
+          <img class="coach-img" src="https://start.cowboyclosers.com/assets/job-M0mosviI.jpg" alt="Jon Mowday" loading="lazy" />
+          <div class="coach-info">
+            <div class="coach-name">Jon Mowday</div>
+            <div class="coach-role">Coach · United Kingdom</div>
+            <p class="coach-bio">Runs a luxury real estate brokerage and specialises in human connection and people skills. The underrated fundamentals that separate average closers from elite ones. Coaches rapport, listening, and the soft skills that make prospects trust you enough to buy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
