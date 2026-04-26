@@ -105,6 +105,18 @@
     /* ── CONNOR SECTION ── */
     .connor-section { border-bottom: 1px solid var(--border); }
     .connor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+    /* ── COACHES ── */
+    .coaches-section { border-bottom: 1px solid var(--border); text-align: center; }
+    .coaches-section .s-body { margin: 20px auto 64px; }
+    .coach-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 920px; margin: 0 auto; }
+    .coach-card { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: var(--white); transition: transform 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.3s; text-align: left; }
+    .coach-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .coach-img { width: 100%; height: 360px; object-fit: cover; object-position: center top; display: block; }
+    .coach-info { padding: 28px 28px 32px; }
+    .coach-name { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 22px; color: var(--dark); margin-bottom: 6px; letter-spacing: -0.01em; }
+    .coach-role { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #2563eb; margin-bottom: 18px; }
+    .coach-bio { font-size: 15px; color: var(--muted); line-height: 1.7; }
     .connor-img-stack { position: relative; }
     .connor-portrait { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center top; border-radius: 4px; display: block; transition: transform 0.6s cubic-bezier(.4,0,.2,1); }
     .connor-img-stack:hover .connor-portrait { transform: scale(1.02); }
@@ -246,6 +258,8 @@
       .phase-row { grid-template-columns: 44px 1fr; gap: 16px; }
       .phase-row:hover { margin: 0; padding: 32px 0; }
       .connor-grid { grid-template-columns: 1fr; gap: 48px; }
+      .coach-grid { grid-template-columns: 1fr; gap: 24px; }
+      .coach-img { height: 320px; }
       .connor-img-accent { display: none; }
       .lightbox-prev { left: 8px; }
       .lightbox-next { right: 8px; }
@@ -361,6 +375,55 @@
         <img src="./connor-dinner.jpg" alt="Connor Western" style="width:100%; height:420px; object-fit:cover; object-position:center 30%; display:block; transition: transform 0.6s cubic-bezier(.4,0,.2,1);"
              onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"
              onerror="this.style.display='none'" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- COACHES -->
+  <section class="coaches-section">
+    <div class="container">
+      <span class="s-label" data-anim>The Team</span>
+      <h2 data-anim data-delay="1">Coached by closers</h2>
+      <span class="h2-script" data-anim data-delay="2">who actually close.</span>
+      <p class="s-body" data-anim data-delay="3">No theory. No hype. Just coaches who have done it at the highest level.</p>
+
+      <div class="coach-grid">
+        <div class="coach-card" data-anim data-delay="1">
+          <img class="coach-img" src="https://start.cowboyclosers.com/assets/connor-psEyEFTG.jpg" alt="Connor Western" loading="lazy" />
+          <div class="coach-info">
+            <div class="coach-name">Connor Western</div>
+            <div class="coach-role">Founder, Bali Indonesia</div>
+            <p class="coach-bio">Connor built Cowboy Closers after generating millions in sales across timeshare, software, and e-commerce. His signature IDGAF Mindset Framework has helped over 82 closers break through fear, land roles, and start earning fast. He runs the program from Bali and coaches with zero fluff. Just the stuff that actually works on live calls.</p>
+          </div>
+        </div>
+        <div class="coach-card" data-anim data-delay="2">
+          <img class="coach-img" src="https://start.cowboyclosers.com/assets/freddie1-wWxx7kbm.jpg" alt="Freddie Harries" loading="lazy" />
+          <div class="coach-info">
+            <div class="coach-name">Freddie Harries</div>
+            <div class="coach-role">Head Coach, Colombia</div>
+            <p class="coach-bio">Freddie brings elite-level energy and a background in luxury real estate where he's closed hundreds of millions in high-ticket deals. He coaches tonality, energy management, and the psychology of closing premium offers. If you want to sound like someone worth buying from, Freddie is who you learn from.</p>
+          </div>
+        </div>
+        <div class="coach-card" data-anim data-delay="3">
+          <img class="coach-img" src="https://start.cowboyclosers.com/assets/zach-ZGGZodCy.jpg" alt="Zach Ford" loading="lazy" />
+          <div class="coach-info">
+            <div class="coach-name">Zach Ford</div>
+            <div class="coach-role">Coach, Bali Indonesia</div>
+            <p class="coach-bio">Zach is the proof of concept. He went from broke and backpacking in Vietnam to landing his first remote closing role in 49 days through Cowboy Closers. Now he's on the coaching team, helping build offers and guiding new closers through the exact path he took. His close rate hit 66% and he teaches you exactly how.</p>
+          </div>
+        </div>
+        <div class="coach-card" data-anim data-delay="4">
+          <img class="coach-img" src="https://start.cowboyclosers.com/assets/job-M0mosviI.jpg" alt="Jon Mowday" loading="lazy" />
+          <div class="coach-info">
+            <div class="coach-name">Jon Mowday</div>
+            <div class="coach-role">Coach, United Kingdom</div>
+            <p class="coach-bio">Jon runs a luxury real estate brokerage and specialises in human connection and people skills. The underrated fundamentals that separate average closers from elite ones. His coaching focuses on rapport-building, listening, and the soft skills that make prospects trust you enough to buy.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-cta" data-anim data-delay="5" style="margin-top:64px;">
+        <a href="#apply" class="btn-sm">Apply Now</a>
       </div>
     </div>
   </section>
