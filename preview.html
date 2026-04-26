@@ -7,19 +7,22 @@
   <link rel="icon" type="image/jpeg" href="./favicon.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=Montserrat:wght@400;700;900&family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #f4f1ec;          /* warm off-white */
-      --bg-alt: #ece7df;      /* slightly darker warm */
-      --ink: #1a1612;         /* warm near-black */
+      --bg: #f4f1ec;
+      --bg-alt: #ece7df;
+      --bg-deep: #1a1612;
+      --ink: #1a1612;
+      --ink-2: #2a2520;
       --mid: #3d3530;
       --muted: #7a6f64;
       --dim: #b5a99c;
-      --rust: #c14e2a;        /* warm accent */
+      --rust: #c14e2a;
       --rust-deep: #8b3520;
       --line: #d9d2c5;
+      --line-dark: #2e2823;
       --max-w: 1080px;
     }
 
@@ -34,19 +37,55 @@
       position: relative;
     }
 
-    /* ── FILM GRAIN OVERLAY ── */
+    /* film grain */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 9999;
-      opacity: 0.06;
+      opacity: 0.05;
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
     }
 
-    /* ── NAV ── */
-    nav { padding: 22px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(244,241,236,0.92); backdrop-filter: blur(14px); z-index: 100; }
+    /* scroll animations */
+    [data-anim] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1); }
+    [data-anim="fade"] { transform: translateY(0) scale(0.97); }
+    [data-anim].visible { opacity: 1; transform: translateY(0) scale(1); }
+    [data-delay="1"] { transition-delay: 0.1s; }
+    [data-delay="2"] { transition-delay: 0.2s; }
+    [data-delay="3"] { transition-delay: 0.3s; }
+    [data-delay="4"] { transition-delay: 0.4s; }
+    [data-delay="5"] { transition-delay: 0.5s; }
+
+    /* compare strip */
+    .compare-note {
+      background: var(--bg-deep);
+      color: var(--bg);
+      padding: 12px 24px;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .compare-note a { color: var(--rust); text-decoration: none; margin-left: 12px; border-bottom: 1px solid var(--rust); padding-bottom: 2px; }
+
+    /* nav */
+    nav {
+      padding: 22px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: rgba(244,241,236,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 100;
+    }
     .logo {
       font-family: 'Fraunces', serif;
       font-weight: 900;
@@ -55,8 +94,11 @@
       color: var(--ink);
       text-decoration: none;
       font-style: italic;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
-    .logo span { color: var(--rust); }
+    .logo img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; filter: sepia(0.15) saturate(0.9); }
     .nav-cta {
       background: var(--ink);
       color: var(--bg);
@@ -68,15 +110,15 @@
       padding: 13px 28px;
       border-radius: 1px;
       text-decoration: none;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.25s, transform 0.2s;
     }
     .nav-cta:hover { background: var(--rust); transform: translateY(-1px); }
 
-    /* ── LAYOUT ── */
+    /* layout */
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
     section { padding: 110px 0; position: relative; }
 
-    /* ── EYEBROW / HEADS ── */
+    /* shared type */
     .eyebrow {
       font-family: 'Montserrat', sans-serif;
       font-size: 10px;
@@ -84,51 +126,160 @@
       letter-spacing: 0.32em;
       text-transform: uppercase;
       color: var(--rust);
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 12px;
       margin-bottom: 28px;
     }
-    .eyebrow::before {
-      content: '';
-      width: 32px;
-      height: 1px;
-      background: var(--rust);
-      display: inline-block;
-    }
-    h2.editorial {
+    .eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--rust); }
+
+    h1.hero-h1 {
       font-family: 'Fraunces', serif;
       font-weight: 900;
-      font-size: clamp(40px, 6vw, 72px);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
+      font-size: clamp(44px, 6.4vw, 84px);
+      line-height: 1.02;
+      letter-spacing: -0.035em;
       color: var(--ink);
-      margin-bottom: 10px;
+      margin-bottom: 28px;
     }
-    h2.editorial em {
+    h1 em, h2 em {
       font-style: italic;
       font-weight: 400;
       color: var(--rust);
     }
-    .body-prose {
+
+    h2.editorial {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(38px, 5.4vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .body-prose, .hero-sub {
       font-size: 17px;
       color: var(--mid);
       line-height: 1.85;
       max-width: 580px;
     }
     .body-prose p + p { margin-top: 22px; }
-    .body-prose strong { color: var(--ink); font-weight: 500; }
+    .hero-sub { font-size: 19px; max-width: 640px; }
 
-    /* ── ABOUT GRID ── */
+    /* hero */
+    .hero { padding: 90px 0 80px; text-align: left; }
+    .hero .container > .eyebrow { margin-bottom: 24px; }
+
+    /* vsl */
+    .vsl-wrap { margin: 56px 0 48px; max-width: 880px; }
+    .vsl-aspect {
+      position: relative;
+      padding-bottom: 56.25%;
+      background: var(--bg-deep);
+      border: 1px solid var(--line);
+    }
+    .vsl-ph {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      background: radial-gradient(ellipse at center, #2a2520 0%, #1a1612 100%);
+    }
+    .play-btn {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: var(--rust);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s;
+      box-shadow: 0 6px 32px rgba(193,78,42,0.4);
+    }
+    .play-btn:hover { transform: scale(1.08); box-shadow: 0 10px 48px rgba(193,78,42,0.6); }
+    .vsl-ph p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* apply form */
+    .apply-form-container {
+      max-width: 820px;
+      margin: 60px 0 0;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .apply-form-bridge {
+      padding: 48px 40px 36px;
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+    }
+    .apply-form-h {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(28px, 3.8vw, 44px);
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin: 14px 0 12px;
+    }
+    .apply-form-p { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 460px; margin: 0 auto; }
+    .hero-typeform { background: var(--bg); min-height: 160px; }
+    .a2p-consent {
+      padding: 20px 32px 28px;
+      border-top: 1px solid var(--line);
+      background: var(--bg-alt);
+    }
+    .a2p-consent label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      text-align: left;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .a2p-consent input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--rust);
+      cursor: pointer;
+    }
+    .a2p-consent span { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .a2p-consent a { color: var(--muted); text-decoration: underline; }
+
+    /* hero image */
+    .hero-img-wrap {
+      width: 100%;
+      overflow: hidden;
+      max-height: 540px;
+    }
+    .hero-img {
+      width: 100%;
+      height: 540px;
+      object-fit: cover;
+      filter: sepia(0.18) saturate(0.85) contrast(1.05);
+    }
+
+    /* about */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1.1fr;
       gap: 80px;
       align-items: start;
     }
-    .about-img-wrap {
-      position: relative;
-    }
+    .about-img-wrap { position: relative; }
     .about-img {
       width: 100%;
       aspect-ratio: 4 / 5;
@@ -139,12 +290,12 @@
     .about-img-wrap::after {
       content: '';
       position: absolute;
-      inset: 12px -12px -12px 12px;
+      inset: 14px -14px -14px 14px;
       border: 1px solid var(--rust);
       z-index: -1;
     }
 
-    /* ── CREDS ── */
+    /* creds */
     .creds {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -153,10 +304,7 @@
       padding-top: 36px;
       border-top: 1px solid var(--line);
     }
-    .cred {
-      display: flex;
-      flex-direction: column;
-    }
+    .cred { display: flex; flex-direction: column; }
     .cred-n {
       font-family: 'Fraunces', serif;
       font-weight: 700;
@@ -175,7 +323,19 @@
       color: var(--muted);
     }
 
-    /* ── CTA ── */
+    /* dinner hero */
+    .dinner-hero {
+      width: 100%;
+      height: 440px;
+      object-fit: cover;
+      object-position: center 30%;
+      margin-top: 70px;
+      filter: sepia(0.15) saturate(0.88) contrast(1.05);
+      transition: transform 0.6s cubic-bezier(.4,0,.2,1);
+    }
+    .dinner-hero:hover { transform: scale(1.015); }
+
+    /* button */
     .btn {
       display: inline-block;
       background: var(--ink);
@@ -188,12 +348,24 @@
       padding: 18px 44px;
       border-radius: 1px;
       text-decoration: none;
-      margin-top: 36px;
       transition: background 0.25s, transform 0.2s;
     }
     .btn:hover { background: var(--rust); transform: translateY(-2px); }
+    .btn-rust {
+      background: var(--rust);
+    }
+    .btn-rust:hover { background: var(--rust-deep); }
 
-    /* ── COACHES ── */
+    .section-cta { padding-top: 56px; }
+    .section-cta.center { text-align: center; }
+    .friction-sm {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    /* coaches */
     .coaches {
       background: var(--bg-alt);
       border-top: 1px solid var(--line);
@@ -223,12 +395,9 @@
       width: 0;
       height: 3px;
       background: var(--rust);
-      transition: width 0.4s cubic-bezier(.4,0,.2,1);
+      transition: width 0.5s cubic-bezier(.4,0,.2,1);
     }
-    .coach-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 50px rgba(26,22,18,0.12);
-    }
+    .coach-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(26,22,18,0.12); }
     .coach-card:hover::before { width: 100%; }
     .coach-img {
       width: 100%;
@@ -256,70 +425,476 @@
       color: var(--rust);
       margin-bottom: 20px;
     }
-    .coach-bio {
+    .coach-bio { font-size: 15px; color: var(--mid); line-height: 1.75; }
+
+    /* proof */
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 60px;
+    }
+    .proof-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 40px 32px;
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1), border-color 0.3s;
+    }
+    .proof-card:hover { transform: translateY(-4px); border-color: var(--rust); }
+    .proof-number {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 32px;
+      line-height: 1.15;
+      color: var(--rust);
+      margin-bottom: 24px;
+    }
+    .proof-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+    .proof-text { font-size: 15px; color: var(--mid); line-height: 1.75; }
+
+    /* wins slider */
+    .wins-slider { margin-top: 60px; }
+    .wins-track-wrap { overflow: hidden; }
+    .wins-track {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.5s cubic-bezier(.4,0,.2,1);
+    }
+    .win-slide {
+      flex-shrink: 0;
+      width: calc((100% - 48px) / 4);
+      aspect-ratio: 9/16;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+    }
+    .win-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+    }
+    .win-slide:hover img { transform: scale(1.04); }
+    .win-expand {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      background: rgba(244,241,236,0.92);
+      border-radius: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .win-slide:hover .win-expand { opacity: 1; }
+    .wins-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+    }
+    .wins-dots { display: flex; gap: 8px; }
+    .wins-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--dim);
+      transition: background 0.25s, width 0.25s;
+    }
+    .wins-dots span.active { background: var(--rust); width: 22px; border-radius: 4px; }
+    .wins-arrows { display: flex; gap: 8px; }
+    .c-btn {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .c-btn:hover { background: var(--rust); color: var(--bg); border-color: var(--rust); }
+
+    /* pain */
+    .pain-section { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .pain-cols {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 56px;
+    }
+    .pain-list { list-style: none; }
+    .pain-list li {
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 16px;
+      color: var(--mid);
+      display: flex;
+      gap: 20px;
+      align-items: baseline;
+    }
+    .pain-list li:last-child { border-bottom: none; }
+    .pain-num {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 22px;
+      color: var(--rust);
+      flex-shrink: 0;
+      min-width: 40px;
+    }
+
+    /* midbreak */
+    .midbreak-wrap {
+      width: 100%;
+      overflow: hidden;
+      max-height: 540px;
+    }
+    .midbreak-img {
+      width: 100%;
+      height: 540px;
+      object-fit: cover;
+      filter: sepia(0.18) saturate(0.85) contrast(1.05);
+    }
+
+    /* program */
+    .phases-list { margin-top: 60px; max-width: 820px; }
+    .phase-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: baseline;
+    }
+    .phase-row:last-child { border-bottom: none; }
+    .phase-n {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 38px;
+      color: var(--rust);
+      line-height: 1;
+    }
+    .phase-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .phase-desc { font-size: 15px; color: var(--mid); line-height: 1.7; }
+
+    /* for / not for */
+    .for-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 60px;
+    }
+    .for-card {
+      padding: 40px 36px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+    }
+    .for-card.yes { border-top: 3px solid var(--rust); }
+    .for-card.no { border-top: 3px solid var(--ink); background: var(--bg-alt); opacity: 0.92; }
+    .for-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 22px;
+    }
+    .for-list { list-style: none; }
+    .for-list li {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.6;
+      padding-left: 26px;
+      position: relative;
+    }
+    .for-list li:last-child { border-bottom: none; }
+    .for-card.yes .for-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 22px;
+      width: 14px;
+      height: 1px;
+      background: var(--rust);
+    }
+    .for-card.no .for-list li::before {
+      content: '×';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    /* testimonials */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 60px;
+    }
+    .testi-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 36px 30px 30px;
+      position: relative;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .testi-card:hover { transform: translateY(-4px); border-color: var(--rust); }
+    .testi-card::before {
+      content: '"';
+      position: absolute;
+      top: 6px;
+      left: 22px;
+      font-family: 'Fraunces', serif;
+      font-size: 80px;
+      color: var(--rust);
+      line-height: 1;
+      opacity: 0.5;
+    }
+    .testi-quote {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--ink);
+      margin-bottom: 22px;
+      padding-top: 18px;
+    }
+    .testi-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .testi-role { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
+
+    /* faq */
+    .faq-list { margin-top: 56px; max-width: 820px; }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 28px 0;
+      text-align: left;
+      cursor: pointer;
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: -0.005em;
+      color: var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    .faq-q:hover { color: var(--rust); }
+    .faq-icon { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.3s; color: var(--rust); }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(.4,0,.2,1), padding 0.4s;
       font-size: 15px;
       color: var(--mid);
       line-height: 1.75;
     }
+    .faq-item.open .faq-a { max-height: 500px; padding: 0 0 28px; }
 
-    /* ── COMPARE NOTE ── */
-    .compare-note {
-      background: var(--ink);
+    /* final cta */
+    .apply-section {
+      background: var(--bg-deep);
       color: var(--bg);
-      padding: 14px 24px;
       text-align: center;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+      border-top: 1px solid var(--line-dark);
     }
-    .compare-note a {
-      color: var(--rust);
-      text-decoration: none;
-      margin-left: 12px;
-      border-bottom: 1px solid var(--rust);
-      padding-bottom: 2px;
+    .apply-section .eyebrow { color: var(--rust); justify-content: center; }
+    .apply-section .eyebrow::before { background: var(--rust); }
+    .apply-section h2.editorial { color: var(--bg); }
+    .apply-section h2.editorial em { color: var(--rust); }
+    .apply-section .body-prose { color: var(--dim); margin: 24px auto 36px; }
+    .apply-inner { max-width: 620px; margin: 0 auto; }
+
+    /* footer */
+    footer {
+      padding: 40px 32px;
+      text-align: center;
+      border-top: 1px solid var(--line-dark);
+      background: var(--bg-deep);
+      color: var(--dim);
+    }
+    footer p { font-size: 13px; }
+    footer a { color: var(--dim); text-decoration: none; }
+    footer a:hover { color: var(--rust); }
+
+    /* lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(26,22,18,0.96);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9000;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img { max-width: 90vw; max-height: 88vh; object-fit: contain; }
+    .lightbox-close, .lightbox-prev, .lightbox-next {
+      position: absolute;
+      background: rgba(244,241,236,0.1);
+      border: 1px solid rgba(244,241,236,0.3);
+      color: var(--bg);
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover { background: var(--rust); border-color: var(--rust); }
+    .lightbox-close { top: 24px; right: 24px; }
+    .lightbox-prev { left: 24px; top: 50%; transform: translateY(-50%); }
+    .lightbox-next { right: 24px; top: 50%; transform: translateY(-50%); }
+    .lightbox-counter {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--bg);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.18em;
     }
 
-    /* ── MOBILE ── */
+    /* mobile */
     @media (max-width: 880px) {
       section { padding: 70px 0; }
-      .about-grid { grid-template-columns: 1fr; gap: 48px; }
-      .coach-grid { grid-template-columns: 1fr; gap: 24px; }
+      nav { padding: 16px 22px; }
+      .container { padding: 0 22px; }
+      .about-grid, .pain-cols { grid-template-columns: 1fr; gap: 48px; }
+      .coach-grid, .for-grid, .testi-grid, .proof-grid { grid-template-columns: 1fr; gap: 24px; }
       .coach-img { height: 320px; }
-      .creds { grid-template-columns: 1fr 1fr; gap: 20px; }
-      h2.editorial { font-size: 36px; }
+      .creds { gap: 20px; }
+      .cred-n { font-size: 32px; }
+      .win-slide { width: calc((100% - 16px) / 2); }
+      .phase-row { grid-template-columns: 56px 1fr; gap: 18px; }
+      .phase-n { font-size: 28px; }
+      .hero-img, .midbreak-img { height: 360px; }
     }
   </style>
 </head>
 <body>
 
   <div class="compare-note">
-    Design preview — proposed direction
+    Design preview · proposed direction
     <a href="./trained.html">View live version</a>
   </div>
 
   <nav>
-    <a href="./" class="logo">Cowboy<span>·</span>Closers</a>
-    <a href="#" class="nav-cta">Book a Call</a>
+    <a class="logo" href="#"><img src="./favicon.jpeg" alt="" />Cowboy<em style="color: var(--rust);">·</em>Closers</a>
+    <a class="nav-cta" href="#apply">Apply Now</a>
   </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">Connor Western</span>
+      <h1 class="hero-h1" data-anim>This is how you close 10x more deals,<br><em>by just not giving a f*ck.</em></h1>
+      <p class="hero-sub" data-anim data-delay="2">You don't need a new framework, a new script or a better offer. You just need to build this one foundation.</p>
+
+      <div class="vsl-wrap" data-anim="fade" data-delay="3">
+        <div class="vsl-aspect">
+          <div class="vsl-ph">
+            <div class="play-btn">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                <polygon points="5,3 19,12 5,21" fill="#f4f1ec"/>
+              </svg>
+            </div>
+            <p>Video coming soon</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="apply-form-container" id="apply">
+        <div class="apply-form-bridge" data-anim="fade" data-delay="4">
+          <span class="eyebrow" style="margin-bottom: 8px;">Take The Next Step</span>
+          <div class="apply-form-h">Apply below.</div>
+          <p class="apply-form-p">Fill it out. One of Connor's coaches will be in touch to book your 45-minute call. They'll be straight with you. If it's not the right fit, they'll say so.</p>
+        </div>
+        <div class="hero-typeform">
+          <div data-tf-live="01KMYRR9B4NM5GKXR89PGJ04MJ"></div>
+          <script src="//embed.typeform.com/next/embed.js"></script>
+        </div>
+        <div class="a2p-consent">
+          <label>
+            <input type="checkbox" id="sms-consent" />
+            <span>By submitting this form, I agree to receive SMS/text messages from Cowboy Closers at the phone number I provide. These messages may include follow-up information about my application and booking details. Message and data rates may apply. Message frequency varies. Reply STOP to opt out at any time. Reply HELP for help. See our <a href="./privacy-policy.html">Privacy Policy</a> and <a href="./terms.html">Terms of Service</a>.</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HERO IMAGE -->
+  <div class="hero-img-wrap">
+    <img src="./connor-girlfriend.jpg" alt="Connor Western" class="hero-img"
+         style="object-position: center 20%;"
+         onerror="this.src='https://start.cowboyclosers.com/assets/connor-psEyEFTG.jpg'" />
+  </div>
 
   <!-- ABOUT -->
   <section>
     <div class="container">
       <div class="about-grid">
-        <div class="about-img-wrap">
+        <div class="about-img-wrap" data-anim="left">
           <img class="about-img" src="./connor-horse.jpg" alt="Connor Western"
                onerror="this.src='https://start.cowboyclosers.com/assets/connor-psEyEFTG.jpg'" />
         </div>
-        <div>
+        <div data-anim="right">
           <span class="eyebrow">The Man Behind It</span>
           <h2 class="editorial">10 years.<br><em>No bullsh*t.</em></h2>
           <div class="body-prose" style="margin-top: 32px;">
             <p>I figured out you could make money by talking to people when I was about ten. My old man was a magician. He'd pull two kids on stage, do a little game, and the winner would get a glowstick. Then he'd say, "if anyone else wants one, it's £2 a piece, with little Connor down the back." People would run over with cash. Boom, boom, boom. That was the first time it clicked.</p>
-            <p>Saved up at 23 and moved to Mexico to do timeshare. Selling £80-100k worth of packages a month pretty quickly and thought I'd worked the whole thing out. Spoiler: I hadn't. Blew through it. Ended up in Bali, lost money on an agency, scaled a landing page business from two grand to thirty in three weeks, then went all in on remote closing.</p>
-            <p>Stopped drinking three years ago and that's when everything I'd been chasing finally started landing. The unlock was never another job or another country. It was building a brand around the skill I already had.</p>
+            <p>Spent my teens hustling. Balloon modelling at kids' parties on weekends, construction whenever sales was thin, water sports instructor in Greece in the summers, barman in France in the winters, cutting hair in the basement on the side. Always selling something.</p>
+            <p>Saved up at 23 and moved to Mexico to do timeshare. Selling £80-100k worth of packages a month pretty quickly and thought I'd worked the whole thing out. Spoiler: I hadn't. Blew through it. Ended up in Bali, lost money on an agency, scaled landing pages from two grand to thirty in three weeks, then went all in on remote closing.</p>
+            <p>Stopped drinking three years ago and that's when everything I'd been chasing finally started landing. The unlock was never another job or another country. It was building a brand around the skill I already had. 200 million views last year. 120k followers. Hit my first £50k profit month in 2025.</p>
+            <p>Cowboy Closers came out of all of it. Same skill, just taught the way it actually works on a live call when someone's looking for a reason to walk.</p>
           </div>
           <div class="creds">
             <div class="cred"><span class="cred-n">82+</span><span class="cred-l">Closers Coached</span></div>
@@ -327,29 +902,34 @@
             <div class="cred"><span class="cred-n">$31k</span><span class="cred-l">Highest Monthly Commissions</span></div>
             <div class="cred"><span class="cred-n">49</span><span class="cred-l">Days To First Deal</span></div>
           </div>
-          <a href="#" class="btn">Apply Now</a>
+          <div class="section-cta" style="padding-top: 36px;">
+            <a href="#apply" class="btn">Apply Now</a>
+          </div>
         </div>
       </div>
+
+      <img class="dinner-hero" src="./connor-dinner.jpg" alt="Connor Western" loading="lazy"
+           onerror="this.style.display='none'" />
     </div>
   </section>
 
   <!-- COACHES -->
   <section class="coaches">
     <div class="container">
-      <span class="eyebrow" style="justify-content: center; display: inline-flex;">The Team</span>
-      <h2 class="editorial">Coached by closers<br><em>who actually close.</em></h2>
-      <p class="body-prose" style="margin: 24px auto 0;">No theory. No hype. Just coaches who have done it at the highest level.</p>
+      <span class="eyebrow" style="margin: 0 0 28px;">The Team</span>
+      <h2 class="editorial" data-anim>Coached by closers<br><em>who actually close.</em></h2>
+      <p class="body-prose" data-anim data-delay="3" style="margin: 24px auto 0;">No theory. No hype. Just coaches who have done it at the highest level.</p>
 
       <div class="coach-grid">
-        <div class="coach-card">
+        <div class="coach-card" data-anim data-delay="1">
           <img class="coach-img" src="https://start.cowboyclosers.com/assets/connor-psEyEFTG.jpg" alt="Connor Western" loading="lazy" />
           <div class="coach-info">
             <div class="coach-name">Connor Western</div>
-            <div class="coach-role">Founder · Bali</div>
+            <div class="coach-role">Founder · Bali, Indonesia</div>
             <p class="coach-bio">Built Cowboy Closers after a decade selling everything from glowsticks at ten to £100k months in timeshare. Runs the program from Bali and coaches with zero fluff. Just the stuff that actually works on live calls.</p>
           </div>
         </div>
-        <div class="coach-card">
+        <div class="coach-card" data-anim data-delay="2">
           <img class="coach-img" src="https://start.cowboyclosers.com/assets/freddie1-wWxx7kbm.jpg" alt="Freddie Harries" loading="lazy" />
           <div class="coach-info">
             <div class="coach-name">Freddie Harries</div>
@@ -357,15 +937,15 @@
             <p class="coach-bio">Background in luxury real estate where he's closed hundreds of millions in high-ticket deals. Coaches tonality, energy management, and the psychology of closing premium offers. If you want to sound like someone worth buying from, Freddie is who you learn from.</p>
           </div>
         </div>
-        <div class="coach-card">
+        <div class="coach-card" data-anim data-delay="3">
           <img class="coach-img" src="https://start.cowboyclosers.com/assets/zach-ZGGZodCy.jpg" alt="Zach Ford" loading="lazy" />
           <div class="coach-info">
             <div class="coach-name">Zach Ford</div>
-            <div class="coach-role">Coach · Bali</div>
+            <div class="coach-role">Coach · Bali, Indonesia</div>
             <p class="coach-bio">Went from broke and backpacking in Vietnam to landing his first remote closing role in 49 days through Cowboy Closers. Now on the coaching team, helping new closers walk the same path. Close rate hit 66%.</p>
           </div>
         </div>
-        <div class="coach-card">
+        <div class="coach-card" data-anim data-delay="4">
           <img class="coach-img" src="https://start.cowboyclosers.com/assets/job-M0mosviI.jpg" alt="Jon Mowday" loading="lazy" />
           <div class="coach-info">
             <div class="coach-name">Jon Mowday</div>
@@ -374,8 +954,299 @@
           </div>
         </div>
       </div>
+
+      <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
     </div>
   </section>
+
+  <!-- PROOF -->
+  <section>
+    <div class="container">
+      <span class="eyebrow">Results</span>
+      <h2 class="editorial" data-anim>Same effort.<br><em>Completely different results.</em></h2>
+      <p class="body-prose" data-anim data-delay="3" style="margin-top: 24px;">These people were already in sales. Already doing the reps. One shift in the frame and everything changed.</p>
+      <div class="proof-grid">
+        <div class="proof-card" data-anim data-delay="1">
+          <div class="proof-number">$0 to<br>$30k/mo</div>
+          <div class="proof-name">Marion</div>
+          <p class="proof-text">Cold calls, door to door, same effort every day as the people around her. Income near zero. The skills were there, the reps were there. One shift in the frame, partnered with a national distributor across 160+ retail locations.</p>
+        </div>
+        <div class="proof-card" data-anim data-delay="2">
+          <div class="proof-number">First Call,<br>First Close</div>
+          <div class="proof-name">Madeleine</div>
+          <p class="proof-text">Brand new closing role. First morning on the tools. First call, closed. Not because she had years under her belt. Because she showed up with the right frame before she ever opened her mouth.</p>
+        </div>
+        <div class="proof-card" data-anim data-delay="3">
+          <div class="proof-number">66% Close<br>Rate · Day 5</div>
+          <div class="proof-name">Zach</div>
+          <p class="proof-text">Five days into his first ever role. Two of three calls closed. He didn't have more experience than whoever was sitting next to him. He had the foundation in place from the start.</p>
+        </div>
+      </div>
+      <div class="section-cta center">
+        <a href="#apply" class="btn">Apply Now</a>
+        <p class="friction-sm">45-minute call. No commitment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WINS SLIDER -->
+  <section style="padding-top:0; border-top:1px solid var(--line);">
+    <div class="container">
+      <span class="eyebrow">Community Wins</span>
+      <h2 class="editorial" data-anim>Real people.<br><em>Real numbers.</em></h2>
+      <p class="body-prose" data-anim data-delay="3" style="margin-top: 24px;">You can find them at @cowboyclosers_. Real names, real posts, no highlight reel.</p>
+
+      <div class="wins-slider" data-anim="fade" data-delay="3">
+        <div class="wins-track-wrap">
+          <div class="wins-track" id="winsTrack">
+            <div class="win-slide" onclick="openLightbox(0)"><img src="https://start.cowboyclosers.com/assets/virginia-18k-NFXA_MRS.png" alt="Virginia $18k" loading="lazy" /><div class="win-expand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1612" stroke-width="2.5"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>
+            <div class="win-slide" onclick="openLightbox(1)"><img src="https://start.cowboyclosers.com/assets/mads-1.5k-CZdtmHe9.png" alt="Madeleine" loading="lazy" /><div class="win-expand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1612" stroke-width="2.5"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>
+            <div class="win-slide" onclick="openLightbox(2)"><img src="https://start.cowboyclosers.com/assets/zach-close-eT8DrSgr.png" alt="Zach" loading="lazy" /><div class="win-expand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1612" stroke-width="2.5"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>
+            <div class="win-slide" onclick="openLightbox(3)"><img src="https://start.cowboyclosers.com/assets/ianna-first-close-DYJKqOUI.png" alt="Ianna" loading="lazy" /><div class="win-expand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1612" stroke-width="2.5"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>
+            <div class="win-slide" onclick="openLightbox(4)"><img src="https://start.cowboyclosers.com/assets/tj-5k-cad-D_Lg4lXu.png" alt="TJ" loading="lazy" /><div class="win-expand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1612" stroke-width="2.5"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>
+            <div class="win-slide" onclick="openLightbox(5)"><img src="https://start.cowboyclosers.com/assets/ianna-20k-BeCeitNm.png" alt="Ianna $20k" loading="lazy" /><div class="win-expand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1612" stroke-width="2.5"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>
+            <div class="win-slide" onclick="openLightbox(6)"><img src="https://start.cowboyclosers.com/assets/reece-hos-role-LyE5VNe8.png" alt="Reece" loading="lazy" /><div class="win-expand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1612" stroke-width="2.5"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>
+            <div class="win-slide" onclick="openLightbox(7)"><img src="https://start.cowboyclosers.com/assets/zach-double-deal-CNFuYJMz.png" alt="Zach double" loading="lazy" /><div class="win-expand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1612" stroke-width="2.5"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>
+            <div class="win-slide" onclick="openLightbox(8)"><img src="https://start.cowboyclosers.com/assets/nolan-kpis-fNELiZiw.png" alt="Nolan" loading="lazy" /><div class="win-expand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1612" stroke-width="2.5"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>
+            <div class="win-slide" onclick="openLightbox(9)"><img src="https://start.cowboyclosers.com/assets/marion-0-30k-CSPWZ_qW.png" alt="Marion" loading="lazy" /><div class="win-expand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1612" stroke-width="2.5"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>
+            <div class="win-slide" onclick="openLightbox(10)"><img src="https://start.cowboyclosers.com/assets/kaspar-first-sale-DYer_Y74.png" alt="Kaspar" loading="lazy" /><div class="win-expand"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1612" stroke-width="2.5"><polyline points="15,3 21,3 21,9"/><polyline points="9,21 3,21 3,15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></div></div>
+          </div>
+        </div>
+        <div class="wins-nav">
+          <div class="wins-dots" id="winsDots"></div>
+          <div class="wins-arrows">
+            <button class="c-btn" onclick="slideWins(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg></button>
+            <button class="c-btn" onclick="slideWins(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9,18 15,12 9,6"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
+    </div>
+  </section>
+
+  <!-- PAIN -->
+  <section class="pain-section">
+    <div class="container">
+      <span class="eyebrow">Sound Familiar?</span>
+      <h2 class="editorial" data-anim>You're doing the work.<br><em>The gap won't close.</em></h2>
+      <div class="pain-cols">
+        <p class="body-prose" data-anim data-delay="2">You know people performing at a level you're not at yet and on paper the gap shouldn't be that big. You're putting in the reps, you know the process, something is still off. And you can't fully explain what.</p>
+        <ul class="pain-list">
+          <li data-anim data-delay="1"><span class="pain-num">01</span>You get on calls, do everything right, and it still falls apart at the close</li>
+          <li data-anim data-delay="2"><span class="pain-num">02</span>You've drilled the scripts and objection handles. They hold up in practice, not on live calls</li>
+          <li data-anim data-delay="3"><span class="pain-num">03</span>There's a slight rush when you push toward the close that you can't fully stop</li>
+          <li data-anim data-delay="4"><span class="pain-num">04</span>When a prospect goes quiet you keep talking when you know you should shut up</li>
+          <li data-anim data-delay="5"><span class="pain-num">05</span>You've bought courses to fix it. Nothing changed the underlying pattern</li>
+        </ul>
+      </div>
+      <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
+    </div>
+  </section>
+
+  <!-- MIDBREAK -->
+  <div class="midbreak-wrap">
+    <img src="./connor-ranch.jpg" alt="Connor Western" class="midbreak-img" loading="lazy"
+         onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
+  </div>
+
+  <!-- SOLUTION -->
+  <section>
+    <div class="container">
+      <span class="eyebrow">The Real Problem</span>
+      <h2 class="editorial" data-anim>It's not the script.<br><em>It's the frame behind it.</em></h2>
+      <div class="body-prose" data-anim data-delay="3" style="margin-top: 32px;">
+        <p>The problem sitting behind every closer who's grinding without results is the frame they bring to a call. Whether the person on the other side can feel, even slightly, that they need the deal. And they always can feel it. It might be subtle. A slight rush when you're pushing toward the close, over-explaining when someone goes quiet, keeping talking when you should just shut up and let the silence sit.</p>
+        <p>But it's there. And the moment they pick it up, you've handed the authority in that conversation straight over to them. No script saves you from that. You can have the cleanest objection reframe ever written and they'll still find a way out. Every time.</p>
+        <p>The fix is genuine detachment from the outcome. Not as a technique you layer on top of your existing approach. Actually having it. In the room, in real time, when there's money on the table. That's what the program builds first. Everything else is built on top of that.</p>
+      </div>
+      <div class="section-cta"><a href="#apply" class="btn">Apply Now</a></div>
+    </div>
+  </section>
+
+  <!-- INTERSTITIAL IMAGE -->
+  <div class="midbreak-wrap">
+    <img src="./connor-horses.jpg" alt="Connor Western" class="midbreak-img" loading="lazy"
+         onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
+  </div>
+
+  <!-- PROGRAM -->
+  <section class="pain-section">
+    <div class="container">
+      <span class="eyebrow">The Program</span>
+      <h2 class="editorial" data-anim>Eight phases.<br><em>In the right order.</em></h2>
+      <p class="body-prose" data-anim data-delay="3" style="margin-top: 24px;">The frame goes in first. By the time you get to closing mechanics, it's already there to make them land.</p>
+      <div class="phases-list">
+        <div class="phase-row" data-anim data-delay="1"><span class="phase-n">01</span><div><div class="phase-title">Mindset & Frame</div><p class="phase-desc">The foundation everything else is built on. The identity shift that changes how you show up before a single word comes out of your mouth.</p></div></div>
+        <div class="phase-row" data-anim data-delay="2"><span class="phase-n">02</span><div><div class="phase-title">LinkedIn Positioning</div><p class="phase-desc">Visible to the right people. Attracting the roles worth your time instead of chasing the wrong ones.</p></div></div>
+        <div class="phase-row" data-anim data-delay="3"><span class="phase-n">03</span><div><div class="phase-title">CV & Interview Strategy</div><p class="phase-desc">How to walk into a room or a Zoom and make the decision for them before you've said much at all.</p></div></div>
+        <div class="phase-row" data-anim data-delay="4"><span class="phase-n">04</span><div><div class="phase-title">Elite SDR Operations</div><p class="phase-desc">Book the right calls. Set them up to close before you ever pick up the phone.</p></div></div>
+        <div class="phase-row" data-anim data-delay="1"><span class="phase-n">05</span><div><div class="phase-title">Understanding Sales Roles</div><p class="phase-desc">The different types of remote roles, how to read compensation structures, and which move makes sense for where you're at.</p></div></div>
+        <div class="phase-row" data-anim data-delay="2"><span class="phase-n">06</span><div><div class="phase-title">New Business Generation</div><p class="phase-desc">Build your own pipeline. Not dependent on a company feeding you leads.</p></div></div>
+        <div class="phase-row" data-anim data-delay="3"><span class="phase-n">07</span><div><div class="phase-title">Closing Mechanics</div><p class="phase-desc">Every tactic, every objection handle. Now they actually land because the frame is already there underneath them.</p></div></div>
+        <div class="phase-row" data-anim data-delay="4"><span class="phase-n">08</span><div><div class="phase-title">Direct Access to Connor</div><p class="phase-desc">When a call goes sideways and you're not sure what happened, you're not sitting on it alone.</p></div></div>
+      </div>
+      <div class="section-cta center">
+        <a href="#apply" class="btn">Apply Now</a>
+        <p class="friction-sm">45-minute call. No commitment.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR / NOT FOR -->
+  <section>
+    <div class="container">
+      <span class="eyebrow">Who This Is For</span>
+      <h2 class="editorial" data-anim>Be honest with yourself<br><em>before you apply.</em></h2>
+      <div class="for-grid">
+        <div class="for-card yes" data-anim data-delay="2">
+          <div class="for-title">This is for you if</div>
+          <ul class="for-list">
+            <li>You're already in sales and performing below where you know you should be</li>
+            <li>You've done the reps and something is still off that you can't name</li>
+            <li>You've bought courses and felt like they gave you tactics without fixing the underlying issue</li>
+            <li>You're ready to look honestly at what's actually running your calls</li>
+            <li>You want to perform at the level you're capable of, not just slightly better than last month</li>
+          </ul>
+        </div>
+        <div class="for-card no" data-anim data-delay="3">
+          <div class="for-title">This is not for you if</div>
+          <ul class="for-list">
+            <li>You're looking for a new script to layer on top of an existing pattern</li>
+            <li>You're not prepared to look at what's actually happening on your calls</li>
+            <li>You want a quick fix rather than fixing the foundation</li>
+            <li>You think the problem is the offer or the leads rather than the frame</li>
+            <li>You're not willing to do the identity work before the tactical work</li>
+          </ul>
+        </div>
+      </div>
+      <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="pain-section">
+    <div class="container">
+      <span class="eyebrow">From the Community</span>
+      <h2 class="editorial" data-anim>Real closers.<br><em>Real results.</em></h2>
+      <p class="body-prose" data-anim data-delay="3" style="margin-top: 24px;">These are not actors. These are Cowboy Closers community members sharing their actual outcomes.</p>
+      <div class="testi-grid">
+        <div class="testi-card" data-anim data-delay="1"><p class="testi-quote">Connor was right. Getting the offer is just the first part. Closing deals requires more work. But the principles stay the same. It's about reps.</p><div class="testi-name">Kaspar</div><div class="testi-role">Previous course buyer, now closing</div></div>
+        <div class="testi-card" data-anim data-delay="2"><p class="testi-quote">One conversation using the IDGAF framework. Biggest deal of my career. 200 units closed in a single meeting.</p><div class="testi-name">Jim</div><div class="testi-role">Business owner</div></div>
+        <div class="testi-card" data-anim data-delay="3"><p class="testi-quote">Grind until Thursday, then Budapest for a bit, home for two weeks, then Bali.</p><div class="testi-name">Xander</div><div class="testi-role">50% commission + 5% retainer, Dutch agency</div></div>
+        <div class="testi-card" data-anim data-delay="1"><p class="testi-quote">Went SDR and closing with an AI agency. Cracked over $5k Canadian in my first month.</p><div class="testi-name">TJ McBride</div><div class="testi-role">AI agency</div></div>
+        <div class="testi-card" data-anim data-delay="2"><p class="testi-quote">Broke his company's record for calls booked on day one. CEO gave him a bonus before his first week was out.</p><div class="testi-name">Reece</div><div class="testi-role">Record day one</div></div>
+        <div class="testi-card" data-anim data-delay="3"><p class="testi-quote">First morning. First call. First close. Five months later, first $20k deal.</p><div class="testi-name">Ianna</div><div class="testi-role">$0 to $20k deal</div></div>
+      </div>
+      <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <span class="eyebrow">Questions</span>
+      <h2 class="editorial" data-anim>Straight answers to<br><em>real questions.</em></h2>
+      <div class="faq-list" data-anim data-delay="3">
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I've tried sales training before and nothing changed. Why is this different?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Most programs give you tactics without touching the frame underneath them. Tactics built on a needy frame don't hold up when a live call gets uncomfortable. This program fixes the foundation first. The tactics are the easy part once that's in place.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I know the frame concept. Is there actually something new here?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Knowing it and having it are different things. Most people who know the frame concept still need the deal when they're in the room. The program is built around actually building the identity shift. Not understanding it intellectually, having it in real time under live-call pressure.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I'm already closing some deals. Will this actually move the needle?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Marion was closing deals before. Income near zero compared to what she was capable of. Jim was closing deals before. One session with the IDGAF framework and he closed the biggest deal of his career. The gap between where you are and where you should be almost always comes back to the same thing.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What does the call actually involve?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">You'll speak with one of Connor's student success coaches. They'll look at your specific situation. What role you're in, what your numbers look like, where calls are coming apart. They'll tell you honestly whether what we do is the right fit to close that gap. If it is, they walk you through everything. If it isn't, they'll tell you that straight. 45 minutes.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I don't have the money right now.<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Bring it up on the call. There are options. But the conversation has to start with whether you've actually decided you want this. Because there's no point solving the money if the decision isn't there yet.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is this remote? Can I do this from anywhere?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Yes. The entire program is remote. Our coaches coach from Bali, Colombia, the UK, and on the road. The roles we help place you in are remote. This is built for location freedom.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What kinds of offers will I be closing?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">High-ticket coaching, consulting, SaaS, e-commerce, real estate, and more. We introduce you to vetted offer owners looking for reliable remote closers. Students have closed everything from €20k–€40k e-commerce investment opportunities to AI marketing systems and luxury real estate.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What does the coaching actually look like week to week?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Live group coaching calls, deal reviews, roleplay sessions, curriculum modules, and direct access to the coaching team inside the private community. It's hands-on, not a course you buy and forget.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What if it doesn't work for me?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Book a call and we'll be straight with you before you ever join. We only take on people we genuinely believe we can help. This is not a churn-and-burn operation.</div></div>
+      </div>
+      <div class="section-cta center">
+        <a href="#apply" class="btn">Apply Now</a>
+        <p class="friction-sm">One 45-minute call. Straight answers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="apply-section">
+    <div class="container">
+      <div class="apply-inner">
+        <span class="eyebrow">Apply</span>
+        <h2 class="editorial" data-anim>Still scrolling?<br><em>The form is at the top.</em></h2>
+        <p class="body-prose" data-anim data-delay="3">Fill it out. One of Connor's coaches will be in touch to book your 45-minute call. They'll be straight with you. If it's not the right fit, they'll say so.</p>
+        <div data-anim data-delay="4"><a href="#apply" class="btn btn-rust">Take Me Back Up</a></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Cowboy Closers. All rights reserved. &nbsp;|&nbsp; <a href="./privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="./terms.html">Terms</a></p>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+    <button class="lightbox-close" onclick="closeLightbox()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <button class="lightbox-prev" onclick="stepLightbox(-1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg></button>
+    <button class="lightbox-next" onclick="stepLightbox(1)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9,18 15,12 9,6"/></svg></button>
+    <img class="lightbox-img" id="lightboxImg" alt="" />
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
+
+  <script>
+    /* scroll animations */
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('[data-anim]').forEach(el => obs.observe(el));
+
+    /* faq */
+    function toggleFaq(btn) {
+      btn.parentElement.classList.toggle('open');
+    }
+
+    /* wins slider */
+    const winsTrack = document.getElementById('winsTrack');
+    const winsDots = document.getElementById('winsDots');
+    const winsCount = winsTrack.children.length;
+    let winsIdx = 0;
+    const visiblePerView = window.innerWidth <= 880 ? 2 : 4;
+    const totalPages = Math.max(1, Math.ceil(winsCount / visiblePerView));
+
+    for (let i = 0; i < totalPages; i++) {
+      const dot = document.createElement('span');
+      if (i === 0) dot.classList.add('active');
+      winsDots.appendChild(dot);
+    }
+
+    function slideWins(dir) {
+      winsIdx = Math.max(0, Math.min(totalPages - 1, winsIdx + dir));
+      const slideWidth = winsTrack.children[0].offsetWidth + 16;
+      winsTrack.style.transform = `translateX(${-winsIdx * slideWidth * visiblePerView}px)`;
+      [...winsDots.children].forEach((d, i) => d.classList.toggle('active', i === winsIdx));
+    }
+
+    /* lightbox */
+    const winImages = [...winsTrack.querySelectorAll('img')].map(img => img.src);
+    let lbIdx = 0;
+    function openLightbox(i) {
+      lbIdx = i; renderLightbox();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function renderLightbox() {
+      document.getElementById('lightboxImg').src = winImages[lbIdx];
+      document.getElementById('lightboxCounter').textContent = (lbIdx + 1) + ' / ' + winImages.length;
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeLightboxOnBg(e) { if (e.target === document.getElementById('lightbox')) closeLightbox(); }
+    function stepLightbox(dir) { lbIdx = (lbIdx + dir + winImages.length) % winImages.length; renderLightbox(); }
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') stepLightbox(1);
+      if (e.key === 'ArrowLeft') stepLightbox(-1);
+    });
+  </script>
 
 </body>
 </html>
