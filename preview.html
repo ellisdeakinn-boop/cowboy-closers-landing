@@ -118,6 +118,11 @@
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
     section { padding: 110px 0; position: relative; }
 
+    /* centered section heads */
+    .section-head { text-align: center; max-width: 760px; margin: 0 auto; }
+    .section-head .eyebrow { justify-content: center; }
+    .section-head .body-prose { margin: 24px auto 0; }
+
     /* shared type */
     .eyebrow {
       font-family: 'Montserrat', sans-serif;
@@ -916,9 +921,11 @@
   <!-- COACHES -->
   <section class="coaches">
     <div class="container">
-      <span class="eyebrow" style="margin: 0 0 28px;">The Team</span>
-      <h2 class="editorial" data-anim>Coached by closers<br><em>who actually close.</em></h2>
-      <p class="body-prose" data-anim data-delay="3" style="margin: 24px auto 0;">No theory. No hype. Just coaches who have done it at the highest level.</p>
+      <div class="section-head">
+        <span class="eyebrow">The Team</span>
+        <h2 class="editorial" data-anim>Coached by closers<br><em>who actually close.</em></h2>
+        <p class="body-prose" data-anim data-delay="3">No theory. No hype. Just coaches who have done it at the highest level.</p>
+      </div>
 
       <div class="coach-grid">
         <div class="coach-card" data-anim data-delay="1">
@@ -962,9 +969,11 @@
   <!-- PROOF -->
   <section>
     <div class="container">
-      <span class="eyebrow">Results</span>
-      <h2 class="editorial" data-anim>Same effort.<br><em>Completely different results.</em></h2>
-      <p class="body-prose" data-anim data-delay="3" style="margin-top: 24px;">These people were already in sales. Already doing the reps. One shift in the frame and everything changed.</p>
+      <div class="section-head">
+        <span class="eyebrow">Results</span>
+        <h2 class="editorial" data-anim>Same effort.<br><em>Completely different results.</em></h2>
+        <p class="body-prose" data-anim data-delay="3">These people were already in sales. Already doing the reps. One shift in the frame and everything changed.</p>
+      </div>
       <div class="proof-grid">
         <div class="proof-card" data-anim data-delay="1">
           <div class="proof-number">$0 to<br>$30k/mo</div>
@@ -992,9 +1001,11 @@
   <!-- WINS SLIDER -->
   <section style="padding-top:0; border-top:1px solid var(--line);">
     <div class="container">
-      <span class="eyebrow">Community Wins</span>
-      <h2 class="editorial" data-anim>Real people.<br><em>Real numbers.</em></h2>
-      <p class="body-prose" data-anim data-delay="3" style="margin-top: 24px;">You can find them at @cowboyclosers_. Real names, real posts, no highlight reel.</p>
+      <div class="section-head">
+        <span class="eyebrow">Community Wins</span>
+        <h2 class="editorial" data-anim>Real people.<br><em>Real numbers.</em></h2>
+        <p class="body-prose" data-anim data-delay="3">You can find them at @cowboyclosers_. Real names, real posts, no highlight reel.</p>
+      </div>
 
       <div class="wins-slider" data-anim="fade" data-delay="3">
         <div class="wins-track-wrap">
@@ -1027,8 +1038,10 @@
   <!-- PAIN -->
   <section class="pain-section">
     <div class="container">
-      <span class="eyebrow">Sound Familiar?</span>
-      <h2 class="editorial" data-anim>You're doing the work.<br><em>The gap won't close.</em></h2>
+      <div class="section-head">
+        <span class="eyebrow">Sound Familiar?</span>
+        <h2 class="editorial" data-anim>You're doing the work.<br><em>The gap won't close.</em></h2>
+      </div>
       <div class="pain-cols">
         <p class="body-prose" data-anim data-delay="2">You know people performing at a level you're not at yet and on paper the gap shouldn't be that big. You're putting in the reps, you know the process, something is still off. And you can't fully explain what.</p>
         <ul class="pain-list">
@@ -1052,14 +1065,16 @@
   <!-- SOLUTION -->
   <section>
     <div class="container">
-      <span class="eyebrow">The Real Problem</span>
-      <h2 class="editorial" data-anim>It's not the script.<br><em>It's the frame behind it.</em></h2>
-      <div class="body-prose" data-anim data-delay="3" style="margin-top: 32px;">
+      <div class="section-head">
+        <span class="eyebrow">The Real Problem</span>
+        <h2 class="editorial" data-anim>It's not the script.<br><em>It's the frame behind it.</em></h2>
+      </div>
+      <div class="body-prose" data-anim data-delay="3" style="margin: 32px auto 0; text-align: left;">
         <p>The problem sitting behind every closer who's grinding without results is the frame they bring to a call. Whether the person on the other side can feel, even slightly, that they need the deal. And they always can feel it. It might be subtle. A slight rush when you're pushing toward the close, over-explaining when someone goes quiet, keeping talking when you should just shut up and let the silence sit.</p>
         <p>But it's there. And the moment they pick it up, you've handed the authority in that conversation straight over to them. No script saves you from that. You can have the cleanest objection reframe ever written and they'll still find a way out. Every time.</p>
         <p>The fix is genuine detachment from the outcome. Not as a technique you layer on top of your existing approach. Actually having it. In the room, in real time, when there's money on the table. That's what the program builds first. Everything else is built on top of that.</p>
       </div>
-      <div class="section-cta"><a href="#apply" class="btn">Apply Now</a></div>
+      <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
     </div>
   </section>
 
@@ -1072,10 +1087,12 @@
   <!-- PROGRAM -->
   <section class="pain-section">
     <div class="container">
-      <span class="eyebrow">The Program</span>
-      <h2 class="editorial" data-anim>Eight phases.<br><em>In the right order.</em></h2>
-      <p class="body-prose" data-anim data-delay="3" style="margin-top: 24px;">The frame goes in first. By the time you get to closing mechanics, it's already there to make them land.</p>
-      <div class="phases-list">
+      <div class="section-head">
+        <span class="eyebrow">The Program</span>
+        <h2 class="editorial" data-anim>Eight phases.<br><em>In the right order.</em></h2>
+        <p class="body-prose" data-anim data-delay="3">The frame goes in first. By the time you get to closing mechanics, it's already there to make them land.</p>
+      </div>
+      <div class="phases-list" style="margin-left: auto; margin-right: auto;">
         <div class="phase-row" data-anim data-delay="1"><span class="phase-n">01</span><div><div class="phase-title">Mindset & Frame</div><p class="phase-desc">The foundation everything else is built on. The identity shift that changes how you show up before a single word comes out of your mouth.</p></div></div>
         <div class="phase-row" data-anim data-delay="2"><span class="phase-n">02</span><div><div class="phase-title">LinkedIn Positioning</div><p class="phase-desc">Visible to the right people. Attracting the roles worth your time instead of chasing the wrong ones.</p></div></div>
         <div class="phase-row" data-anim data-delay="3"><span class="phase-n">03</span><div><div class="phase-title">CV & Interview Strategy</div><p class="phase-desc">How to walk into a room or a Zoom and make the decision for them before you've said much at all.</p></div></div>
@@ -1095,8 +1112,10 @@
   <!-- FOR / NOT FOR -->
   <section>
     <div class="container">
-      <span class="eyebrow">Who This Is For</span>
-      <h2 class="editorial" data-anim>Be honest with yourself<br><em>before you apply.</em></h2>
+      <div class="section-head">
+        <span class="eyebrow">Who This Is For</span>
+        <h2 class="editorial" data-anim>Be honest with yourself<br><em>before you apply.</em></h2>
+      </div>
       <div class="for-grid">
         <div class="for-card yes" data-anim data-delay="2">
           <div class="for-title">This is for you if</div>
@@ -1126,9 +1145,11 @@
   <!-- TESTIMONIALS -->
   <section class="pain-section">
     <div class="container">
-      <span class="eyebrow">From the Community</span>
-      <h2 class="editorial" data-anim>Real closers.<br><em>Real results.</em></h2>
-      <p class="body-prose" data-anim data-delay="3" style="margin-top: 24px;">These are not actors. These are Cowboy Closers community members sharing their actual outcomes.</p>
+      <div class="section-head">
+        <span class="eyebrow">From the Community</span>
+        <h2 class="editorial" data-anim>Real closers.<br><em>Real results.</em></h2>
+        <p class="body-prose" data-anim data-delay="3">These are not actors. These are Cowboy Closers community members sharing their actual outcomes.</p>
+      </div>
       <div class="testi-grid">
         <div class="testi-card" data-anim data-delay="1"><p class="testi-quote">Connor was right. Getting the offer is just the first part. Closing deals requires more work. But the principles stay the same. It's about reps.</p><div class="testi-name">Kaspar</div><div class="testi-role">Previous course buyer, now closing</div></div>
         <div class="testi-card" data-anim data-delay="2"><p class="testi-quote">One conversation using the IDGAF framework. Biggest deal of my career. 200 units closed in a single meeting.</p><div class="testi-name">Jim</div><div class="testi-role">Business owner</div></div>
@@ -1144,9 +1165,11 @@
   <!-- FAQ -->
   <section>
     <div class="container">
-      <span class="eyebrow">Questions</span>
-      <h2 class="editorial" data-anim>Straight answers to<br><em>real questions.</em></h2>
-      <div class="faq-list" data-anim data-delay="3">
+      <div class="section-head">
+        <span class="eyebrow">Questions</span>
+        <h2 class="editorial" data-anim>Straight answers to<br><em>real questions.</em></h2>
+      </div>
+      <div class="faq-list" data-anim data-delay="3" style="margin-left: auto; margin-right: auto;">
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I've tried sales training before and nothing changed. Why is this different?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Most programs give you tactics without touching the frame underneath them. Tactics built on a needy frame don't hold up when a live call gets uncomfortable. This program fixes the foundation first. The tactics are the easy part once that's in place.</div></div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I know the frame concept. Is there actually something new here?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Knowing it and having it are different things. Most people who know the frame concept still need the deal when they're in the room. The program is built around actually building the identity shift. Not understanding it intellectually, having it in real time under live-call pressure.</div></div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I'm already closing some deals. Will this actually move the needle?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Marion was closing deals before. Income near zero compared to what she was capable of. Jim was closing deals before. One session with the IDGAF framework and he closed the biggest deal of his career. The gap between where you are and where you should be almost always comes back to the same thing.</div></div>
