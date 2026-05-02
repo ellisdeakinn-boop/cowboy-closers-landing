@@ -386,30 +386,25 @@
     .proof-text { font-size: 15px; color: var(--mid); line-height: 1.75; }
 
     .wins-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      column-count: 4;
+      column-gap: 16px;
       margin-top: 48px;
     }
     .win-tile {
+      break-inside: avoid;
+      margin-bottom: 16px;
       overflow: hidden;
-      background: var(--bg-deep);
       border: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      aspect-ratio: 9/16;
-      padding: 8px;
+      background: var(--bg);
+      display: block;
     }
     .win-tile img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
+      width: 100%;
       height: auto;
-      object-fit: contain;
+      display: block;
       transition: transform 0.4s cubic-bezier(.4,0,.2,1);
     }
-    .win-tile:hover img { transform: scale(1.04); }
+    .win-tile:hover img { transform: scale(1.03); }
 
     /* TESTIMONIALS */
     .testi-grid {
@@ -507,7 +502,8 @@
       .container { padding: 0 22px; }
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
       .proof-grid { grid-template-columns: 1fr; gap: 24px; }
-      .wins-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .wins-grid { column-count: 2; column-gap: 12px; }
+      .win-tile { margin-bottom: 12px; }
       .countdown { gap: 8px; }
       .cd-cell { padding: 18px 8px 14px; }
       .event-meta { gap: 24px; }
