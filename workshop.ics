@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Cowboy Closers//Workshop//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:workshop-2026-05-12@cowboyclosers.com
+DTSTAMP:20260501T000000Z
+DTSTART:20260512T120000Z
+DTEND:20260512T133000Z
+SUMMARY:Cowboy Closers Live Training — How To Make More Than Your Boss
+DESCRIPTION:Live training with Connor Western. Show up with notepad and a real question. Zoom link will be in your email and dropped in the Instagram broadcast channel before the call.
+LOCATION:Zoom (link in your inbox)
+STATUS:CONFIRMED
+SEQUENCE:0
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Cowboy Closers Live Training starts in 1 hour
+TRIGGER:-PT1H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
