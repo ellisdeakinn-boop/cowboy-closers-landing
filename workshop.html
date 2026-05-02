@@ -385,26 +385,61 @@
     }
     .proof-text { font-size: 15px; color: var(--mid); line-height: 1.75; }
 
-    .wins-grid {
-      column-count: 4;
-      column-gap: 16px;
-      margin-top: 48px;
+    /* wins carousel */
+    .wins-carousel { margin-top: 48px; position: relative; }
+    .wins-track-wrap {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .wins-track-wrap::-webkit-scrollbar { display: none; }
+    .wins-track {
+      display: flex;
+      gap: 16px;
+      padding: 4px 0;
     }
     .win-tile {
-      break-inside: avoid;
-      margin-bottom: 16px;
+      flex: 0 0 auto;
+      height: 480px;
+      scroll-snap-align: start;
       overflow: hidden;
       border: 1px solid var(--line);
       background: var(--bg);
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .win-tile img {
-      width: 100%;
-      height: auto;
+      height: 100%;
+      width: auto;
+      max-width: none;
       display: block;
       transition: transform 0.4s cubic-bezier(.4,0,.2,1);
     }
     .win-tile:hover img { transform: scale(1.03); }
+    .wins-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .wins-arrow {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .wins-arrow:hover { background: var(--rust); color: var(--bg); border-color: var(--rust); }
+    .wins-arrow:disabled { opacity: 0.3; cursor: default; }
+    .wins-arrow:disabled:hover { background: var(--bg); color: var(--ink); border-color: var(--line); }
 
     /* TESTIMONIALS */
     .testi-grid {
@@ -502,8 +537,8 @@
       .container { padding: 0 22px; }
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
       .proof-grid { grid-template-columns: 1fr; gap: 24px; }
-      .wins-grid { column-count: 2; column-gap: 12px; }
-      .win-tile { margin-bottom: 12px; }
+      .win-tile { height: 360px; }
+      .wins-track { gap: 12px; }
       .countdown { gap: 8px; }
       .cd-cell { padding: 18px 8px 14px; }
       .event-meta { gap: 24px; }
@@ -687,15 +722,26 @@
         </div>
       </div>
 
-      <div class="wins-grid" data-anim="fade" data-delay="3">
-        <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/virginia-18k-NFXA_MRS.png" alt="Virginia $18k" loading="lazy" /></div>
-        <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/zach-close-eT8DrSgr.png" alt="Zach close" loading="lazy" /></div>
-        <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/ianna-20k-BeCeitNm.png" alt="Ianna $20k" loading="lazy" /></div>
-        <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/tj-5k-cad-D_Lg4lXu.png" alt="TJ $5k CAD" loading="lazy" /></div>
-        <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/marion-0-30k-CSPWZ_qW.png" alt="Marion $30k" loading="lazy" /></div>
-        <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/reece-hos-role-LyE5VNe8.png" alt="Reece role" loading="lazy" /></div>
-        <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/ianna-first-close-DYJKqOUI.png" alt="Ianna first close" loading="lazy" /></div>
-        <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/zach-double-deal-CNFuYJMz.png" alt="Zach double deal" loading="lazy" /></div>
+      <div class="wins-carousel" data-anim="fade" data-delay="3">
+        <div class="wins-track-wrap" id="winsTrackWrap">
+          <div class="wins-track">
+            <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/virginia-18k-NFXA_MRS.png" alt="Virginia $18k" loading="lazy" /></div>
+            <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/zach-close-eT8DrSgr.png" alt="Zach close" loading="lazy" /></div>
+            <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/ianna-20k-BeCeitNm.png" alt="Ianna $20k" loading="lazy" /></div>
+            <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/tj-5k-cad-D_Lg4lXu.png" alt="TJ $5k CAD" loading="lazy" /></div>
+            <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/marion-0-30k-CSPWZ_qW.png" alt="Marion $30k" loading="lazy" /></div>
+            <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/reece-hos-role-LyE5VNe8.png" alt="Reece role" loading="lazy" /></div>
+            <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/ianna-first-close-DYJKqOUI.png" alt="Ianna first close" loading="lazy" /></div>
+            <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/zach-double-deal-CNFuYJMz.png" alt="Zach double deal" loading="lazy" /></div>
+            <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/mads-1.5k-CZdtmHe9.png" alt="Mads $1.5k" loading="lazy" /></div>
+            <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/nolan-kpis-fNELiZiw.png" alt="Nolan KPIs" loading="lazy" /></div>
+            <div class="win-tile"><img src="https://start.cowboyclosers.com/assets/kaspar-first-sale-DYer_Y74.png" alt="Kaspar first sale" loading="lazy" /></div>
+          </div>
+        </div>
+        <div class="wins-nav">
+          <button class="wins-arrow" onclick="scrollWins(-1)" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15,18 9,12 15,6"/></svg></button>
+          <button class="wins-arrow" onclick="scrollWins(1)" aria-label="Next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9,18 15,12 9,6"/></svg></button>
+        </div>
       </div>
 
       <div class="section-cta">
@@ -777,6 +823,13 @@
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.12 });
     document.querySelectorAll('[data-anim]').forEach(el => obs.observe(el));
+
+    /* wins carousel scroll */
+    function scrollWins(dir) {
+      const wrap = document.getElementById('winsTrackWrap');
+      if (!wrap) return;
+      wrap.scrollBy({ left: dir * Math.round(wrap.clientWidth * 0.7), behavior: 'smooth' });
+    }
 
     /* countdown — Tuesday May 12, 8:00 PM Bali (WITA, UTC+8) = 12:00 UTC */
     const target = new Date('2026-05-12T12:00:00Z').getTime();
