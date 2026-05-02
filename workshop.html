@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How To Make More Than Your Boss — Live Webinar</title>
+  <title>How To Make More Than Your Boss — Live Training</title>
   <link rel="icon" type="image/jpeg" href="./favicon.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -405,6 +405,55 @@
     }
     .win-tile:hover img { transform: scale(1.04); }
 
+    /* TESTIMONIALS */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 60px;
+    }
+    .testi-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 36px 30px 30px;
+      position: relative;
+      transition: transform 0.3s, border-color 0.3s;
+      text-align: center;
+    }
+    .testi-card:hover { transform: translateY(-4px); border-color: var(--rust); }
+    .testi-card::before {
+      content: '"';
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Fraunces', serif;
+      font-size: 80px;
+      color: var(--rust);
+      line-height: 1;
+      opacity: 0.5;
+    }
+    .testi-quote {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--ink);
+      margin-bottom: 22px;
+      padding-top: 18px;
+    }
+    .testi-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .testi-role { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
+
     /* FINAL REGISTRATION */
     .register-section {
       background: var(--bg-deep);
@@ -472,7 +521,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <span class="eyebrow">Live Webinar · Tuesday May 12</span>
+      <span class="eyebrow">Live Training · Tuesday May 12</span>
       <h1 class="hero-h1" data-anim>How To Make More Than Your Boss</h1>
       <p class="hero-script" data-anim data-delay="2">By talking to pre-sold strangers on Zoom.</p>
       <p class="hero-sub" data-anim data-delay="3">Without building a business, without clocking into an office, and on your own time.</p>
@@ -653,16 +702,38 @@
     </div>
   </section>
 
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">From the Community</span>
+        <h2 class="editorial" data-anim>Real closers.<br><em>Real results.</em></h2>
+        <p class="body-prose" data-anim data-delay="3">These are not actors. These are Cowboy Closers community members sharing their actual outcomes.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card" data-anim data-delay="1"><p class="testi-quote">Connor was right. Getting the offer is just the first part. Closing deals requires more work. But the principles stay the same. It's about reps.</p><div class="testi-name">Kaspar</div><div class="testi-role">Previous course buyer, now closing</div></div>
+        <div class="testi-card" data-anim data-delay="2"><p class="testi-quote">One conversation using the IDGAF framework. Biggest deal of my career. 200 units closed in a single meeting.</p><div class="testi-name">Jim</div><div class="testi-role">Business owner</div></div>
+        <div class="testi-card" data-anim data-delay="3"><p class="testi-quote">Grind until Thursday, then Budapest for a bit, home for two weeks, then Bali.</p><div class="testi-name">Xander</div><div class="testi-role">50% commission + 5% retainer, Dutch agency</div></div>
+        <div class="testi-card" data-anim data-delay="1"><p class="testi-quote">Went SDR and closing with an AI agency. Cracked over $5k Canadian in my first month.</p><div class="testi-name">TJ McBride</div><div class="testi-role">AI agency</div></div>
+        <div class="testi-card" data-anim data-delay="2"><p class="testi-quote">Broke his company's record for calls booked on day one. CEO gave him a bonus before his first week was out.</p><div class="testi-name">Reece</div><div class="testi-role">Record day one</div></div>
+        <div class="testi-card" data-anim data-delay="3"><p class="testi-quote">First morning. First call. First close. Five months later, first $20k deal.</p><div class="testi-name">Ianna</div><div class="testi-role">$0 to $20k deal</div></div>
+      </div>
+      <div class="section-cta">
+        <a href="#register" class="btn">Save My Seat</a>
+      </div>
+    </div>
+  </section>
+
   <!-- FINAL REGISTRATION -->
   <section class="register-section" id="register">
     <div class="container">
       <div class="register-inner">
         <span class="eyebrow">Register</span>
         <h2 class="editorial" data-anim>Save your seat<br><em>before they're gone.</em></h2>
-        <p class="body-prose" data-anim data-delay="3">Live on Zoom. Tuesday May 12, 8:00 PM Bali time. Ninety minutes. Real Q&A at the end. Replays go to attendees only.</p>
+        <p class="body-prose" data-anim data-delay="3">Live training on Zoom. Tuesday May 12, 8:00 PM Bali time. Real Q&A at the end. Replays go to attendees only.</p>
 
         <div class="countdown-wrap" data-anim data-delay="4">
-          <p class="countdown-label">Webinar Starts In</p>
+          <p class="countdown-label">Training Starts In</p>
           <div class="countdown">
             <div class="cd-cell"><span class="cd-num" id="cd2-days">00</span><span class="cd-lbl">Days</span></div>
             <div class="cd-cell"><span class="cd-num" id="cd2-hours">00</span><span class="cd-lbl">Hours</span></div>
