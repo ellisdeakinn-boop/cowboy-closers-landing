@@ -591,6 +591,29 @@
     }
     body.modal-open { overflow: hidden; }
 
+    .reg-a2p {
+      padding: 18px 0 0;
+      border-top: 1px solid var(--line);
+      margin-top: 20px;
+    }
+    .reg-a2p label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .reg-a2p input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      margin-top: 3px;
+      accent-color: var(--rust);
+      cursor: pointer;
+    }
+    .reg-a2p span { font-size: 11.5px; color: var(--muted); line-height: 1.55; }
+    .reg-a2p a { color: var(--muted); text-decoration: underline; }
+    .reg-a2p a:hover { color: var(--rust); }
+
     /* footer */
     footer {
       padding: 40px 32px;
@@ -900,6 +923,12 @@
       <div class="reg-modal-body">
         <div class="wj-embed-wrapper" data-webinar-hash="ykz0xzi7">
           <script src="https://event.webinarjam.com/register/ykz0xzi7/embed-form?formButtonText=Claim%20Your%20Free%20Seat&formAccentColor=%23c14e2a&formAccentOpacity=0.95&formBgColor=%23f4f1ec&formBgOpacity=1"></script>
+        </div>
+        <div class="reg-a2p">
+          <label>
+            <input type="checkbox" id="reg-sms-consent" />
+            <span>By registering, I agree to receive SMS/text messages from Cowboy Closers at the phone number I provide. Messages may include training reminders, the live link, and follow-up info. Message and data rates may apply. Message frequency varies. Reply STOP to opt out at any time. Reply HELP for help. See our <a href="./privacy-policy.html" target="_blank">Privacy Policy</a> and <a href="./terms.html" target="_blank">Terms of Service</a>.</span>
+          </label>
         </div>
       </div>
     </div>
