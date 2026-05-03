@@ -518,6 +518,79 @@
     .register-section .event-meta-lbl { color: var(--dim); }
     .register-section .event-meta-val { color: var(--bg); }
 
+    /* register modal */
+    .reg-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 22, 18, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
+    }
+    .reg-modal.open { display: flex; opacity: 1; }
+    .reg-modal-inner {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      max-width: 580px;
+      width: 100%;
+      max-height: 92vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+    .reg-modal.open .reg-modal-inner { transform: translateY(0) scale(1); }
+    .reg-modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-alt);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .reg-modal-close:hover { background: var(--rust); color: var(--bg); border-color: var(--rust); transform: rotate(90deg); }
+    .reg-modal-head {
+      padding: 36px 36px 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .reg-modal-head .eyebrow { justify-content: center; margin-bottom: 14px; }
+    .reg-modal-head h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(24px, 3.5vw, 32px);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .reg-modal-head h3 em { font-style: italic; font-weight: 400; color: var(--rust); }
+    .reg-modal-head p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .reg-modal-body {
+      padding: 28px 32px 36px;
+    }
+    body.modal-open { overflow: hidden; }
+
     /* footer */
     footer {
       padding: 40px 32px;
@@ -552,7 +625,7 @@
 
   <nav>
     <a class="logo" href="#"><img src="./favicon.jpeg" alt="" />Cowboy<span>·</span>Closers</a>
-    <a class="nav-cta" href="#register">Save My Seat</a>
+    <a class="nav-cta" href="#register" onclick="openRegister(event)">Save My Seat</a>
   </nav>
 
   <!-- HERO -->
@@ -588,7 +661,7 @@
         </div>
       </div>
 
-      <a href="#register" class="btn">Save My Seat — Free</a>
+      <a href="#register" class="btn" onclick="openRegister(event)">Save My Seat — Free</a>
       <span class="btn-sub">Limited spots · live Q&A at the end</span>
     </div>
   </section>
@@ -620,7 +693,7 @@
             <p>200 million views last year. 120k followers. First £50k profit month in 2025. He's pulling the curtain back on this skill for ninety minutes. Live. Once.</p>
           </div>
           <div class="section-cta" style="text-align:left; padding-top: 36px;">
-            <a href="#register" class="btn">Save My Seat</a>
+            <a href="#register" class="btn" onclick="openRegister(event)">Save My Seat</a>
           </div>
         </div>
       </div>
@@ -672,7 +745,7 @@
         </li>
       </ol>
       <div class="section-cta">
-        <a href="#register" class="btn">Save My Seat</a>
+        <a href="#register" class="btn" onclick="openRegister(event)">Save My Seat</a>
       </div>
     </div>
   </section>
@@ -690,7 +763,7 @@
         </div>
       </div>
       <div class="section-cta">
-        <a href="#register" class="btn">Save My Seat</a>
+        <a href="#register" class="btn" onclick="openRegister(event)">Save My Seat</a>
       </div>
     </div>
   </section>
@@ -745,7 +818,7 @@
       </div>
 
       <div class="section-cta">
-        <a href="#register" class="btn">Save My Seat</a>
+        <a href="#register" class="btn" onclick="openRegister(event)">Save My Seat</a>
       </div>
     </div>
   </section>
@@ -767,7 +840,7 @@
         <div class="testi-card" data-anim data-delay="3"><p class="testi-quote">First morning. First call. First close. Five months later, first $20k deal.</p><div class="testi-name">Ianna</div><div class="testi-role">$0 to $20k deal</div></div>
       </div>
       <div class="section-cta">
-        <a href="#register" class="btn">Save My Seat</a>
+        <a href="#register" class="btn" onclick="openRegister(event)">Save My Seat</a>
       </div>
     </div>
   </section>
@@ -806,12 +879,31 @@
         </div>
 
         <div data-anim data-delay="5">
-          <a href="#" class="btn">Save My Seat Now</a>
+          <a href="#" class="btn" onclick="openRegister(event)">Save My Seat Now</a>
           <span class="btn-sub">Limited spots · live Q&A at the end</span>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- REGISTRATION MODAL -->
+  <div class="reg-modal" id="regModal" onclick="closeRegisterOnBg(event)" aria-hidden="true">
+    <div class="reg-modal-inner">
+      <button class="reg-modal-close" onclick="closeRegister()" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="reg-modal-head">
+        <span class="eyebrow">Live Training · Tuesday May 12</span>
+        <h3>Save your seat<br><em>before they're gone.</em></h3>
+        <p>8:00 PM Bali · Free · Live Q&amp;A at the end</p>
+      </div>
+      <div class="reg-modal-body">
+        <div class="wj-embed-wrapper" data-webinar-hash="ykz0xzi7">
+          <script src="https://event.webinarjam.com/register/ykz0xzi7/embed-form?formButtonText=Claim%20Your%20Free%20Seat&formAccentColor=%23c14e2a&formAccentOpacity=0.95&formBgColor=%23f4f1ec&formBgOpacity=1"></script>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <p>© 2025 Cowboy Closers. All rights reserved. &nbsp;|&nbsp; <a href="./privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp; <a href="./terms.html">Terms</a></p>
@@ -830,6 +922,27 @@
       if (!wrap) return;
       wrap.scrollBy({ left: dir * Math.round(wrap.clientWidth * 0.7), behavior: 'smooth' });
     }
+
+    /* registration modal */
+    function openRegister(e) {
+      if (e) e.preventDefault();
+      const m = document.getElementById('regModal');
+      m.classList.add('open');
+      m.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+    function closeRegister() {
+      const m = document.getElementById('regModal');
+      m.classList.remove('open');
+      m.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    }
+    function closeRegisterOnBg(e) {
+      if (e.target.id === 'regModal') closeRegister();
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeRegister();
+    });
 
     /* countdown — Tuesday May 12, 8:00 PM Bali (WITA, UTC+8) = 12:00 UTC */
     const target = new Date('2026-05-12T12:00:00Z').getTime();
