@@ -478,7 +478,7 @@
         </div>
         <div class="event-meta">
           <div class="event-meta-item"><span class="event-meta-lbl">Date</span><span class="event-meta-val">Tuesday, May 12</span></div>
-          <div class="event-meta-item"><span class="event-meta-lbl">Time</span><span class="event-meta-val">8:00 PM Bali</span></div>
+          <div class="event-meta-item"><span class="event-meta-lbl">Time</span><span class="event-meta-val">6:00 PM Bali</span></div>
           <div class="event-meta-item"><span class="event-meta-lbl">Where</span><span class="event-meta-val">Live on Zoom</span></div>
         </div>
       </div>
@@ -679,8 +679,8 @@
       wrap.scrollBy({ left: dir * Math.round(wrap.clientWidth * 0.7), behavior: 'smooth' });
     }
 
-    /* countdown — Tuesday May 12, 2026 8:00 PM Bali (WITA, UTC+8) = 12:00 UTC */
-    const target = new Date('2026-05-12T12:00:00Z').getTime();
+    /* countdown — Tuesday May 12, 2026 6:00 PM Bali (WITA, UTC+8) = 12:00 UTC */
+    const target = new Date('2026-05-12T10:00:00Z').getTime();
 
     function pad(n) { return n < 10 ? '0' + n : '' + n; }
 
@@ -706,8 +706,8 @@
     setInterval(tick, 1000);
 
     /* google calendar link */
-    const calStart = '20260512T120000Z';
-    const calEnd = '20260512T133000Z';
+    const calStart = '20260512T100000Z';
+    const calEnd = '20260512T113000Z';
     const calTitle = encodeURIComponent("Cowboy Closers Live Training — How To Make More Than Your Boss");
     const calDetails = encodeURIComponent("Live training with Connor Western. Show up with notepad and a real question. Zoom link will be in your email and dropped in the Instagram broadcast channel before the call.");
     const calLocation = encodeURIComponent("Zoom (link in your inbox)");
