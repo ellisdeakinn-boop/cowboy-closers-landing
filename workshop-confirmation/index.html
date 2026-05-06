@@ -8,6 +8,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700;9..144,900&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
+  <script src="https://fast.wistia.com/player.js" async></script>
+  <script src="https://fast.wistia.com/embed/2s8cr6ehti.js" async type="module"></script>
+  <style>
+    wistia-player[media-id='2s8cr6ehti']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/2s8cr6ehti/swatch'); display: block; filter: blur(5px); padding-top: 56.25%; }
+  </style>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -242,6 +247,22 @@
       font-weight: 700;
       font-size: 16px;
       color: var(--ink);
+    }
+
+    /* CONFIRMATION VIDEO */
+    .confirm-video-section { padding: 80px 0 100px; border-bottom: 1px solid var(--line); }
+    .confirm-video-wrap {
+      max-width: 880px;
+      margin: 56px auto 0;
+      border: 1px solid var(--line);
+      background: var(--bg-deep);
+      box-shadow: 0 20px 60px rgba(26,22,18,0.18);
+      overflow: hidden;
+      position: relative;
+    }
+    .confirm-video-wrap wistia-player {
+      display: block;
+      width: 100%;
     }
 
     /* STEPS */
@@ -481,6 +502,20 @@
           <div class="event-meta-item"><span class="event-meta-lbl">Time</span><span class="event-meta-val">6:00 PM Bali</span></div>
           <div class="event-meta-item"><span class="event-meta-lbl">Where</span><span class="event-meta-val">Live Online</span></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONFIRMATION VIDEO -->
+  <section class="confirm-video-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Watch This First</span>
+        <h2 class="editorial" data-anim>A quick word<br><em>before Tuesday.</em></h2>
+        <p class="body-prose" data-anim data-delay="3">Press play. Connor walks through what to expect, why this training matters, and how to get the most out of it.</p>
+      </div>
+      <div class="confirm-video-wrap" data-anim="fade" data-delay="3">
+        <wistia-player media-id="2s8cr6ehti" aspect="1.7777777777777777"></wistia-player>
       </div>
     </div>
   </section>
