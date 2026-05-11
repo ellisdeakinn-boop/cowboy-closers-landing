@@ -453,19 +453,70 @@
     footer a:hover { color: var(--rust); }
 
     @media (max-width: 880px) {
-      section { padding: 60px 0; }
-      nav { padding: 16px 22px; }
-      .container { padding: 0 22px; }
-      .step { grid-template-columns: 1fr; gap: 20px; padding: 36px 28px; }
-      .step-num { font-size: 44px; }
-      .countdown { gap: 8px; }
-      .cd-cell { padding: 18px 8px 14px; }
-      .event-meta { gap: 24px; }
-      .cover-list li { grid-template-columns: 44px 1fr; gap: 16px; }
-      .cover-num { font-size: 26px; }
-      .win-tile { height: 360px; }
-      .btn { padding: 14px 24px; font-size: 10px; }
+      section { padding: 56px 0; }
+      .alert-strip { padding: 11px 16px; font-size: 9px; letter-spacing: 0.16em; }
+      nav { padding: 14px 18px; }
+      .logo { font-size: 18px; gap: 8px; }
+      .logo img { width: 26px; height: 26px; }
+      .container { padding: 0 20px; }
+      .confirm-hero { padding: 56px 0 48px; }
+      .check-icon { width: 60px; height: 60px; margin-bottom: 24px; }
+      .check-icon svg { width: 28px; height: 28px; }
+      h1.confirm-h1 { font-size: clamp(32px, 7.4vw, 48px); }
+      .confirm-sub { font-size: 16px; margin: 0 auto 36px; line-height: 1.5; }
+      .event-card { padding: 28px 18px; }
+      .countdown { gap: 6px; margin-bottom: 24px; }
+      .cd-cell { padding: 14px 4px 12px; }
+      .cd-num { font-size: clamp(26px, 7vw, 38px); }
+      .cd-lbl { font-size: 9px; letter-spacing: 0.14em; margin-top: 6px; }
+      .event-meta { gap: 20px; padding-top: 20px; }
+      .event-meta-val { font-size: 14px; }
+      .step { grid-template-columns: 1fr; gap: 18px; padding: 32px 24px; margin-bottom: 18px; }
+      .step-num { font-size: 40px; }
+      .step-title { font-size: 20px; }
+      .step-body { font-size: 15px; }
+      .step-actions { gap: 10px; }
+      .btn { padding: 14px 22px; font-size: 10px; letter-spacing: 0.16em; }
       .btn-lg { padding: 18px 36px; font-size: 11px; }
+      .cover-list { margin-top: 40px; }
+      .cover-list li { grid-template-columns: 40px 1fr; gap: 14px; padding: 22px 0; }
+      .cover-num { font-size: 24px; }
+      .cover-title { font-size: 18px; }
+      .cover-desc { font-size: 14px; }
+      .win-tile { height: 320px; }
+      .wins-arrow { width: 42px; height: 42px; }
+      h2.editorial { font-size: clamp(26px, 6vw, 42px); line-height: 1.1; }
+      .body-prose { font-size: 16px; }
+      .section-head { padding: 0; }
+      .confirm-video-section { padding: 56px 0 64px; }
+      .confirm-video-wrap { margin-top: 36px; }
+    }
+
+    @media (max-width: 480px) {
+      section { padding: 48px 0; }
+      .container { padding: 0 16px; }
+      .alert-strip { padding: 10px 12px; font-size: 8.5px; letter-spacing: 0.12em; }
+      nav { padding: 12px 14px; }
+      .logo { font-size: 16px; }
+      .confirm-hero { padding: 40px 0 36px; }
+      h1.confirm-h1 { font-size: clamp(26px, 7.5vw, 36px); }
+      .confirm-sub { font-size: 14px; margin-bottom: 28px; }
+      .event-card { padding: 22px 14px; }
+      .cd-cell { padding: 10px 2px 8px; }
+      .cd-num { font-size: 22px; }
+      .cd-lbl { font-size: 8px; letter-spacing: 0.1em; }
+      .event-meta { flex-direction: column; gap: 12px; }
+      .event-meta-item { flex-direction: row; gap: 10px; }
+      .step { padding: 26px 18px; }
+      .step-num { font-size: 34px; }
+      .step-title { font-size: 18px; line-height: 1.25; }
+      .step-body { font-size: 14px; line-height: 1.6; }
+      .cover-list li { grid-template-columns: 1fr; gap: 8px; padding: 20px 0; }
+      .cover-num { font-size: 22px; }
+      .win-tile { height: 260px; }
+      .btn { padding: 13px 18px; font-size: 9px; }
+      h2.editorial { font-size: clamp(22px, 7vw, 30px); }
+      .reminder-inner .btn-lg { padding: 16px 28px; font-size: 10px; }
     }
   </style>
 </head>
