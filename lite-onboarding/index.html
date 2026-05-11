@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Your Mandatory Onboarding Call | Cowboy Closers</title>
+  <meta name="description" content="Book your onboarding call. We'll walk you through how to actually use the community, what to prioritise, and what your first 30 days should look like." />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0b0b0c;
+      --bg-elev: #141416;
+      --line: #26262a;
+      --text: #f4f1ec;
+      --muted: #9a9590;
+      --dim: #6b6760;
+      --accent: #ff8300;
+      --accent-hot: #ffa040;
+      --max-w: 920px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80vw;
+      height: 60vh;
+      background: radial-gradient(ellipse at center, rgba(255, 131, 0, 0.12) 0%, rgba(255, 131, 0, 0) 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    main { position: relative; z-index: 2; }
+
+    /* NAV */
+    nav {
+      padding: 24px 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      background: rgba(11, 11, 12, 0.85);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo span { color: var(--accent); }
+
+    /* LAYOUT */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+
+    /* HERO */
+    .hero { padding: 72px 0 36px; text-align: center; }
+    .eyebrow {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 8px 16px;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      margin-bottom: 28px;
+    }
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(34px, 5.4vw, 60px);
+      line-height: 1.02;
+      color: var(--text);
+      letter-spacing: -0.025em;
+      margin-bottom: 12px;
+    }
+    h1 .accent {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: -0.01em;
+    }
+    .lede {
+      max-width: 640px;
+      margin: 20px auto 0;
+      font-size: clamp(16px, 1.8vw, 19px);
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* VALUE BULLETS */
+    .bullets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      max-width: 820px;
+      margin: 48px auto 0;
+      padding: 0 8px;
+    }
+    .bullet {
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 22px 22px 24px;
+      text-align: left;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .bullet:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .bullet-num {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: 28px;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .bullet-h {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .bullet-p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+    @media (max-width: 720px) {
+      .bullets { grid-template-columns: 1fr; }
+    }
+
+    /* WIDGET SECTION */
+    .widget-section { padding: 56px 0 80px; }
+    .widget-frame {
+      max-width: 880px;
+      margin: 0 auto;
+      background: var(--bg-elev);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 0 0 1px rgba(255, 131, 0, 0.08), 0 30px 80px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+    .widget-frame::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 18px;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255, 131, 0, 0.4), rgba(255, 131, 0, 0));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      pointer-events: none;
+    }
+    .calendly-inline-widget {
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+    .widget-caption {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--dim);
+      letter-spacing: 0.04em;
+    }
+
+    /* FOOTER NOTE */
+    .footer-note {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 36px 32px 60px;
+      text-align: center;
+      color: var(--dim);
+      font-size: 14px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+    .footer-note strong { color: var(--accent); font-weight: 600; }
+    footer {
+      padding: 28px 32px 36px;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <nav>
+      <a href="https://www.cowboyclosers.com" class="logo">Cowboy<span> Closers</span></a>
+    </nav>
+
+    <section class="hero">
+      <div class="container">
+        <span class="eyebrow">Step 1 of 1 / Mandatory</span>
+        <h1>
+          Lock in your <span class="accent">onboarding call</span><br />
+          before you do anything else.
+        </h1>
+        <p class="lede">
+          You're in the community. Before you start clicking around inside it, book a fifteen-minute call with one of our top coaches. They'll walk you through exactly what to focus on, what to skip, and what your first thirty days should actually look like.
+        </p>
+      </div>
+
+      <div class="container">
+        <div class="bullets">
+          <div class="bullet">
+            <div class="bullet-num">01</div>
+            <div class="bullet-h">Personal Roadmap</div>
+            <p class="bullet-p">A clear plan for your first thirty days based on where you're actually starting from, not a generic checklist.</p>
+          </div>
+          <div class="bullet">
+            <div class="bullet-num">02</div>
+            <div class="bullet-h">Get The Right Order</div>
+            <p class="bullet-p">The videos, the framework, the live calls. We'll tell you what to do first so nothing inside the community feels random.</p>
+          </div>
+          <div class="bullet">
+            <div class="bullet-num">03</div>
+            <div class="bullet-h">Honest Read</div>
+            <p class="bullet-p">If sales is the wrong move for where you're at right now, we'll say so. No pitch, no upsell. Just a straight conversation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="widget-section">
+      <div class="container">
+        <div class="widget-frame">
+          <!-- Calendly inline widget begin -->
+          <div class="calendly-inline-widget" data-url="https://calendly.com/d/cym2-yys-dzg/cowboy-closers-lite-onboarding?primary_color=ff8300" style="min-width:320px;height:700px;"></div>
+          <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+          <!-- Calendly inline widget end -->
+        </div>
+        <p class="widget-caption">Pick a time that works. We'll send a confirmation to your inbox.</p>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      <strong>Show up to the call.</strong> The members who actually book this in and turn up are the ones who get the most out of the community. The ones who skip it spend the first month confused. Don't be the second one.
+    </div>
+
+    <footer>&copy; Cowboy Closers</footer>
+  </main>
+</body>
+</html>
