@@ -529,17 +529,19 @@
       .wins-slider { column-count: 1; }
     }
 
-    /* red highlight animation on headline */
+    /* editorial highlighter — wavy edges, streak variation */
     .hl {
       display: inline;
-      background-image: linear-gradient(transparent 4%, rgba(220,38,38,0.65) 4%, rgba(220,38,38,0.65) 96%, transparent 96%);
-      background-size: 0% 100%;
-      background-repeat: no-repeat;
-      background-position: left center;
-      animation: hl-draw 1.1s cubic-bezier(.4,0,.2,1) 0.5s forwards;
-      padding: 0 0.1em;
+      padding: 0.05em 0.2em;
+      background-image:
+        linear-gradient(95deg, rgba(220,38,38,0) 0%, rgba(220,38,38,0.18) 10%, rgba(220,38,38,0) 22%, rgba(220,38,38,0.22) 48%, rgba(220,38,38,0) 64%, rgba(220,38,38,0.18) 84%, rgba(220,38,38,0) 100%),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 44' preserveAspectRatio='none'><path d='M2,9 C 35,4 65,12 100,6 C 135,1 170,11 218,5 L 218,38 C 180,42 145,32 105,36 C 65,40 30,30 2,35 Z' fill='%23dc2626' opacity='0.62'/></svg>");
+      background-size: 0% 100%, 0% 100%;
+      background-repeat: no-repeat, no-repeat;
+      background-position: 0 center, 0 center;
+      animation: hl-draw 1.2s cubic-bezier(.4,0,.2,1) 0.5s forwards;
     }
-    @keyframes hl-draw { to { background-size: 100% 100%; } }
+    @keyframes hl-draw { to { background-size: 100% 100%, 100% 100%; } }
 
     /* pain */
     .pain-section { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
