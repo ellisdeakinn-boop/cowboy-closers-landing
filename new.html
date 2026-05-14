@@ -529,17 +529,17 @@
       .wins-slider { column-count: 1; }
     }
 
-    /* editorial highlighter — wavy edges, streak variation */
+    /* paint swipe highlight — ragged brushstroke + streak texture */
     .hl {
       display: inline;
-      padding: 0.05em 0.2em;
+      padding: 0.08em 0.28em;
       background-image:
-        linear-gradient(95deg, rgba(220,38,38,0) 0%, rgba(220,38,38,0.18) 10%, rgba(220,38,38,0) 22%, rgba(220,38,38,0.22) 48%, rgba(220,38,38,0) 64%, rgba(220,38,38,0.18) 84%, rgba(220,38,38,0) 100%),
-        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 44' preserveAspectRatio='none'><path d='M2,9 C 35,4 65,12 100,6 C 135,1 170,11 218,5 L 218,38 C 180,42 145,32 105,36 C 65,40 30,30 2,35 Z' fill='%23dc2626' opacity='0.62'/></svg>");
+        linear-gradient(94deg, rgba(220,38,38,0) 0%, rgba(120,12,18,0.22) 11%, rgba(220,38,38,0) 24%, rgba(120,12,18,0.26) 50%, rgba(220,38,38,0) 67%, rgba(120,12,18,0.22) 86%, rgba(220,38,38,0) 100%),
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 100' preserveAspectRatio='none'><path d='M-2,22 Q 30,4 62,16 T 132,12 Q 168,2 206,15 Q 252,5 292,18 T 358,10 Q 386,8 402,18 L 402,82 Q 372,98 338,86 T 264,90 Q 218,100 182,88 T 112,92 Q 72,100 38,88 T -2,84 Z' fill='%23dc2626' opacity='0.82'/></svg>");
       background-size: 0% 100%, 0% 100%;
       background-repeat: no-repeat, no-repeat;
       background-position: 0 center, 0 center;
-      animation: hl-draw 1.2s cubic-bezier(.4,0,.2,1) 0.5s forwards;
+      animation: hl-draw 1.1s cubic-bezier(.34,0.01,.6,1) 0.45s forwards;
     }
     @keyframes hl-draw { to { background-size: 100% 100%, 100% 100%; } }
 
@@ -841,6 +841,52 @@
       .hero-sub { font-size: 13px !important; margin-bottom: 14px !important; }
       .apply-form-bridge { padding: 20px 16px 16px; }
     }
+
+    /* video testimonials */
+    .video-testi-section { padding: 90px 0 30px; }
+    .video-testi { max-width: 760px; margin: 56px auto 0; }
+    .video-testi-card { margin-bottom: 80px; text-align: center; }
+    .video-testi-card:last-child { margin-bottom: 0; }
+    .video-frame {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      background: var(--bg-deep);
+      border: 1px solid var(--line);
+      margin-bottom: 28px;
+      box-shadow: 0 10px 36px rgba(0,0,0,0.08);
+    }
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .video-testi-title {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 900;
+      font-size: clamp(20px, 2.6vw, 28px);
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      line-height: 1.15;
+    }
+    .video-testi-desc {
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.65;
+      max-width: 560px;
+      margin: 0 auto 28px;
+      font-weight: normal;
+    }
+    @media (max-width: 880px) {
+      .video-testi-section { padding: 56px 0 12px; }
+      .video-testi-card { margin-bottom: 56px; }
+      .video-testi-title { font-size: 19px; }
+      .video-testi-desc { font-size: 14px; margin-bottom: 22px; }
+    }
   </style>
 </head>
 <body>
@@ -865,6 +911,66 @@
           <div data-tf-live="01KMYRR9B4NM5GKXR89PGJ04MJ"></div>
           <script src="//embed.typeform.com/next/embed.js"></script>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO TESTIMONIALS -->
+  <section class="video-testi-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">From The Community</span>
+        <h2 class="editorial" data-anim>Real closers.<br><em>Real outcomes.</em></h2>
+      </div>
+      <div class="video-testi">
+      <div class="video-testi-card" data-anim="fade">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/XavZmSk0s_Q" title="From $0 to first close in 49 days" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-testi-title">From $0 to first close in 49 days</div>
+        <p class="video-testi-desc">Zach joined with zero sales experience. Less than seven weeks later he closed his first remote deal and never looked back.</p>
+        <a href="#apply" class="btn">Apply Now</a>
+      </div>
+      <div class="video-testi-card" data-anim="fade">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/Xo2rYCwxiSc" title="From $10/hour to $300 in 29 minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-testi-title">From $10/hour to $300 in 29 minutes</div>
+        <p class="video-testi-desc">An hourly wage capped what he could earn no matter how hard he worked. One call inside the program rewrote what an hour of his time was worth.</p>
+        <a href="#apply" class="btn">Apply Now</a>
+      </div>
+      <div class="video-testi-card" data-anim="fade">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/t-jzlSff5AE" title="Stuck at $2k/month, now doing $30k/month" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-testi-title">Stuck at $2k/month, now doing $30k/month</div>
+        <p class="video-testi-desc">Same effort, same hours. A frame shift turned a plateaued $2k month into a $30k month inside her first year.</p>
+        <a href="#apply" class="btn">Apply Now</a>
+      </div>
+      <div class="video-testi-card" data-anim="fade">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/TiW65tOWSII" title="$1,000 in a single day with zero experience" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-testi-title">$1,000 in a single day with zero experience</div>
+        <p class="video-testi-desc">Zach T had never sold anything in his life. Day one on the tools he banked four figures.</p>
+        <a href="#apply" class="btn">Apply Now</a>
+      </div>
+      <div class="video-testi-card" data-anim="fade">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/L0E8Hrlw6CI" title="Hired in 3 weeks" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-testi-title">Hired in 3 weeks</div>
+        <p class="video-testi-desc">Dominic came from recruitment with no remote-sales background. Three weeks after joining he was placed in a role doing $9k/month.</p>
+        <a href="#apply" class="btn">Apply Now</a>
+      </div>
+      <div class="video-testi-card" data-anim="fade">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/eqhnlQT6BWE" title="Spent his last money on mentorship and it 6x'd his income" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-testi-title">Spent his last money on mentorship and it 6x'd his income</div>
+        <p class="video-testi-desc">German cleared his account to join. Within months his income had multiplied six times over.</p>
+        <a href="#apply" class="btn">Apply Now</a>
+      </div>
       </div>
     </div>
   </section>
