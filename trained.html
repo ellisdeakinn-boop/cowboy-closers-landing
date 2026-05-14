@@ -484,18 +484,25 @@
     }
     .proof-text { font-size: 15px; color: var(--mid); line-height: 1.75; }
 
-    /* wins masonry — full size, stack as needed */
-    .wins-slider { margin: 60px auto 0; max-width: 920px; column-count: 3; column-gap: 20px; text-align: center; }
-    .wins-track-wrap { display: contents; }
-    .wins-track { display: contents; }
+    /* wins — centered flex grid, full image visible, wraps to 2 rows */
+    .wins-slider {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 60px auto 0;
+    }
+    .wins-track-wrap, .wins-track { display: contents; }
     .win-slide {
-      break-inside: avoid;
-      display: block;
-      margin: 0 0 20px;
+      flex: 0 0 auto;
+      width: calc((100% - 80px) / 6);
+      max-width: 200px;
       position: relative;
       cursor: pointer;
       overflow: hidden;
-      background: var(--bg-alt);
+      background: var(--bg);
       border: 1px solid var(--line);
     }
     .win-slide img {
@@ -504,13 +511,13 @@
       display: block;
       transition: transform 0.4s cubic-bezier(.4,0,.2,1);
     }
-    .win-slide:hover img { transform: scale(1.02); }
+    .win-slide:hover img { transform: scale(1.03); }
     .win-expand {
       position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 36px;
-      height: 36px;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
       background: rgba(255,255,255,0.92);
       border-radius: 1px;
       display: flex;
@@ -522,11 +529,11 @@
     .win-slide:hover .win-expand { opacity: 1; }
     .wins-nav { display: none; }
     @media (max-width: 880px) {
-      .wins-slider { column-count: 2; column-gap: 12px; }
-      .win-slide { margin-bottom: 12px; }
+      .wins-slider { gap: 12px; }
+      .win-slide { width: calc((100% - 24px) / 3); max-width: none; }
     }
     @media (max-width: 480px) {
-      .wins-slider { column-count: 1; }
+      .win-slide { width: calc((100% - 12px) / 2); }
     }
 
     /* paint swipe highlight — ragged brushstroke + streak texture */
