@@ -233,6 +233,12 @@
 
     /* vsl cta button row */
     .vsl-cta { text-align: center; margin: 28px 0 12px; }
+    .vsl-cta .btn { display: inline-flex; align-items: center; gap: 10px; }
+    .vsl-cta .down-arrow { animation: bounce-down 1.4s cubic-bezier(.4,0,.4,1) infinite; }
+    @keyframes bounce-down {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(5px); }
+    }
 
     /* apply form */
     .apply-form-container {
@@ -487,21 +493,18 @@
     }
     .proof-text { font-size: 15px; color: var(--mid); line-height: 1.75; }
 
-    /* wins — centered flex grid, full image visible, wraps to 2 rows */
+    /* wins — masonry columns with equal spacing */
     .wins-slider {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 16px;
+      column-count: 5;
+      column-gap: 16px;
       max-width: 1100px;
       margin: 60px auto 0;
     }
     .wins-track-wrap, .wins-track { display: contents; }
     .win-slide {
-      flex: 0 0 auto;
-      width: calc((100% - 80px) / 6);
-      max-width: 200px;
+      break-inside: avoid;
+      display: block;
+      margin: 0 0 16px;
       position: relative;
       cursor: pointer;
       overflow: hidden;
@@ -530,11 +533,11 @@
     .win-slide:hover .win-expand { opacity: 1; }
     .wins-nav { display: none; }
     @media (max-width: 880px) {
-      .wins-slider { gap: 12px; }
-      .win-slide { width: calc((100% - 24px) / 3); max-width: none; }
+      .wins-slider { column-count: 3; column-gap: 12px; }
+      .win-slide { margin-bottom: 12px; }
     }
     @media (max-width: 480px) {
-      .win-slide { width: calc((100% - 12px) / 2); }
+      .wins-slider { column-count: 2; }
     }
 
     /* real paint swipe — displaced body with bristle marks + drips */
@@ -915,7 +918,10 @@
       </div>
 
       <div class="vsl-cta" data-anim data-delay="4">
-        <a href="#apply" class="btn">Apply Below</a>
+        <a href="#apply" class="btn">
+          Apply Below
+          <svg class="down-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        </a>
       </div>
 
       <div class="apply-form-container" id="apply">
