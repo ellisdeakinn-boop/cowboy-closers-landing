@@ -141,11 +141,11 @@
     h1.hero-h1 {
       font-family: 'Fraunces', serif;
       font-weight: 900;
-      font-size: clamp(44px, 6.4vw, 84px);
-      line-height: 1.02;
-      letter-spacing: -0.035em;
+      font-size: clamp(28px, 4.4vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
       color: var(--ink);
-      margin-bottom: 28px;
+      margin-bottom: 18px;
     }
     h1 em, h2 em {
       font-style: italic;
@@ -170,10 +170,10 @@
       max-width: 580px;
     }
     .body-prose p + p { margin-top: 22px; }
-    .hero-sub { font-size: 19px; max-width: 640px; }
+    .hero-sub { font-size: 15px; max-width: 560px; line-height: 1.55; margin-bottom: 28px !important; }
 
     /* hero */
-    .hero { padding: 90px 0 80px; text-align: center; }
+    .hero { padding: 32px 0 56px; text-align: center; }
     .hero .eyebrow { justify-content: center; }
     .hero .hero-sub { margin: 0 auto; }
     .hero .container > .eyebrow { margin-bottom: 24px; }
@@ -815,18 +815,27 @@
 
     /* mobile */
     @media (max-width: 880px) {
-      section { padding: 70px 0; }
-      nav { padding: 16px 22px; }
-      .container { padding: 0 22px; }
-      .about-grid, .pain-cols { grid-template-columns: 1fr; gap: 48px; }
-      .coach-grid, .for-grid, .testi-grid, .proof-grid { grid-template-columns: 1fr; gap: 24px; }
-      .coach-img { height: 320px; }
-      .creds { gap: 20px; }
-      .cred-n { font-size: 32px; }
+      section { padding: 56px 0; }
+      nav { padding: 12px 18px; }
+      .logo { font-size: 16px; gap: 8px; }
+      .logo img { width: 24px; height: 24px; }
+      .nav-cta { padding: 10px 16px; font-size: 10px; letter-spacing: 0.12em; }
+      .container { padding: 0 18px; }
+      .hero { padding: 18px 0 36px; }
+      .hero-h1 { font-size: clamp(22px, 6.5vw, 32px); margin-bottom: 12px; line-height: 1.12; }
+      .hero-sub { font-size: 14px !important; margin-bottom: 18px !important; line-height: 1.5; }
+      .apply-form-container { margin-top: 24px; }
+      .apply-form-bridge { padding: 24px 20px 20px; }
+      .apply-form-h { font-size: clamp(22px, 5vw, 30px); margin: 6px 0 8px; }
+      .apply-form-p { font-size: 13px; line-height: 1.55; }
+      .a2p-consent span { font-size: 11px; line-height: 1.5; }
       .win-slide { width: calc((100% - 16px) / 2); }
-      .phase-row { grid-template-columns: 56px 1fr; gap: 18px; }
-      .phase-n { font-size: 28px; }
-      .hero-img, .midbreak-img { height: 360px; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 12px 0 28px; }
+      .hero-h1 { font-size: clamp(20px, 6.5vw, 26px); }
+      .hero-sub { font-size: 13px !important; margin-bottom: 14px !important; }
+      .apply-form-bridge { padding: 20px 16px 16px; }
     }
   </style>
 </head>
@@ -840,22 +849,9 @@
   <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <span class="eyebrow">Connor Western</span>
       <h1 class="hero-h1" data-anim>Learn the skill that lets you<br><em>earn more than your boss</em><br>from your laptop, anywhere in the world.</h1>
       <p class="hero-sub" data-anim data-delay="2">Without building a business, without years of experience, without being tied to an office or answering to some dickhead every day.</p>
 
-      <div class="vsl-wrap" data-anim="fade" data-delay="3">
-        <div class="vsl-aspect">
-          <div class="vsl-ph">
-            <div class="play-btn">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-                <polygon points="5,3 19,12 5,21" fill="#f4f1ec"/>
-              </svg>
-            </div>
-            <p>Video coming soon</p>
-          </div>
-        </div>
-      </div>
 
       <div class="apply-form-container" id="apply">
         <div class="apply-form-bridge" data-anim="fade" data-delay="4">
@@ -873,130 +869,6 @@
             <span>By submitting this form, I agree to receive SMS/text messages from Cowboy Closers at the phone number I provide. These messages may include follow-up information about my application and booking details. Message and data rates may apply. Message frequency varies. Reply STOP to opt out at any time. Reply HELP for help. See our <a href="./privacy-policy.html">Privacy Policy</a> and <a href="./terms.html">Terms of Service</a>.</span>
           </label>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HERO IMAGE -->
-  <div class="hero-img-wrap">
-    <img src="./connor-girlfriend.jpg" alt="Connor Western" class="hero-img"
-         style="object-position: center 20%;"
-         onerror="this.src='https://start.cowboyclosers.com/assets/connor-psEyEFTG.jpg'" />
-  </div>
-
-  <!-- ABOUT -->
-  <section>
-    <div class="container">
-      <div class="about-grid">
-        <div data-anim="left">
-          <div class="about-img-wrap">
-            <img class="about-img" src="./connor-horse.jpg" alt="Connor Western"
-                 onerror="this.src='https://start.cowboyclosers.com/assets/connor-psEyEFTG.jpg'" />
-          </div>
-          <div class="creds">
-            <div class="cred"><span class="cred-n">82+</span><span class="cred-l">Closers Coached</span></div>
-            <div class="cred"><span class="cred-n">66%</span><span class="cred-l">Highest Close Rate</span></div>
-            <div class="cred"><span class="cred-n">$31k</span><span class="cred-l">Highest Monthly Commissions</span></div>
-            <div class="cred"><span class="cred-n">49</span><span class="cred-l">Days To First Deal</span></div>
-          </div>
-        </div>
-        <div data-anim="right">
-          <span class="eyebrow">The Man Behind It</span>
-          <h2 class="editorial">10 years.<br><em>No bullsh*t.</em></h2>
-          <div class="body-prose" style="margin-top: 32px;">
-            <p>I figured out you could make money by talking to people when I was about ten. My old man was a magician. He'd pull two kids on stage, do a little game, and the winner would get a glowstick. Then he'd say, "if anyone else wants one, it's £2 a piece, with little Connor down the back." People would run over with cash. Boom, boom, boom. That was the first time it clicked.</p>
-            <p>Spent my teens hustling. Balloon modelling at kids' parties on weekends, construction whenever sales was thin, water sports instructor in Greece in the summers, barman in France in the winters, cutting hair in the basement on the side. Always selling something.</p>
-            <p>Saved up at 23 and moved to Mexico to do timeshare. Selling £80-100k worth of packages a month pretty quickly and thought I'd worked the whole thing out. Spoiler: I hadn't. Blew through it. Ended up in Bali, lost money on an agency, scaled landing pages from two grand to thirty in three weeks, then went all in on remote closing.</p>
-            <p>Stopped drinking three years ago and that's when everything I'd been chasing finally started landing. The unlock was never another job or another country. It was building a brand around the skill I already had. 200 million views last year. 120k followers. Hit my first £50k profit month in 2025.</p>
-            <p>Cowboy Closers came out of all of it. Same skill, just taught the way it actually works on a live call when someone's looking for a reason to walk.</p>
-          </div>
-          <div class="section-cta" style="padding-top: 36px;">
-            <a href="#apply" class="btn">Apply Now</a>
-          </div>
-        </div>
-      </div>
-
-      <img class="dinner-hero" src="./connor-dinner.jpg" alt="Connor Western" loading="lazy"
-           onerror="this.style.display='none'" />
-    </div>
-  </section>
-
-  <!-- COACHES -->
-  <section class="coaches">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">The Team</span>
-        <h2 class="editorial" data-anim>Coached by closers<br><em>who actually close.</em></h2>
-        <p class="body-prose" data-anim data-delay="3">No theory. No hype. Just coaches who have done it at the highest level.</p>
-      </div>
-
-      <div class="coach-grid">
-        <div class="coach-card" data-anim data-delay="1">
-          <img class="coach-img" src="https://start.cowboyclosers.com/assets/connor-psEyEFTG.jpg" alt="Connor Western" loading="lazy" />
-          <div class="coach-info">
-            <div class="coach-name">Connor Western</div>
-            <div class="coach-role">Founder · Bali, Indonesia</div>
-            <p class="coach-bio">Built Cowboy Closers after a decade selling everything from glowsticks at ten to £100k months in timeshare. Runs the program from Bali and coaches with zero fluff. Just the stuff that actually works on live calls.</p>
-          </div>
-        </div>
-        <div class="coach-card" data-anim data-delay="2">
-          <img class="coach-img" src="https://start.cowboyclosers.com/assets/freddie1-wWxx7kbm.jpg" alt="Freddie Harries" loading="lazy" />
-          <div class="coach-info">
-            <div class="coach-name">Freddie Harries</div>
-            <div class="coach-role">Head Coach · Colombia</div>
-            <p class="coach-bio">Background in luxury real estate where he's closed hundreds of millions in high-ticket deals. Coaches tonality, energy management, and the psychology of closing premium offers. If you want to sound like someone worth buying from, Freddie is who you learn from.</p>
-          </div>
-        </div>
-        <div class="coach-card" data-anim data-delay="3">
-          <img class="coach-img" src="https://start.cowboyclosers.com/assets/zach-ZGGZodCy.jpg" alt="Zach Ford" loading="lazy" />
-          <div class="coach-info">
-            <div class="coach-name">Zach Ford</div>
-            <div class="coach-role">Coach · Bali, Indonesia</div>
-            <p class="coach-bio">Went from broke and backpacking in Vietnam to landing his first remote closing role in 49 days through Cowboy Closers. Now on the coaching team, helping new closers walk the same path. Close rate hit 66%.</p>
-          </div>
-        </div>
-        <div class="coach-card" data-anim data-delay="4">
-          <img class="coach-img" src="https://start.cowboyclosers.com/assets/job-M0mosviI.jpg" alt="Jon Mowday" loading="lazy" />
-          <div class="coach-info">
-            <div class="coach-name">Jon Mowday</div>
-            <div class="coach-role">Coach · United Kingdom</div>
-            <p class="coach-bio">Runs a luxury real estate brokerage and specialises in human connection and people skills. The underrated fundamentals that separate average closers from elite ones. Coaches rapport, listening, and the soft skills that make prospects trust you enough to buy.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
-    </div>
-  </section>
-
-  <!-- PROOF -->
-  <section>
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Results</span>
-        <h2 class="editorial" data-anim>What happens when the<br><em>foundations are right.</em></h2>
-        <p class="body-prose" data-anim data-delay="3">Different starting points. Same outcome. They built the skill, adopted the frame, and built the life.</p>
-      </div>
-      <div class="proof-grid">
-        <div class="proof-card" data-anim data-delay="1">
-          <div class="proof-number">$41k<br>Month 2</div>
-          <div class="proof-name">Virginia</div>
-          <p class="proof-text">Joined with $500/month. Just moved countries, no safety net. First week, $13k cash collected. Following month, $41k in the door, second in her entire company.</p>
-        </div>
-        <div class="proof-card" data-anim data-delay="2">
-          <div class="proof-number">Role in<br>5 Weeks</div>
-          <div class="proof-name">Zach</div>
-          <p class="proof-text">Zero high-ticket experience. Joined July 30th. Landing a role September 5th. Day five on the job, 66% close rate. Two of three calls closed.</p>
-        </div>
-        <div class="proof-card" data-anim data-delay="3">
-          <div class="proof-number">First Call,<br>First Close</div>
-          <div class="proof-name">Madeleine</div>
-          <p class="proof-text">Brand new closing role. First morning on the tools. First call, closed. Less than two weeks in, just under $7k AUD for the week.</p>
-        </div>
-      </div>
-      <div class="section-cta center">
-        <a href="#apply" class="btn">Apply Now</a>
-        <p class="friction-sm">45-minute call. No commitment.</p>
       </div>
     </div>
   </section>
@@ -1035,168 +907,6 @@
         </div>
       </div>
       <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
-    </div>
-  </section>
-
-  <!-- PAIN -->
-  <section class="pain-section">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Sound Familiar?</span>
-        <h2 class="editorial" data-anim>You want out.<br><em>Something keeps pulling you back.</em></h2>
-      </div>
-      <p class="body-prose pain-intro" data-anim data-delay="2">You've seen people living on their terms, travelling, working from wherever they want, answering to nobody. You know the skill is real. But something between here and there hasn't clicked yet.</p>
-      <ul class="pain-list">
-          <li data-anim data-delay="1"><span class="pain-num">01</span>Working a job that pays the bills but doesn't come close to what you actually want</li>
-          <li data-anim data-delay="2"><span class="pain-num">02</span>Every other online model has a long, unpaid runway between starting and earning</li>
-          <li data-anim data-delay="3"><span class="pain-num">03</span>Maybe took a sales course. The script fell apart the moment a real prospect pushed back</li>
-          <li data-anim data-delay="4"><span class="pain-num">04</span>Willing to put in the work. Need to know it's actually going to go somewhere</li>
-          <li data-anim data-delay="5"><span class="pain-num">05</span>The freedom you want keeps sitting just out of reach and you can't explain why</li>
-      </ul>
-      <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
-    </div>
-  </section>
-
-  <!-- MIDBREAK -->
-  <div class="midbreak-wrap">
-    <img src="./connor-ranch.jpg" alt="Connor Western" class="midbreak-img" loading="lazy"
-         onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
-  </div>
-
-  <!-- SOLUTION -->
-  <section>
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">The Skill</span>
-        <h2 class="editorial" data-anim>Sales is the most transferable,<br><em>most freedom-giving skill you can build.</em></h2>
-      </div>
-      <div class="body-prose" data-anim data-delay="3" style="margin: 32px auto 0; text-align: center;">
-        <p>Not dropshipping, not SMMA, not building a brand from scratch. Every other model has a long unpaid runway. Sales doesn't. The infrastructure already exists. Companies selling high-ticket offers need people who can close. You show up, have the conversation, close the deal, get paid a percentage.</p>
-        <p>The skill doesn't have an expiry date. Algorithms shift. Platforms die. Business models that looked bulletproof three years ago are saturated now. Sales just keeps working. As long as there are products in the world, someone has to be the person who closes them.</p>
-        <p>But there's one thing most people never figure out, and without it every other skill collapses under live-call pressure. The moment you genuinely stop needing the close, you start getting it.</p>
-      </div>
-      <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
-    </div>
-  </section>
-
-  <!-- INTERSTITIAL IMAGE -->
-  <div class="midbreak-wrap">
-    <img src="./connor-horses.jpg" alt="Connor Western" class="midbreak-img" loading="lazy"
-         onerror="this.src='https://start.cowboyclosers.com/assets/midbreak-VudQdYLR.jpg'" />
-  </div>
-
-  <!-- PROGRAM -->
-  <section class="pain-section">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">The Program</span>
-        <h2 class="editorial" data-anim>Eight phases.<br><em>In the right order.</em></h2>
-        <p class="body-prose" data-anim data-delay="3">The sequence matters. By the time you get to closing tactics, the frame is already there to make them land.</p>
-      </div>
-      <div class="phases-list" style="margin-left: auto; margin-right: auto;">
-        <div class="phase-row" data-anim data-delay="1"><span class="phase-n">01</span><div><div class="phase-title">Mindset & Frame</div><p class="phase-desc">The foundation everything else is built on. The identity shift that changes how you show up before a single word comes out of your mouth.</p></div></div>
-        <div class="phase-row" data-anim data-delay="2"><span class="phase-n">02</span><div><div class="phase-title">LinkedIn Positioning</div><p class="phase-desc">Visible to the right people. Attracting the roles worth your time instead of chasing the wrong ones.</p></div></div>
-        <div class="phase-row" data-anim data-delay="3"><span class="phase-n">03</span><div><div class="phase-title">CV & Interview Strategy</div><p class="phase-desc">How to walk into a room or a Zoom and make the decision for them before you've said much at all.</p></div></div>
-        <div class="phase-row" data-anim data-delay="4"><span class="phase-n">04</span><div><div class="phase-title">Elite SDR Operations</div><p class="phase-desc">Book the right calls. Set them up to close before you ever pick up the phone.</p></div></div>
-        <div class="phase-row" data-anim data-delay="1"><span class="phase-n">05</span><div><div class="phase-title">Understanding Sales Roles</div><p class="phase-desc">The different types of remote roles, how to read compensation structures, and which move makes sense for where you're at.</p></div></div>
-        <div class="phase-row" data-anim data-delay="2"><span class="phase-n">06</span><div><div class="phase-title">New Business Generation</div><p class="phase-desc">Build your own pipeline. Not dependent on a company feeding you leads.</p></div></div>
-        <div class="phase-row" data-anim data-delay="3"><span class="phase-n">07</span><div><div class="phase-title">Closing Mechanics</div><p class="phase-desc">Every tactic, every objection handle. Now they actually land because the frame is already there underneath them.</p></div></div>
-        <div class="phase-row" data-anim data-delay="4"><span class="phase-n">08</span><div><div class="phase-title">Direct Access to Connor</div><p class="phase-desc">When a call goes sideways, you're not sitting on it alone trying to reverse-engineer it by yourself.</p></div></div>
-      </div>
-      <div class="section-cta center">
-        <a href="#apply" class="btn">Apply Now</a>
-        <p class="friction-sm">45-minute call. No commitment.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOR / NOT FOR -->
-  <section>
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Who This Is For</span>
-        <h2 class="editorial" data-anim>Be honest with yourself<br><em>before you apply.</em></h2>
-      </div>
-      <div class="for-grid">
-        <div class="for-card yes" data-anim data-delay="2">
-          <div class="for-title">This is for you if</div>
-          <ul class="for-list">
-            <li>You want to earn more than your current ceiling without being tied to an office or someone else's schedule</li>
-            <li>You're willing to do the reps. Looking for the real skill, not a shortcut</li>
-            <li>You've tried courses and felt like something foundational was missing</li>
-            <li>You're ready to have an honest conversation about what's actually in the way</li>
-            <li>You want location freedom and are prepared to build the skill that makes it real</li>
-          </ul>
-        </div>
-        <div class="for-card no" data-anim data-delay="3">
-          <div class="for-title">This is not for you if</div>
-          <ul class="for-list">
-            <li>You're looking for a 30-day transformation with minimal effort</li>
-            <li>You want a script handed to you without understanding the frame behind it</li>
-            <li>You're not prepared to look honestly at why things haven't moved</li>
-            <li>You're still waiting for the right moment to start</li>
-            <li>You want certainty before you've decided whether you actually want it</li>
-          </ul>
-        </div>
-      </div>
-      <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="pain-section">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">From the Community</span>
-        <h2 class="editorial" data-anim>Real closers.<br><em>Real results.</em></h2>
-        <p class="body-prose" data-anim data-delay="3">These are not actors. These are Cowboy Closers community members sharing their actual outcomes.</p>
-      </div>
-      <div class="testi-grid">
-        <div class="testi-card" data-anim data-delay="1"><p class="testi-quote">Connor was right. Getting the offer is just the first part. Closing deals requires more work. But the principles stay the same. It's about reps.</p><div class="testi-name">Kaspar</div><div class="testi-role">Previous course buyer, now closing</div></div>
-        <div class="testi-card" data-anim data-delay="2"><p class="testi-quote">One conversation using the IDGAF framework. Biggest deal of my career. 200 units closed in a single meeting.</p><div class="testi-name">Jim</div><div class="testi-role">Business owner</div></div>
-        <div class="testi-card" data-anim data-delay="3"><p class="testi-quote">Grind until Thursday, then Budapest for a bit, home for two weeks, then Bali.</p><div class="testi-name">Xander</div><div class="testi-role">50% commission + 5% retainer, Dutch agency</div></div>
-        <div class="testi-card" data-anim data-delay="1"><p class="testi-quote">Went SDR and closing with an AI agency. Cracked over $5k Canadian in my first month.</p><div class="testi-name">TJ McBride</div><div class="testi-role">AI agency</div></div>
-        <div class="testi-card" data-anim data-delay="2"><p class="testi-quote">Broke his company's record for calls booked on day one. CEO gave him a bonus before his first week was out.</p><div class="testi-name">Reece</div><div class="testi-role">Record day one</div></div>
-        <div class="testi-card" data-anim data-delay="3"><p class="testi-quote">First morning. First call. First close. Five months later, first $20k deal.</p><div class="testi-name">Ianna</div><div class="testi-role">$0 to $20k deal</div></div>
-      </div>
-      <div class="section-cta center"><a href="#apply" class="btn">Apply Now</a></div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section>
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Questions</span>
-        <h2 class="editorial" data-anim>Straight answers to<br><em>real questions.</em></h2>
-      </div>
-      <div class="faq-list" data-anim data-delay="3" style="margin-left: auto; margin-right: auto;">
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I don't have any sales experience. Can I still land a role?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Zach had zero high-ticket sales experience when he joined. Role in five weeks. Day five on the job, 66% close rate. Experience matters a lot less than frame. What companies hiring remote closers are actually looking for isn't your resume. It's how you show up on a call.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I've tried a sales course before and it didn't work. Why is this different?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Most courses give you scripts without ever touching the frame behind them. Scripts without frame don't hold up when a prospect goes off-script or pushes back. That's the gap this fills. Not a better script, the foundation that makes any script actually work under live-call pressure.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How quickly can I realistically start earning?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Zach landed a role in five weeks from zero experience. Madeleine closed on her first call on her first morning. The timeline depends on how fast you move through the material and how quickly you do the reps. People who go through the content and apply it immediately move fast.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What does the call actually involve?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">You'll speak with one of Connor's student success coaches. They'll look at your specific situation. What role you're in, what your numbers look like, where calls are coming apart. They'll tell you honestly whether what we do is the right fit to close that gap. If it is, they walk you through everything. If it isn't, they'll tell you that straight. 45 minutes.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">I don't have the money right now.<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Bring it up on the call. There are options. But the conversation has to start with whether you've actually decided you want this. Because there's no point solving the money if the decision isn't there yet.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is this remote? Can I do this from anywhere?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Yes. The entire program is remote. Our coaches coach from Bali, Colombia, the UK, and on the road. The roles we help place you in are remote. This is built for location freedom.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What kinds of offers will I be closing?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">High-ticket coaching, consulting, SaaS, e-commerce, real estate, and more. We introduce you to vetted offer owners looking for reliable remote closers. Students have closed everything from €20k–€40k e-commerce investment opportunities to AI marketing systems and luxury real estate.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What does the coaching actually look like week to week?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Live group coaching calls, deal reviews, roleplay sessions, curriculum modules, and direct access to the coaching team inside the private community. It's hands-on, not a course you buy and forget.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What if it doesn't work for me?<svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a">Book a call and we'll be straight with you before you ever join. We only take on people we genuinely believe we can help. This is not a churn-and-burn operation.</div></div>
-      </div>
-      <div class="section-cta center">
-        <a href="#apply" class="btn">Apply Now</a>
-        <p class="friction-sm">One 45-minute call. Straight answers.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="apply-section">
-    <div class="container">
-      <div class="apply-inner">
-        <span class="eyebrow">Apply</span>
-        <h2 class="editorial" data-anim>Still scrolling?<br><em>The form is at the top.</em></h2>
-        <p class="body-prose" data-anim data-delay="3">Fill it out. One of Connor's coaches will be in touch to book your 45-minute call. They'll be straight with you. If it's not the right fit, they'll say so.</p>
-        <div data-anim data-delay="4"><a href="#apply" class="btn btn-rust">Take Me Back Up</a></div>
-      </div>
     </div>
   </section>
 
