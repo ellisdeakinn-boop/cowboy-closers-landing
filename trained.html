@@ -485,7 +485,7 @@
     .proof-text { font-size: 15px; color: var(--mid); line-height: 1.75; }
 
     /* wins masonry — full size, stack as needed */
-    .wins-slider { margin-top: 60px; column-count: 3; column-gap: 20px; }
+    .wins-slider { margin: 60px auto 0; max-width: 920px; column-count: 3; column-gap: 20px; text-align: center; }
     .wins-track-wrap { display: contents; }
     .wins-track { display: contents; }
     .win-slide {
@@ -532,12 +532,12 @@
     /* red highlight animation on headline */
     .hl {
       display: inline;
-      background-image: linear-gradient(transparent 55%, rgba(220,38,38,0.55) 55%, rgba(220,38,38,0.55) 92%, transparent 92%);
+      background-image: linear-gradient(transparent 4%, rgba(220,38,38,0.65) 4%, rgba(220,38,38,0.65) 96%, transparent 96%);
       background-size: 0% 100%;
       background-repeat: no-repeat;
       background-position: left center;
       animation: hl-draw 1.1s cubic-bezier(.4,0,.2,1) 0.5s forwards;
-      padding: 0 0.05em;
+      padding: 0 0.1em;
     }
     @keyframes hl-draw { to { background-size: 100% 100%; } }
 
