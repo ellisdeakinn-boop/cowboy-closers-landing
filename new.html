@@ -154,7 +154,7 @@
     h1.hero-h1 {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-weight: 900;
-      font-size: clamp(28px, 4.4vw, 56px);
+      font-size: clamp(30px, 4.6vw, 59px);
       line-height: 1.05;
       letter-spacing: -0.01em;
       text-transform: uppercase;
@@ -232,13 +232,36 @@
     }
 
     /* vsl cta button row */
-    .vsl-cta { text-align: center; margin: 28px 0 64px; }
+    .vsl-cta { text-align: center; margin: 28px 0 22px; }
     .vsl-cta .btn { display: inline-flex; align-items: center; gap: 10px; }
     .vsl-cta .down-arrow { animation: bounce-down 1.4s cubic-bezier(.4,0,.4,1) infinite; }
     @keyframes bounce-down {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(5px); }
     }
+    /* join strip */
+    .join-strip {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 0 auto 56px;
+      font-size: 14px;
+      color: var(--mid);
+      flex-wrap: wrap;
+    }
+    .join-avatars { display: flex; align-items: center; }
+    .join-avatars img {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      object-fit: cover;
+      margin-left: -10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .join-avatars img:first-child { margin-left: 0; }
+    .join-strip strong { color: var(--ink); font-weight: 900; }
 
     /* apply form */
     .apply-form-container {
@@ -830,7 +853,7 @@
       .nav-cta { padding: 10px 16px; font-size: 10px; letter-spacing: 0.12em; }
       .container { padding: 0 18px; }
       .hero { padding: 18px 0 36px; }
-      .hero-h1 { font-size: clamp(23px, 6.85vw, 34px); margin-bottom: 12px; line-height: 1.12; }
+      .hero-h1 { font-size: clamp(24px, 7.2vw, 36px); margin-bottom: 12px; line-height: 1.12; }
       .hero-sub { font-size: 14px !important; margin-bottom: 18px !important; line-height: 1.5; }
       .apply-form-container { margin-top: 24px; }
       .apply-form-bridge { padding: 24px 20px 20px; }
@@ -841,7 +864,7 @@
     }
     @media (max-width: 480px) {
       .hero { padding: 12px 0 28px; }
-      .hero-h1 { font-size: clamp(21px, 6.85vw, 27px); }
+      .hero-h1 { font-size: clamp(22px, 7.2vw, 28px); }
       .hero-sub { font-size: 13px !important; margin-bottom: 14px !important; }
       .apply-form-bridge { padding: 20px 16px 16px; }
     }
@@ -917,6 +940,16 @@
           Apply Below
           <svg class="down-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
         </a>
+      </div>
+
+      <div class="join-strip" data-anim data-delay="5">
+        <div class="join-avatars">
+          <img src="https://start.cowboyclosers.com/assets/connor-psEyEFTG.jpg" alt="" loading="lazy" />
+          <img src="https://start.cowboyclosers.com/assets/zach-ZGGZodCy.jpg" alt="" loading="lazy" />
+          <img src="https://start.cowboyclosers.com/assets/job-M0mosviI.jpg" alt="" loading="lazy" />
+          <img src="https://start.cowboyclosers.com/assets/freddie1-wWxx7kbm.jpg" alt="" loading="lazy" />
+        </div>
+        <span>Join <strong>100+</strong> Closers</span>
       </div>
 
       <div class="apply-form-container" id="apply">
