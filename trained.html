@@ -493,18 +493,17 @@
     }
     .proof-text { font-size: 15px; color: var(--mid); line-height: 1.75; }
 
-    /* wins — masonry columns with equal spacing */
+    /* wins — single column stack */
     .wins-slider {
-      column-count: 5;
-      column-gap: 16px;
-      max-width: 1100px;
+      max-width: 560px;
       margin: 60px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
     .wins-track-wrap, .wins-track { display: contents; }
     .win-slide {
-      break-inside: avoid;
       display: block;
-      margin: 0 0 16px;
       position: relative;
       cursor: pointer;
       overflow: hidden;
@@ -533,11 +532,7 @@
     .win-slide:hover .win-expand { opacity: 1; }
     .wins-nav { display: none; }
     @media (max-width: 880px) {
-      .wins-slider { column-count: 3; column-gap: 12px; }
-      .win-slide { margin-bottom: 12px; }
-    }
-    @media (max-width: 480px) {
-      .wins-slider { column-count: 2; }
+      .wins-slider { gap: 16px; max-width: 100%; }
     }
 
     /* real paint swipe — displaced body with bristle marks + drips */
@@ -925,7 +920,7 @@
 
       <div class="apply-form-container" id="apply">
         <div class="hero-typeform">
-          <div data-tf-live="01KMYRR9B4NM5GKXR89PGJ04MJ"></div>
+          <div data-tf-widget="01KMYRR9B4NM5GKXR89PGJ04MJ" data-tf-opacity="100" data-tf-iframe-props="title=Apply For Cowboy Closers" data-tf-transitive-search-params data-tf-medium="snippet" data-tf-hidden="utm_source,utm_medium" data-tf-auto-focus="false" style="width:100%;height:560px;"></div>
           <script src="//embed.typeform.com/next/embed.js"></script>
         </div>
       </div>
