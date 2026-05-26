@@ -8,17 +8,16 @@ from pathlib import Path
 HERE = Path(__file__).parent
 ROOT = HERE.parent  # landing-page/
 
-# Lead magnets — keyed by slug (URL trigger)
+# Lead magnets, keyed by slug (URL trigger)
 ASSETS = [
     {
         "slug": "tools",
         "trigger": "TOOLS",
         "title": "The Trapped Tradie Escape Plan",
-        "kicker": "A 14-page playbook for getting off the tools in 90 days",
+        "kicker": "14-page plan for getting off the tools in 90 days",
         "blurb": (
-            "I was on the tools for 10 years. Knackered body, no money saved, no exit. "
-            "This is the exact 90-day plan I gave 500+ tradies who became £10K+ closers. "
-            "Real numbers, real timelines, no fluff."
+            "Same plan I used after 10 years on the tools. Same one I've given "
+            "500+ tradies who went on to close for £10K+ a month."
         ),
         "pdf": "01-trapped-tradie-escape-plan.pdf",
     },
@@ -26,11 +25,10 @@ ASSETS = [
         "slug": "script",
         "trigger": "SCRIPT",
         "title": "The Cowboy Close Script",
-        "kicker": "The exact call script my team uses to close $5K–$15K offers",
+        "kicker": "The call script my team uses to close £5K to £15K offers",
         "blurb": (
-            "Word-for-word framework: openers, tonality cues, objection handlers, the close. "
-            "Same script my closers are using to do £25K+ months from a laptop. "
-            "Steal it, study it, run it."
+            "Word for word. Openers, tonality, every common objection, the close. "
+            "Same script my closers are running to do £25K+ months."
         ),
         "pdf": "02-cowboy-close-script.pdf",
     },
@@ -38,11 +36,10 @@ ASSETS = [
         "slug": "dms",
         "trigger": "DMS",
         "title": "20 Cold DMs That Book Sales Calls",
-        "kicker": "Swipe file: the DMs that get my students hired as closers",
+        "kicker": "20 cold DMs that get my students hired as closers",
         "blurb": (
-            "Twenty proven DM templates that book closing-role interviews from cold. "
-            "Used by my students to land roles with founders doing $30K–$300K/month. "
-            "Copy, tweak, send. That's it."
+            "Twenty DM templates that book interviews with founders doing "
+            "£30K to £300K a month. Open the doc, edit the name, send."
         ),
         "pdf": "03-cold-dms-that-book-calls.pdf",
     },
@@ -52,9 +49,8 @@ ASSETS = [
         "title": "The £10K Closer Operating System",
         "kicker": "The daily system behind every £10K+ closer in my group",
         "blurb": (
-            "The actual operating system: morning routine, call prep, pipeline tracking, "
-            "follow-up cadence, weekly review. Built from the habits of the top 10% in my group. "
-            "Plug it into your week and watch what happens."
+            "Morning routine, call prep, pipeline tracking, follow-up cadence, "
+            "weekly review. Built from what the top 10% in the group actually do."
         ),
         "pdf": "04-10k-closer-operating-system.pdf",
     },
@@ -62,11 +58,10 @@ ASSETS = [
         "slug": "training",
         "trigger": "TRAINING",
         "title": "The Wolf of South East Asia 5-Day Training",
-        "kicker": "Five days of training to get you from zero to first close",
+        "kicker": "5 days of training to get you from zero to first close",
         "blurb": (
-            "A 5-day email training built from the same playbook that's taken students from "
-            "broke to £25K/month. Mindset, mechanics, scripts, and the exact daily reps "
-            "that make money. Read one a day for five days."
+            "Five emails, one a day. Same playbook that's taken students from "
+            "broke to £25K a month."
         ),
         "pdf": "05-wolf-5-day-training.pdf",
     },
@@ -82,38 +77,38 @@ VIDEOS = [
     ("eqhnlQT6BWE", "Spent his last money on mentorship and it 6x'd his income"),
 ]
 
-# Screenshot wins — pulled from the existing /wins/ folder. Caption shown on hover.
+# Screenshot wins, pulled from the existing /wins/ folder. Caption shown on hover.
 WINS = [
-    ("41k-virginia.png", "Virginia — $41k cash in"),
-    ("kaspar-first-sale.png", "Kaspars — First high-ticket sale"),
-    ("juno-role.png", "Juno — Closing role secured"),
-    ("jiri-deal-closed.png", "Jiří — Deal closed"),
-    ("jake-setting-role.png", "Jake — New role alert"),
-    ("jaxon-role-landed.png", "Jaxon — Landed a closing role"),
-    ("jsb-interview.png", "JSB — Interviews on interviews"),
-    ("jake-linkedin.png", "Jake — LinkedIn working"),
-    ("ianna-20k.png", "Ianna — $20k deal"),
-    ("felipe-1st-month.png", "Felipe — 1st month as a closer"),
-    ("felipe-closes.png", "Felipe — Keep grinding"),
-    ("darian-setting-role.png", "Darian — First role"),
-    ("andreas-role.png", "Andreas — Commission sales role"),
-    ("alex-role.png", "Alex — Role secured"),
-    ("zach-double-deal.png", "Zach — Double deal Friday"),
-    ("mads-%24%24%24.png", "Madeleine — BOOM"),
-    ("jack-new-role.png", "Jack — From imposter to closer"),
-    ("virgin-18k.png", "Virginia — $18k"),
-    ("felipe-1st-week.png", "Felipe — 1st week"),
-    ("felipe-2000cc.png", "Felipe — $2,000 cc"),
-    ("felipe-2800cc.jpg", "Felipe — $2,800 cc"),
-    ("felipe-3300aussie.jpg", "Felipe — $3,300 AUD"),
-    ("felipe-5600aud.png", "Felipe — $5,600 AUD"),
-    ("felipe-37pct.jpg", "Felipe — 37% close rate"),
-    ("jon-1m3-deal.jpg", "Jon — £1.3M deal closed"),
-    ("zach-huge-role.png", "Zach — Huge role"),
-    ("tj-5k-cad.png", "TJ — $5k CAD"),
-    ("reece-bonus.png", "Reece — Bonus"),
-    ("marion-0-30k.png", "Marion — 0 to 30k"),
-    ("xander-job.png", "Xander — Job landed"),
+    ("41k-virginia.png", "Virginia, $41k cash in"),
+    ("kaspar-first-sale.png", "Kaspars, First high-ticket sale"),
+    ("juno-role.png", "Juno, Closing role secured"),
+    ("jiri-deal-closed.png", "Jiří, Deal closed"),
+    ("jake-setting-role.png", "Jake, New role alert"),
+    ("jaxon-role-landed.png", "Jaxon, Landed a closing role"),
+    ("jsb-interview.png", "JSB, Interviews on interviews"),
+    ("jake-linkedin.png", "Jake, LinkedIn working"),
+    ("ianna-20k.png", "Ianna, $20k deal"),
+    ("felipe-1st-month.png", "Felipe, 1st month as a closer"),
+    ("felipe-closes.png", "Felipe, Keep grinding"),
+    ("darian-setting-role.png", "Darian, First role"),
+    ("andreas-role.png", "Andreas, Commission sales role"),
+    ("alex-role.png", "Alex, Role secured"),
+    ("zach-double-deal.png", "Zach, Double deal Friday"),
+    ("mads-%24%24%24.png", "Madeleine, BOOM"),
+    ("jack-new-role.png", "Jack, From imposter to closer"),
+    ("virgin-18k.png", "Virginia, $18k"),
+    ("felipe-1st-week.png", "Felipe, 1st week"),
+    ("felipe-2000cc.png", "Felipe, $2,000 cc"),
+    ("felipe-2800cc.jpg", "Felipe, $2,800 cc"),
+    ("felipe-3300aussie.jpg", "Felipe, $3,300 AUD"),
+    ("felipe-5600aud.png", "Felipe, $5,600 AUD"),
+    ("felipe-37pct.jpg", "Felipe, 37% close rate"),
+    ("jon-1m3-deal.jpg", "Jon, £1.3M deal closed"),
+    ("zach-huge-role.png", "Zach, Huge role"),
+    ("tj-5k-cad.png", "TJ, $5k CAD"),
+    ("reece-bonus.png", "Reece, Bonus"),
+    ("marion-0-30k.png", "Marion, 0 to 30k"),
+    ("xander-job.png", "Xander, Job landed"),
 ]
 
 TYPEFORM_ID = "VaWVcSCm"
@@ -144,7 +139,7 @@ def render(asset):
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title} — Free Download · Cowboy Closers</title>
+  <title>{title} · Free Download · Cowboy Closers</title>
   <meta name="description" content="{kicker}" />
   <link rel="icon" type="image/png" href="../../favicon.png" />
   <style>
@@ -296,11 +291,46 @@ def render(asset):
     }}
     .secondary-cta:hover {{ background: var(--ink); color: var(--bg); }}
 
-    /* PDF preview */
-    .pdf-wrap {{ max-width: 880px; margin: 0 auto; border: 1px solid var(--line); background: #f9fafb; padding: 14px; }}
-    .pdf-aspect {{ position: relative; padding-bottom: 129%; background: #0d0d0d; }}
-    .pdf-aspect iframe {{ position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }}
-    .pdf-hint {{ font-size: 11px; color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase; margin-top: 10px; text-align: center; }}
+    /* PDF cover */
+    .pdf-cover {{
+      max-width: 520px;
+      margin: 0 auto;
+      background: var(--ink);
+      color: var(--bg);
+      padding: 56px 40px;
+      border: 1px solid var(--ink);
+      text-align: left;
+      position: relative;
+    }}
+    .pdf-cover .pdf-eyebrow {{
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      color: var(--rust);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }}
+    .pdf-cover .pdf-title {{
+      font-size: 28px;
+      line-height: 1.1;
+      font-weight: 900;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }}
+    .pdf-cover .pdf-meta {{
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #9aa3b1;
+      text-transform: uppercase;
+      border-top: 1px solid #2a2a2a;
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+    }}
+    .pdf-row {{ display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-top: 22px; }}
+    .pdf-row .secondary-cta {{ font-size: 11px; padding: 14px 24px; }}
 
     /* alt section */
     .alt {{ background: var(--bg-alt); }}
@@ -371,14 +401,20 @@ def render(asset):
       <p class="kicker">{kicker}</p>
       <p class="blurb">{blurb}</p>
       <div class="cta-row">
-        <a href="../pdfs/{pdf}" download class="primary-cta">⬇ Download the PDF</a>
+        <a href="../pdfs/{pdf}" download class="primary-cta">Download the PDF</a>
         <a href="#apply" class="secondary-cta">Apply for a call</a>
       </div>
-      <div class="pdf-wrap">
-        <div class="pdf-aspect">
-          <iframe src="../pdfs/{pdf}#toolbar=1&view=FitH" title="{title} preview"></iframe>
+      <div class="pdf-cover">
+        <div class="pdf-eyebrow">PDF · {trigger}</div>
+        <div class="pdf-title">{title}</div>
+        <div class="pdf-row">
+          <a href="../pdfs/{pdf}" target="_blank" rel="noopener" class="primary-cta" style="background:var(--rust);color:var(--bg);">Open PDF</a>
+          <a href="../pdfs/{pdf}" download class="secondary-cta" style="color:var(--bg);border-color:var(--bg);">Download</a>
         </div>
-        <div class="pdf-hint">Preview · click ⬇ above to save your copy</div>
+        <div class="pdf-meta">
+          <span>{trigger}.pdf</span>
+          <span>Free</span>
+        </div>
       </div>
     </div>
   </section>
@@ -387,9 +423,9 @@ def render(asset):
   <section id="apply" class="alt">
     <div class="container">
       <div class="section-head">
-        <div class="eyebrow">Ready when you are</div>
-        <h2 class="editorial">Want Connor's team to <em>get you placed?</em></h2>
-        <p class="blurb" style="margin: 0 auto 0;">If you read this and thought "that's me" — fill out the application. If you're a fit, we'll get on a call this week and map out your path to a £10K+ closing role.</p>
+        <div class="eyebrow">Apply</div>
+        <h2 class="editorial">Want help <em>landing a closer role?</em></h2>
+        <p class="blurb" style="margin: 0 auto 0;">Fill out the application. If you're a fit we'll jump on a call this week.</p>
       </div>
       <div class="apply-wrap">
         <iframe class="tf-embed" src="https://form.typeform.com/to/{TYPEFORM_ID}?typeform-embed=embed-widget" title="Apply for Cowboy Closers"></iframe>
@@ -401,8 +437,8 @@ def render(asset):
   <section>
     <div class="container">
       <div class="section-head">
-        <div class="eyebrow">Real students · Real stories</div>
-        <h2 class="editorial">Watch what's possible</h2>
+        <div class="eyebrow">Students</div>
+        <h2 class="editorial">In their own words</h2>
       </div>
       <div class="vid-grid">
 {video_html}
@@ -414,9 +450,9 @@ def render(asset):
   <section class="alt">
     <div class="container">
       <div class="section-head">
-        <div class="eyebrow">Screenshots from the group</div>
-        <h2 class="editorial">More wins, more often</h2>
-        <p class="blurb" style="margin: 0 auto 0;">Roles landed, deals closed, commissions collected. Every screenshot is a real student.</p>
+        <div class="eyebrow">Wins</div>
+        <h2 class="editorial">From the group chat</h2>
+        <p class="blurb" style="margin: 0 auto 0;">Every screenshot is a real student.</p>
       </div>
       <div class="wins-grid">
 {win_html}
@@ -442,7 +478,7 @@ def render_index():
           <div class="asset-trigger">Trigger: {a["trigger"]}</div>
           <h3 class="asset-title">{a["title"]}</h3>
           <p class="asset-kicker">{a["kicker"]}</p>
-          <span class="asset-cta">Get it free →</span>
+          <span class="asset-cta">Open →</span>
         </a>'''
         for i, a in enumerate(ASSETS)
     )
@@ -671,7 +707,7 @@ def render_index():
     <div class="container">
       <div class="eyebrow">Free Resources</div>
       <h1 class="hero-h1">Five playbooks to <em>get you closing</em></h1>
-      <p class="hero-sub">Everything I'd hand you on day one if you joined my group. No email gate, no fluff. Pick one, read it, run it.</p>
+      <p class="hero-sub">Everything I'd give you on day one if you joined my group. No email opt-in.</p>
     </div>
   </section>
 
@@ -686,9 +722,9 @@ def render_index():
   <section id="apply" class="alt">
     <div class="container">
       <div class="section-head">
-        <div class="eyebrow">When you're ready</div>
-        <h2 class="editorial">Want a <em>shortcut?</em></h2>
-        <p class="blurb" style="margin: 0 auto 0;">If the PDFs aren't enough and you want me and the team to walk you through it personally, fill out the application. If you're a fit, we'll get on a call this week.</p>
+        <div class="eyebrow">Apply</div>
+        <h2 class="editorial">Want help <em>landing a closer role?</em></h2>
+        <p class="blurb" style="margin: 0 auto 0;">Fill out the application. If you're a fit we'll jump on a call this week.</p>
       </div>
       <div class="apply-wrap">
         <iframe class="tf-embed" src="https://form.typeform.com/to/{TYPEFORM_ID}?typeform-embed=embed-widget" title="Apply for Cowboy Closers"></iframe>
