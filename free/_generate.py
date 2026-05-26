@@ -401,15 +401,15 @@ def render(asset):
       <p class="kicker">{kicker}</p>
       <p class="blurb">{blurb}</p>
       <div class="cta-row">
-        <a href="../pdfs/{pdf}" download class="primary-cta">Download the PDF</a>
+        <a href="/free/pdfs/{pdf}" download class="primary-cta">Download the PDF</a>
         <a href="#apply" class="secondary-cta">Apply for a call</a>
       </div>
       <div class="pdf-cover">
         <div class="pdf-eyebrow">PDF · {trigger}</div>
         <div class="pdf-title">{title}</div>
         <div class="pdf-row">
-          <a href="../pdfs/{pdf}" target="_blank" rel="noopener" class="primary-cta" style="background:var(--rust);color:var(--bg);">Open PDF</a>
-          <a href="../pdfs/{pdf}" download class="secondary-cta" style="color:var(--bg);border-color:var(--bg);">Download</a>
+          <a href="/free/pdfs/{pdf}" target="_blank" rel="noopener" class="primary-cta" style="background:var(--rust);color:var(--bg);">Open PDF</a>
+          <a href="/free/pdfs/{pdf}" download class="secondary-cta" style="color:var(--bg);border-color:var(--bg);">Download</a>
         </div>
         <div class="pdf-meta">
           <span>{trigger}.pdf</span>
