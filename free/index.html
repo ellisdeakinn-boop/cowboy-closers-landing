@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Resources · Cowboy Closers</title>
+  <meta name="description" content="Five free playbooks to help you land a closing role and hit £10K/month from a laptop." />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f4f6fb;
+      --bg-deep: #000000;
+      --ink: #000000;
+      --mid: #1a1a1a;
+      --muted: #555555;
+      --rust: #2563eb;
+      --line: #e5e7eb;
+      --max-w: 1080px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: bold;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--rust); }
+
+    nav {
+      padding: 22px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 100;
+    }
+    .logo {
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-mark { width: 32px; height: 32px; object-fit: contain; }
+    .nav-cta {
+      background: var(--ink);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 13px 24px;
+      border-radius: 1px;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--rust); transform: translateY(-1px); }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+    section { padding: 90px 0; }
+
+    .eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--rust);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--rust); }
+
+    .hero { padding: 80px 0 40px; text-align: center; }
+    .hero .eyebrow { justify-content: center; }
+    h1.hero-h1 {
+      font-weight: 900;
+      font-size: clamp(36px, 5.4vw, 68px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    h1 em { font-style: italic; font-weight: 400; color: var(--rust); }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--mid);
+      line-height: 1.55;
+      max-width: 620px;
+      margin: 0 auto;
+      font-weight: 500;
+    }
+
+    /* asset grid */
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+      margin-top: 56px;
+    }
+    .asset-card {
+      background: var(--bg);
+      border: 1.5px solid var(--ink);
+      padding: 32px 28px;
+      text-decoration: none;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: background 0.25s, transform 0.25s, color 0.25s;
+      position: relative;
+    }
+    .asset-card:hover { background: var(--ink); color: var(--bg); transform: translateY(-3px); }
+    .asset-card:hover .asset-trigger,
+    .asset-card:hover .asset-kicker,
+    .asset-card:hover .asset-num,
+    .asset-card:hover .asset-cta { color: var(--bg); }
+    .asset-card:hover .asset-cta { color: var(--bg); }
+    .asset-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .asset-trigger {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--rust);
+      text-transform: uppercase;
+    }
+    .asset-title {
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .asset-kicker {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-weight: 500;
+      flex-grow: 1;
+    }
+    .asset-cta {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-top: 8px;
+    }
+
+    /* apply section */
+    .alt { background: var(--bg-alt); }
+    .section-head { text-align: center; max-width: 720px; margin: 0 auto; }
+    .section-head .eyebrow { justify-content: center; }
+    h2.editorial {
+      font-weight: 900;
+      font-size: clamp(34px, 4.6vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+    h2 em { font-style: italic; font-weight: 400; color: var(--rust); }
+    .blurb {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+    .apply-wrap { max-width: 760px; margin: 36px auto 0; }
+    .tf-embed { width: 100%; height: 640px; border: 0; }
+
+    footer {
+      background: var(--bg-deep);
+      color: #aaa;
+      padding: 50px 0 40px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+    footer a { color: #fff; text-decoration: none; }
+    .footer-brand { font-weight: 900; font-size: 18px; color: #fff; text-transform: uppercase; display: inline-block; margin-bottom: 10px; }
+
+    @media (max-width: 640px) {
+      section { padding: 64px 0; }
+      nav { padding: 18px 22px; }
+      .container { padding: 0 22px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/new" class="logo">
+      <img src="../favicon.png" class="logo-mark" alt="" />
+      Cowboy Closers
+    </a>
+    <a href="#apply" class="nav-cta">Apply Now</a>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="eyebrow">Free Resources</div>
+      <h1 class="hero-h1">Five playbooks to <em>get you closing</em></h1>
+      <p class="hero-sub">Everything I'd hand you on day one if you joined my group. No email gate, no fluff. Pick one, read it, run it.</p>
+    </div>
+  </section>
+
+  <section style="padding-top: 0;">
+    <div class="container">
+      <div class="asset-grid">
+        <a class="asset-card" href="/free/tools">
+          <div class="asset-num">01</div>
+          <div class="asset-trigger">Trigger: TOOLS</div>
+          <h3 class="asset-title">The Trapped Tradie Escape Plan</h3>
+          <p class="asset-kicker">A 14-page playbook for getting off the tools in 90 days</p>
+          <span class="asset-cta">Get it free →</span>
+        </a>
+        <a class="asset-card" href="/free/script">
+          <div class="asset-num">02</div>
+          <div class="asset-trigger">Trigger: SCRIPT</div>
+          <h3 class="asset-title">The Cowboy Close Script</h3>
+          <p class="asset-kicker">The exact call script my team uses to close $5K–$15K offers</p>
+          <span class="asset-cta">Get it free →</span>
+        </a>
+        <a class="asset-card" href="/free/dms">
+          <div class="asset-num">03</div>
+          <div class="asset-trigger">Trigger: DMS</div>
+          <h3 class="asset-title">20 Cold DMs That Book Sales Calls</h3>
+          <p class="asset-kicker">Swipe file: the DMs that get my students hired as closers</p>
+          <span class="asset-cta">Get it free →</span>
+        </a>
+        <a class="asset-card" href="/free/os">
+          <div class="asset-num">04</div>
+          <div class="asset-trigger">Trigger: OS</div>
+          <h3 class="asset-title">The £10K Closer Operating System</h3>
+          <p class="asset-kicker">The daily system behind every £10K+ closer in my group</p>
+          <span class="asset-cta">Get it free →</span>
+        </a>
+        <a class="asset-card" href="/free/training">
+          <div class="asset-num">05</div>
+          <div class="asset-trigger">Trigger: TRAINING</div>
+          <h3 class="asset-title">The Wolf of South East Asia 5-Day Training</h3>
+          <p class="asset-kicker">Five days of training to get you from zero to first close</p>
+          <span class="asset-cta">Get it free →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="apply" class="alt">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">When you're ready</div>
+        <h2 class="editorial">Want a <em>shortcut?</em></h2>
+        <p class="blurb" style="margin: 0 auto 0;">If the PDFs aren't enough and you want me and the team to walk you through it personally, fill out the application. If you're a fit, we'll get on a call this week.</p>
+      </div>
+      <div class="apply-wrap">
+        <iframe class="tf-embed" src="https://form.typeform.com/to/VaWVcSCm?typeform-embed=embed-widget" title="Apply for Cowboy Closers"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-brand">Cowboy Closers</div>
+      <div>© Cowboy Closers · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a></div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Trapped Tradie Escape Plan — Free Download · Cowboy Closers</title>
+  <meta name="description" content="A 14-page playbook for getting off the tools in 90 days" />
+  <link rel="icon" type="image/png" href="../../favicon.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f4f6fb;
+      --bg-deep: #000000;
+      --ink: #000000;
+      --mid: #1a1a1a;
+      --muted: #555555;
+      --rust: #2563eb;
+      --line: #e5e7eb;
+      --max-w: 1080px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: bold;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--rust); }
+
+    /* nav */
+    nav {
+      padding: 22px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 100;
+    }
+    .logo {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-mark { width: 32px; height: 32px; object-fit: contain; }
+    .nav-cta {
+      background: var(--ink);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 13px 24px;
+      border-radius: 1px;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--rust); transform: translateY(-1px); }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 32px; }
+    section { padding: 90px 0; }
+
+    .eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--rust);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--rust); }
+
+    h1.hero-h1 {
+      font-weight: 900;
+      font-size: clamp(32px, 4.8vw, 60px);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    h2.editorial {
+      font-weight: 900;
+      font-size: clamp(34px, 4.6vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+    .kicker {
+      font-size: 18px;
+      color: var(--mid);
+      max-width: 640px;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .blurb {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      font-weight: 500;
+    }
+
+    .hero { padding: 64px 0 48px; text-align: center; }
+    .hero .container > * { margin-left: auto; margin-right: auto; }
+    .hero .eyebrow { justify-content: center; }
+
+    .cta-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+    .primary-cta {
+      background: var(--ink);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 18px 38px;
+      border-radius: 1px;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .primary-cta:hover { background: var(--rust); transform: translateY(-1px); }
+    .secondary-cta {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 16.5px 32px;
+      border-radius: 1px;
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s;
+    }
+    .secondary-cta:hover { background: var(--ink); color: var(--bg); }
+
+    /* PDF preview */
+    .pdf-wrap { max-width: 880px; margin: 0 auto; border: 1px solid var(--line); background: #f9fafb; padding: 14px; }
+    .pdf-aspect { position: relative; padding-bottom: 129%; background: #0d0d0d; }
+    .pdf-aspect iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .pdf-hint { font-size: 11px; color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase; margin-top: 10px; text-align: center; }
+
+    /* alt section */
+    .alt { background: var(--bg-alt); }
+
+    /* video grid */
+    .vid-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-top: 40px; }
+    .vid-card { background: var(--bg); border: 1px solid var(--line); }
+    .vid-aspect { position: relative; padding-bottom: 56.25%; background: #000; }
+    .vid-aspect iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .vid-caption { padding: 14px 18px; font-size: 14px; font-weight: 700; color: var(--ink); }
+
+    /* wins grid */
+    .wins-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 40px; }
+    .win-tile { position: relative; display: block; aspect-ratio: 4/3; background: #f0f0f0; overflow: hidden; border: 1px solid var(--line); }
+    .win-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .win-tile:hover img { transform: scale(1.04); }
+    .win-cap {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0));
+      color: #fff; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.08em; padding: 22px 12px 10px;
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .win-tile:hover .win-cap { opacity: 1; }
+
+    /* typeform */
+    .apply-wrap { max-width: 760px; margin: 36px auto 0; }
+    .tf-embed { width: 100%; height: 640px; border: 0; }
+
+    /* section heads centered */
+    .section-head { text-align: center; max-width: 720px; margin: 0 auto; }
+    .section-head .eyebrow { justify-content: center; }
+
+    /* footer */
+    footer {
+      background: var(--bg-deep);
+      color: #aaa;
+      padding: 50px 0 40px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+    footer a { color: #fff; text-decoration: none; }
+    .footer-brand { font-weight: 900; font-size: 18px; color: #fff; text-transform: uppercase; display: inline-block; margin-bottom: 10px; }
+
+    @media (max-width: 640px) {
+      section { padding: 64px 0; }
+      nav { padding: 18px 22px; }
+      .container { padding: 0 22px; }
+      .pdf-aspect { padding-bottom: 140%; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/new" class="logo">
+      <img src="../../favicon.png" class="logo-mark" alt="" />
+      Cowboy Closers
+    </a>
+    <a href="#apply" class="nav-cta">Apply Now</a>
+  </nav>
+
+  <!-- HERO + DOWNLOAD -->
+  <section class="hero">
+    <div class="container">
+      <div class="eyebrow">Free Download · TOOLS</div>
+      <h1 class="hero-h1">The Trapped Tradie Escape Plan</h1>
+      <p class="kicker">A 14-page playbook for getting off the tools in 90 days</p>
+      <p class="blurb">I was on the tools for 10 years. Knackered body, no money saved, no exit. This is the exact 90-day plan I gave 500+ tradies who became £10K+ closers. Real numbers, real timelines, no fluff.</p>
+      <div class="cta-row">
+        <a href="../pdfs/01-trapped-tradie-escape-plan.pdf" download class="primary-cta">⬇ Download the PDF</a>
+        <a href="#apply" class="secondary-cta">Apply for a call</a>
+      </div>
+      <div class="pdf-wrap">
+        <div class="pdf-aspect">
+          <iframe src="../pdfs/01-trapped-tradie-escape-plan.pdf#toolbar=1&view=FitH" title="The Trapped Tradie Escape Plan preview"></iframe>
+        </div>
+        <div class="pdf-hint">Preview · click ⬇ above to save your copy</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLY (TYPEFORM) -->
+  <section id="apply" class="alt">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Ready when you are</div>
+        <h2 class="editorial">Want Connor's team to <em>get you placed?</em></h2>
+        <p class="blurb" style="margin: 0 auto 0;">If you read this and thought "that's me" — fill out the application. If you're a fit, we'll get on a call this week and map out your path to a £10K+ closing role.</p>
+      </div>
+      <div class="apply-wrap">
+        <iframe class="tf-embed" src="https://form.typeform.com/to/VaWVcSCm?typeform-embed=embed-widget" title="Apply for Cowboy Closers"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO TESTIMONIALS -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Real students · Real stories</div>
+        <h2 class="editorial">Watch what's possible</h2>
+      </div>
+      <div class="vid-grid">
+        <div class="vid-card">
+          <div class="vid-aspect"><iframe src="https://www.youtube.com/embed/XavZmSk0s_Q" title="From $0 to first close in 49 days" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="vid-caption">From $0 to first close in 49 days</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-aspect"><iframe src="https://www.youtube.com/embed/Xo2rYCwxiSc" title="From $10/hour to $300 in 29 minutes" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="vid-caption">From $10/hour to $300 in 29 minutes</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-aspect"><iframe src="https://www.youtube.com/embed/t-jzlSff5AE" title="Stuck at $2k/month, now doing $30k/month" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="vid-caption">Stuck at $2k/month, now doing $30k/month</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-aspect"><iframe src="https://www.youtube.com/embed/TiW65tOWSII" title="$1,000 in a single day with zero experience" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="vid-caption">$1,000 in a single day with zero experience</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-aspect"><iframe src="https://www.youtube.com/embed/L0E8Hrlw6CI" title="Hired in 3 weeks" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="vid-caption">Hired in 3 weeks</div>
+        </div>
+        <div class="vid-card">
+          <div class="vid-aspect"><iframe src="https://www.youtube.com/embed/eqhnlQT6BWE" title="Spent his last money on mentorship and it 6x'd his income" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+          <div class="vid-caption">Spent his last money on mentorship and it 6x'd his income</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO WINS -->
+  <section class="alt">
+    <div class="container">
+      <div class="section-head">
+        <div class="eyebrow">Screenshots from the group</div>
+        <h2 class="editorial">More wins, more often</h2>
+        <p class="blurb" style="margin: 0 auto 0;">Roles landed, deals closed, commissions collected. Every screenshot is a real student.</p>
+      </div>
+      <div class="wins-grid">
+        <a class="win-tile" href="../../wins/41k-virginia.png" target="_blank" rel="noopener"><img src="../../wins/41k-virginia.png" alt="Virginia — $41k cash in" loading="lazy" /><span class="win-cap">Virginia — $41k cash in</span></a>
+        <a class="win-tile" href="../../wins/kaspar-first-sale.png" target="_blank" rel="noopener"><img src="../../wins/kaspar-first-sale.png" alt="Kaspars — First high-ticket sale" loading="lazy" /><span class="win-cap">Kaspars — First high-ticket sale</span></a>
+        <a class="win-tile" href="../../wins/juno-role.png" target="_blank" rel="noopener"><img src="../../wins/juno-role.png" alt="Juno — Closing role secured" loading="lazy" /><span class="win-cap">Juno — Closing role secured</span></a>
+        <a class="win-tile" href="../../wins/jiri-deal-closed.png" target="_blank" rel="noopener"><img src="../../wins/jiri-deal-closed.png" alt="Jiří — Deal closed" loading="lazy" /><span class="win-cap">Jiří — Deal closed</span></a>
+        <a class="win-tile" href="../../wins/jake-setting-role.png" target="_blank" rel="noopener"><img src="../../wins/jake-setting-role.png" alt="Jake — New role alert" loading="lazy" /><span class="win-cap">Jake — New role alert</span></a>
+        <a class="win-tile" href="../../wins/jaxon-role-landed.png" target="_blank" rel="noopener"><img src="../../wins/jaxon-role-landed.png" alt="Jaxon — Landed a closing role" loading="lazy" /><span class="win-cap">Jaxon — Landed a closing role</span></a>
+        <a class="win-tile" href="../../wins/jsb-interview.png" target="_blank" rel="noopener"><img src="../../wins/jsb-interview.png" alt="JSB — Interviews on interviews" loading="lazy" /><span class="win-cap">JSB — Interviews on interviews</span></a>
+        <a class="win-tile" href="../../wins/jake-linkedin.png" target="_blank" rel="noopener"><img src="../../wins/jake-linkedin.png" alt="Jake — LinkedIn working" loading="lazy" /><span class="win-cap">Jake — LinkedIn working</span></a>
+        <a class="win-tile" href="../../wins/ianna-20k.png" target="_blank" rel="noopener"><img src="../../wins/ianna-20k.png" alt="Ianna — $20k deal" loading="lazy" /><span class="win-cap">Ianna — $20k deal</span></a>
+        <a class="win-tile" href="../../wins/felipe-1st-month.png" target="_blank" rel="noopener"><img src="../../wins/felipe-1st-month.png" alt="Felipe — 1st month as a closer" loading="lazy" /><span class="win-cap">Felipe — 1st month as a closer</span></a>
+        <a class="win-tile" href="../../wins/felipe-closes.png" target="_blank" rel="noopener"><img src="../../wins/felipe-closes.png" alt="Felipe — Keep grinding" loading="lazy" /><span class="win-cap">Felipe — Keep grinding</span></a>
+        <a class="win-tile" href="../../wins/darian-setting-role.png" target="_blank" rel="noopener"><img src="../../wins/darian-setting-role.png" alt="Darian — First role" loading="lazy" /><span class="win-cap">Darian — First role</span></a>
+        <a class="win-tile" href="../../wins/andreas-role.png" target="_blank" rel="noopener"><img src="../../wins/andreas-role.png" alt="Andreas — Commission sales role" loading="lazy" /><span class="win-cap">Andreas — Commission sales role</span></a>
+        <a class="win-tile" href="../../wins/alex-role.png" target="_blank" rel="noopener"><img src="../../wins/alex-role.png" alt="Alex — Role secured" loading="lazy" /><span class="win-cap">Alex — Role secured</span></a>
+        <a class="win-tile" href="../../wins/zach-double-deal.png" target="_blank" rel="noopener"><img src="../../wins/zach-double-deal.png" alt="Zach — Double deal Friday" loading="lazy" /><span class="win-cap">Zach — Double deal Friday</span></a>
+        <a class="win-tile" href="../../wins/mads-%24%24%24.png" target="_blank" rel="noopener"><img src="../../wins/mads-%24%24%24.png" alt="Madeleine — BOOM" loading="lazy" /><span class="win-cap">Madeleine — BOOM</span></a>
+        <a class="win-tile" href="../../wins/jack-new-role.png" target="_blank" rel="noopener"><img src="../../wins/jack-new-role.png" alt="Jack — From imposter to closer" loading="lazy" /><span class="win-cap">Jack — From imposter to closer</span></a>
+        <a class="win-tile" href="../../wins/virgin-18k.png" target="_blank" rel="noopener"><img src="../../wins/virgin-18k.png" alt="Virginia — $18k" loading="lazy" /><span class="win-cap">Virginia — $18k</span></a>
+        <a class="win-tile" href="../../wins/felipe-1st-week.png" target="_blank" rel="noopener"><img src="../../wins/felipe-1st-week.png" alt="Felipe — 1st week" loading="lazy" /><span class="win-cap">Felipe — 1st week</span></a>
+        <a class="win-tile" href="../../wins/felipe-2000cc.png" target="_blank" rel="noopener"><img src="../../wins/felipe-2000cc.png" alt="Felipe — $2,000 cc" loading="lazy" /><span class="win-cap">Felipe — $2,000 cc</span></a>
+        <a class="win-tile" href="../../wins/felipe-2800cc.jpg" target="_blank" rel="noopener"><img src="../../wins/felipe-2800cc.jpg" alt="Felipe — $2,800 cc" loading="lazy" /><span class="win-cap">Felipe — $2,800 cc</span></a>
+        <a class="win-tile" href="../../wins/felipe-3300aussie.jpg" target="_blank" rel="noopener"><img src="../../wins/felipe-3300aussie.jpg" alt="Felipe — $3,300 AUD" loading="lazy" /><span class="win-cap">Felipe — $3,300 AUD</span></a>
+        <a class="win-tile" href="../../wins/felipe-5600aud.png" target="_blank" rel="noopener"><img src="../../wins/felipe-5600aud.png" alt="Felipe — $5,600 AUD" loading="lazy" /><span class="win-cap">Felipe — $5,600 AUD</span></a>
+        <a class="win-tile" href="../../wins/felipe-37pct.jpg" target="_blank" rel="noopener"><img src="../../wins/felipe-37pct.jpg" alt="Felipe — 37% close rate" loading="lazy" /><span class="win-cap">Felipe — 37% close rate</span></a>
+        <a class="win-tile" href="../../wins/jon-1m3-deal.jpg" target="_blank" rel="noopener"><img src="../../wins/jon-1m3-deal.jpg" alt="Jon — £1.3M deal closed" loading="lazy" /><span class="win-cap">Jon — £1.3M deal closed</span></a>
+        <a class="win-tile" href="../../wins/zach-huge-role.png" target="_blank" rel="noopener"><img src="../../wins/zach-huge-role.png" alt="Zach — Huge role" loading="lazy" /><span class="win-cap">Zach — Huge role</span></a>
+        <a class="win-tile" href="../../wins/tj-5k-cad.png" target="_blank" rel="noopener"><img src="../../wins/tj-5k-cad.png" alt="TJ — $5k CAD" loading="lazy" /><span class="win-cap">TJ — $5k CAD</span></a>
+        <a class="win-tile" href="../../wins/reece-bonus.png" target="_blank" rel="noopener"><img src="../../wins/reece-bonus.png" alt="Reece — Bonus" loading="lazy" /><span class="win-cap">Reece — Bonus</span></a>
+        <a class="win-tile" href="../../wins/marion-0-30k.png" target="_blank" rel="noopener"><img src="../../wins/marion-0-30k.png" alt="Marion — 0 to 30k" loading="lazy" /><span class="win-cap">Marion — 0 to 30k</span></a>
+        <a class="win-tile" href="../../wins/xander-job.png" target="_blank" rel="noopener"><img src="../../wins/xander-job.png" alt="Xander — Job landed" loading="lazy" /><span class="win-cap">Xander — Job landed</span></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-brand">Cowboy Closers</div>
+      <div>© Cowboy Closers · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a></div>
+    </div>
+  </footer>
+</body>
+</html>
